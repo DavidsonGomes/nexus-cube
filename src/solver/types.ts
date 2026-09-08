@@ -2,6 +2,8 @@ import type { CubeState, Face } from '../domain/types';
 import type { MethodPlan, MethodStageId } from './methods/types';
 
 export type SolverIndex = 0|1|2|3|4|5|6|7|8;
+/** V2 binds the unchanged axes to the corrected Y/O/G/W/R/B physical color scheme. */
+export type SolverFrame = 'URFDLB-fixed-v2';
 export interface SolverSlot { readonly face: Face; readonly index: SolverIndex }
 /** Each face is row-major, viewed from outside; index 4 is its fixed center. */
 export type DraftFacelets = Readonly<Record<Face, readonly (Face|null)[]>>;
@@ -44,6 +46,6 @@ export interface SolverClient {
   cancel():void;
   dispose():void;
 }
-export interface SolverWorkerRequest extends SolverIdentity { readonly protocol:1; readonly kind:'solve'; readonly frame:'URFDLB-fixed-v1'; readonly facelets:DraftFacelets;readonly method?:SolverMode }
+export interface SolverWorkerRequest extends SolverIdentity { readonly protocol:1; readonly kind:'solve'; readonly frame:SolverFrame; readonly facelets:DraftFacelets;readonly method?:SolverMode }
 export interface SolverWorkerCancel extends SolverIdentity { readonly protocol:1; readonly kind:'cancel' }
 export type SolverWorkerResponse = (SolverProgress|SolverOutcome) & { readonly protocol:1 };

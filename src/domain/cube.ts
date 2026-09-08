@@ -1,5 +1,7 @@
 import type { CubeState, Face, MoveInfo, Sticker, Vector3 } from './types';
-export const FACE_COLORS: Record<Face, string> = { U: '#ffd54a', R: '#ef4444', F: '#22c55e', D: '#ffffff', L: '#fb923c', B: '#3b82f6' };
+/** Fixed physical scheme: yellow up, green front, red left. Geometry uses face identities. */
+export const FACE_COLORS: Readonly<Record<Face, string>> = Object.freeze({ U: '#ffd54a', R: '#fb923c', F: '#22c55e', D: '#ffffff', L: '#ef4444', B: '#3b82f6' });
+export const FACE_COLOR_LABELS: Readonly<Record<Face, string>> = Object.freeze({ U: 'Amarelo', R: 'Laranja', F: 'Verde', D: 'Branco', L: 'Vermelho', B: 'Azul' });
 const normals: Record<Face, Vector3> = { U: [0,1,0], R: [1,0,0], F: [0,0,1], D: [0,-1,0], L: [-1,0,0], B: [0,0,-1] };
 export const FACES: Face[] = ['U','R','F','D','L','B'];
 function coordinates(face: Face, row: number, col: number): Vector3 {

@@ -9,7 +9,7 @@ import { applyAlgorithm } from '../../src/domain/cube';
 
 const hashes = {
   'search.ts': '6a176f7db658f27a2ee4fe7eb55d4a403b9e5b39e185e1774f9a77119ea165fb',
-  'index.ts': '9c078b0517a8f0837f6b4dde1e01d9d721377da29a46b3f71d52607651158b86',
+  'index.ts': '23fd2f6b05efe93dac37bf0a024729dadf02531d9984dadbf3b1c03e48556c1d',
   'cmll.ts': '8ffa3804ccaa3a1a9aadcebcb2e39fd2bf2907ee15fea933f9e588e2832440e1',
 };
 function pinned() { for (const [file, hash] of Object.entries(hashes)) assert.equal(createHash('sha256').update(readFileSync(`src/solver/methods/roux/${file}`)).digest('hex'), hash); }

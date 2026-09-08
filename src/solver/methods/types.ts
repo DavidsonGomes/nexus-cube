@@ -1,5 +1,5 @@
 import type { CubeState } from '../../domain/types';
-import type { ValidatedSolverInput } from '../types';
+import type { SolverFrame, ValidatedSolverInput } from '../types';
 
 export type SolverMethod='cfop'|'roux';
 export type F2LSlot='FR'|'FL'|'BR'|'BL';
@@ -12,7 +12,7 @@ export interface MethodAdjustment {
 }
 export interface MethodStage {
   id:MethodStageId;title:string;explanation:string;goal:MethodGoal;
-  referenceFrame:'URFDLB-fixed-v1';centerPolicy:'fixed'|'m-slice-even'|'free';
+  referenceFrame:SolverFrame;centerPolicy:'fixed'|'m-slice-even'|'free';
   /** Solved piece identities such as DF, DFR, UL. Preserved at both endpoints, not every move. */
   preservedPieces:readonly string[];
   initialState:CubeState;finalState:CubeState;
@@ -21,7 +21,7 @@ export interface MethodStage {
   matchedCaseId?:string;
 }
 export interface MethodPlan {
-  version:1;method:SolverMethod;inputKey:string;referenceFrame:'URFDLB-fixed-v1';
+  version:1;method:SolverMethod;inputKey:string;referenceFrame:SolverFrame;
   initialState:CubeState;finalState:CubeState;algorithm:string;tokens:readonly string[];stages:readonly MethodStage[];
 }
 export interface MethodPlannerOptions {signal?:AbortSignal;onStage?:(stage:MethodStage)=>void}

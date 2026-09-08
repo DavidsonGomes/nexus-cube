@@ -1,8 +1,8 @@
 import { FACE_COLORS, faceColors, solvedCube } from '../domain/cube';
 import type { CubeState, Face, Sticker } from '../domain/types';
-import type { DraftFacelets, SolverIndex, SolverIssue, SolverIssueCode, SolverSlot, SolverValidation } from './types';
+import type { DraftFacelets, SolverFrame, SolverIndex, SolverIssue, SolverIssueCode, SolverSlot, SolverValidation } from './types';
 
-export const SOLVER_FRAME = 'URFDLB-fixed-v1' as const;
+export const SOLVER_FRAME: SolverFrame = 'URFDLB-fixed-v2';
 export const SOLVER_FACES: readonly Face[] = Object.freeze(['U','R','F','D','L','B'] as Face[]);
 export const SOLVER_FACE_ORIENTATION: Readonly<Record<Face,{top:Face;right:Face}>> = Object.freeze({
   U:{top:'B',right:'R'},R:{top:'U',right:'B'},F:{top:'U',right:'R'},D:{top:'F',right:'R'},L:{top:'U',right:'F'},B:{top:'U',right:'L'},
@@ -12,7 +12,7 @@ export const SOLVER_ISSUE_MESSAGES: Readonly<Record<SolverIssueCode,string>> = O
   'invalid-color':'Uma cor não foi reconhecida. Escolha uma das seis cores da paleta.',
   incomplete:'Ainda há posições sem cor. Preencha as casas vazias antes de resolver.',
   'color-count':'Cada cor precisa aparecer 9 vezes, incluindo o centro. Confira a contagem e revise o preenchimento.',
-  'center-mismatch':'Os centros não correspondem à referência do editor. Confira amarelo em cima, verde à frente e vermelho à direita.',
+  'center-mismatch':'Os centros não correspondem à referência do editor. Confira amarelo em cima, verde à frente e vermelho à esquerda.',
   'invalid-piece':'As cores ou sua ordem não formam uma peça deste cubo. Compare o preenchimento com o cubo físico.',
   'duplicate-piece':'Uma combinação de cores aparece em mais de uma peça. Confira as peças e revise o preenchimento.',
   'corner-twist':'A orientação dos cantos não corresponde a um estado possível por giros. Confira as três cores de cada canto e a orientação das faces.',

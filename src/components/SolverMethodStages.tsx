@@ -11,12 +11,12 @@ export const METHOD_STAGE_LABELS: Record<MethodStage['id'], string> = {
 function objective(stage: MethodStage): string {
   switch (stage.goal.kind) {
     case 'cross': return 'Formar a cruz branca embaixo, com as cores laterais alinhadas aos centros.';
-    case 'f2l-pair': return {FR:'Completar o par branco, verde e vermelho, na frente à direita.', FL:'Completar o par branco, verde e laranja, na frente à esquerda.', BR:'Completar o par branco, azul e vermelho, atrás à direita.', BL:'Completar o par branco, azul e laranja, atrás à esquerda.'}[stage.goal.slot];
+    case 'f2l-pair': return {FR:'Completar o par branco, verde e laranja, na frente à direita.', FL:'Completar o par branco, verde e vermelho, na frente à esquerda.', BR:'Completar o par branco, azul e laranja, atrás à direita.', BL:'Completar o par branco, azul e vermelho, atrás à esquerda.'}[stage.goal.slot];
     case 'f2l': return 'Concluir a cruz e os quatro pares das duas primeiras camadas.';
     case 'oll': return 'Deixar nove adesivos amarelos na face superior, mantendo as duas primeiras camadas resolvidas.';
     case 'pll-up-to-auf': return 'Organizar as peças superiores entre si, antes de conferir o ajuste final de U.';
-    case 'first-block': return 'Completar o bloco inferior do lado laranja: três arestas e dois cantos corretos.';
-    case 'second-block': return 'Completar o bloco inferior do lado vermelho, preservando o bloco esquerdo.';
+    case 'first-block': return 'Completar o bloco inferior do lado vermelho: três arestas e dois cantos corretos.';
+    case 'second-block': return 'Completar o bloco inferior do lado laranja, preservando o bloco esquerdo.';
     case 'cmll-up-to-auf': return 'Orientar e organizar os quatro cantos superiores. Um ajuste de U pode ficar para a próxima etapa.';
     case 'cmll': return 'Alinhar os quatro cantos superiores às suas posições e orientações fixas.';
     case 'lse-eo': return 'Orientar as seis arestas restantes, com seus adesivos amarelos ou brancos voltados para cima ou para baixo.';

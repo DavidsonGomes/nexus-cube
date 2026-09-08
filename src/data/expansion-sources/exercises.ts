@@ -96,9 +96,9 @@ export const EXERCISE_SOURCES: readonly ExpansionExerciseSource[] = [
     "setup": "R U R' F2 R2",
     "solution": "R2 F2",
     "alternatives": [],
-    "objective": "Localize branco/vermelho e branco/verde. Resolva uma sem retirar a outra de seu caminho de inserção.",
+    "objective": "Localize branco/laranja e branco/verde. Resolva uma sem retirar a outra de seu caminho de inserção.",
     "preconditions": [
-      "U amarelo, D branco, F verde, R vermelho, B azul e L laranja.",
+      "U amarelo, D branco, F verde, R laranja, B azul e L vermelho.",
       "Peças já corretas que devem voltar corretas ao final: DB, DL."
     ],
     "preservation": [
@@ -109,7 +109,7 @@ export const EXERCISE_SOURCES: readonly ExpansionExerciseSource[] = [
       {
         "step": 0,
         "title": "Reconhecer e planejar",
-        "explanation": "Localize branco/vermelho e branco/verde. Resolva uma sem retirar a outra de seu caminho de inserção. Estado inicial: DR em UR; DF em UF."
+        "explanation": "Localize branco/laranja e branco/verde. Resolva uma sem retirar a outra de seu caminho de inserção. Estado inicial: DR em UR; DF em UF."
       },
       {
         "step": 1,

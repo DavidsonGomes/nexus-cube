@@ -11,7 +11,7 @@ export async function planRoux(input: ValidatedSolverInput, options: MethodPlann
   const builder = createMethodPlanBuilder('roux', input, options), context = searchContext(options);
   await checkpoint(context);
   const fb = await searchBlock(builder.state, ['DL', 'FL', 'BL', 'DFL', 'DBL'], turns('URFDLB'), context);
-  builder.addStage({ id: 'roux.fb', title: 'Primeiro bloco', explanation: 'Construa o bloco esquerdo 1 × 2 × 3: DL, FL, BL, DFL e DBL, alinhado ao centro laranja. As outras peças permanecem livres.', goal: { kind: 'first-block' } }, fb);
+  builder.addStage({ id: 'roux.fb', title: 'Primeiro bloco', explanation: 'Construa o bloco esquerdo 1 × 2 × 3: DL, FL, BL, DFL e DBL, alinhado ao centro vermelho. As outras peças permanecem livres.', goal: { kind: 'first-block' } }, fb);
   const sb = await searchBlock(builder.state, ['DR', 'FR', 'BR', 'DFR', 'DBR', 'U'], turns('URMr'), context);
   builder.addStage({ id: 'roux.sb', title: 'Segundo bloco', explanation: 'Construa o bloco direito com U, R, M e r, preservando o bloco esquerdo. Ao terminar, confira ambos os blocos e os centros na referência inicial.', goal: { kind: 'second-block' }, preservedPieces: ROUX_LEFT }, sb);
   const cmll = await matchCMLL(builder.state, context);

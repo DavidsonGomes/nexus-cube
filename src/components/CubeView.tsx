@@ -1,6 +1,7 @@
 import {useState} from 'react';
-import type {CubeState, MoveInfo, Face} from '../domain/types';
-export const COLORS: Record<Face, string> = {U:'#f5ce48', D:'#f4f5ef', F:'#24a979', B:'#498ce2', R:'#ee6759', L:'#f5a04b'};
+import type {CubeState, MoveInfo} from '../domain/types';
+import {FACE_COLORS} from '../domain/cube';
+export const COLORS = FACE_COLORS;
 type Vector = [number, number, number];
 // Camera and mesh transforms only. Final cube states are always supplied by the domain.
 function rotate(vector: Vector, axis: number, degrees: number): Vector {
@@ -11,11 +12,12 @@ function rotate(vector: Vector, axis: number, degrees: number): Vector {
     : [x*cosine-y*sine,x*sine+y*cosine,z];
 }
 const normals: Vector[] = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
-export default function CubeView({state,size=180,motion,angle=0,label='Cubo 3D interativo',palette,interactive=true}: {
-  state: CubeState; size?: number; motion?: MoveInfo; angle?: number; label?: string; palette?: ReadonlyMap<string,string>; interactive?:boolean;
+export default function CubeView({state,size=180,motion,angle=0,label='Cubo 3D interativo',palette,interactive=true,cameraOrbit}: {
+  state: CubeState; size?: number; motion?: MoveInfo; angle?: number; label?: string; palette?: ReadonlyMap<string,string>; interactive?:boolean; cameraOrbit?:readonly [number,number];
 }) {
-  const [orbit,setOrbit] = useState([24,-34]);
-  const [drag,setDrag] = useState<{x:number;y:number;orbit:number[]}|null>(null);
+  const [freeOrbit,setOrbit] = useState([24,-34]);
+  const orbit = cameraOrbit ?? freeOrbit;
+  const [drag,setDrag] = useState<{x:number;y:number;orbit:readonly number[]}|null>(null);
   const camera = (vector: Vector) => rotate(rotate(vector,1,orbit[1]),0,orbit[0]);
   function face(id: string, position: Vector, normal: Vector, color: string, extent: number, offset: number, sticker: boolean) {
     const center = position.map((value,index) => value+normal[index]*offset) as Vector;
