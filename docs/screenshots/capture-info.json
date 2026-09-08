@@ -1,0 +1,126 @@
+{
+  "date": "2026-09-08",
+  "url": "https://nexus-cube-phi.vercel.app/",
+  "deploymentCommit": "not-verified",
+  "credentialsEnteredByCaptureOperator": false,
+  "realAccountUsedByCaptureOperator": false,
+  "userReportedSignupSuccess": true,
+  "operatorVerifiedAuthSuccess": false,
+  "smtpDeliveryVerified": false,
+  "timerSession": "demonstrative-empty",
+  "totalImageBytes": 2197170,
+  "images": [
+    {
+      "file": "login-desktop-dark.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelWidth": 2880,
+      "pixelHeight": 2000,
+      "bytes": 434729,
+      "sha256": "36d4725173d218f561024c9306a6682844339440d2dd3125ab9974e6a96b5671",
+      "entry": "/assets/index-CdvfY9QR.js",
+      "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
+      "authConfigurationInCapturedBuild": "present-valid"
+    },
+    {
+      "file": "login-desktop-light.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelWidth": 2880,
+      "pixelHeight": 2000,
+      "bytes": 450978,
+      "sha256": "09caaa6c10992c57a7877e5ddd6fa970a4c7b923fa3afee06fed6c3da72d3dde",
+      "entry": "/assets/index-CdvfY9QR.js",
+      "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
+      "authConfigurationInCapturedBuild": "present-valid"
+    },
+    {
+      "file": "login-mobile-dark.png",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "pixelWidth": 750,
+      "pixelHeight": 1334,
+      "bytes": 92174,
+      "sha256": "4ae03f23e9b03e0b6c1b30cae26f24a0b26dda92a5a302d6b02c31535bb3cc68",
+      "entry": "/assets/index-CdvfY9QR.js",
+      "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
+      "authConfigurationInCapturedBuild": "present-valid"
+    },
+    {
+      "file": "login-mobile-light.png",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "pixelWidth": 750,
+      "pixelHeight": 1334,
+      "bytes": 96944,
+      "sha256": "2edde1ae066b4b0bd9d6aad4786bbe9b3a3e3e453f3ecdb9139c6b312dfdc296",
+      "entry": "/assets/index-CdvfY9QR.js",
+      "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
+      "authConfigurationInCapturedBuild": "present-valid"
+    },
+    {
+      "file": "timer-desktop-dark.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelWidth": 2880,
+      "pixelHeight": 2000,
+      "bytes": 439832,
+      "sha256": "57bcc9d9304257a5a106417da9f7d51cb98c8df089020be16d926c5f46eb8b54",
+      "entry": "/assets/index-yZAwXSCH.js",
+      "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
+      "authConfigurationInCapturedBuild": "unavailable"
+    },
+    {
+      "file": "timer-desktop-light.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelWidth": 2880,
+      "pixelHeight": 2000,
+      "bytes": 438500,
+      "sha256": "c0dfa71cbb9065e27f50a2d09dc26c7c84fd1ceb9be828cddabcdac092942713",
+      "entry": "/assets/index-yZAwXSCH.js",
+      "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
+      "authConfigurationInCapturedBuild": "unavailable"
+    },
+    {
+      "file": "timer-mobile-dark.png",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "pixelWidth": 750,
+      "pixelHeight": 1334,
+      "bytes": 121988,
+      "sha256": "f3b41fb27317892ce4d8941d15836e9b882bd9dccb37e6f29b929db514bc24f5",
+      "entry": "/assets/index-yZAwXSCH.js",
+      "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
+      "authConfigurationInCapturedBuild": "unavailable"
+    },
+    {
+      "file": "timer-mobile-light.png",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "pixelWidth": 750,
+      "pixelHeight": 1334,
+      "bytes": 122025,
+      "sha256": "af5926b4d4842de4250a96a4fe35ddb354e81ff3c9e6aed88eaaeb40e48500a8",
+      "entry": "/assets/index-yZAwXSCH.js",
+      "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
+      "authConfigurationInCapturedBuild": "unavailable"
+    }
+  ]
+}

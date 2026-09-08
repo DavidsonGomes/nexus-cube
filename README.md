@@ -2,6 +2,43 @@
 
 Um espaço de treino de cubo 3×3 em React e TypeScript, em português brasileiro. Timer, histórico e biblioteca didática CFOP e Roux, com visualização 3D do estado real do cubo. Interface responsiva, temas claro e escuro, armazenamento local e PWA.
 
+## Demonstração online
+
+[Abrir Nexus Cube](https://nexus-cube-phi.vercel.app/)
+
+Capturas reais de 8 de setembro de 2026, na demonstração pública. Timer de visitante com sessão local demonstrativa vazia, Duas mãos e scramble gerado pelo app; nenhum tempo ou dado pessoal foi preenchido. O formulário de entrada aparece com campos vazios, recapturado após o redeploy com configuração pública presente. O usuário relatou cadastro e conexão bem-sucedidos; a verificação desta documentação confirmou apenas a configuração do bundle e a interface pública, sem realizar login ou envio de email. Isso não comprova todos os fluxos de Auth, entrega SMTP ou sincronização.
+
+Desktop 1440×1000, tema claro:
+
+![Timer público em desktop claro, sessão vazia](docs/screenshots/timer-desktop-light.png)
+
+Mobile 375×667:
+
+| Claro | Escuro |
+| --- | --- |
+| ![Timer público mobile claro](docs/screenshots/timer-mobile-light.png) | ![Timer público mobile escuro](docs/screenshots/timer-mobile-dark.png) |
+
+<details>
+<summary>Desktop escuro e formulário de entrada</summary>
+
+![Timer público desktop escuro](docs/screenshots/timer-desktop-dark.png)
+
+Formulário vazio, desktop 1440×1000, após o redeploy com configuração pública presente. Nenhum submit realizado:
+
+| Claro | Escuro |
+| --- | --- |
+| ![Formulário vazio desktop claro](docs/screenshots/login-desktop-light.png) | ![Formulário vazio desktop escuro](docs/screenshots/login-desktop-dark.png) |
+
+Formulário vazio, mobile 375×667. O conteúdo do modal pode rolar:
+
+| Claro | Escuro |
+| --- | --- |
+| ![Formulário vazio mobile claro](docs/screenshots/login-mobile-light.png) | ![Formulário vazio mobile escuro](docs/screenshots/login-mobile-dark.png) |
+
+</details>
+
+As imagens do Timer preservam a primeira coleta, entry `index-yZAwXSCH.js`, SHA256 `b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff`, que estava sem configuração de Auth. Os quatro formulários foram recapturados no novo entry `index-CdvfY9QR.js`, SHA256 `bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43`, com URL e chave pública presentes e válidas para o projeto esperado. Esses hashes identificam os artefatos observados, sem presumir o commit do deployment. PNGs em escala 2×, sem edição de conteúdo; [dimensões, hashes e versão por imagem](docs/screenshots/capture-info.json).
+
 ## Rodar localmente
 
 Use Node.js **22.3 ou superior**, conforme a dependência `cubing`, e npm. O desenvolvimento desta entrega foi verificado com Node.js 24.18.0.
@@ -86,7 +123,7 @@ Cadastro, login, confirmação, recuperação, logout e refresh estão implement
 
 Sincronização entre dispositivos, adoção dos dados de visitante e importação para conta permanecem indisponíveis nesta primeira release. Os importadores ampliados de Cube Timer e csTimer seguem em desenvolvimento. A recuperação técnica de backup de visitante fica no Timer somente quando seu armazenamento está corrompido ou bloqueado. Não é um atalho público para as áreas autenticadas. A fonte original é preservada. Os dados de treino permanecem locais neste dispositivo, mesmo quando houver uma conta conectada.
 
-A entrega final inclui a aplicação online na Vercel, com URL HTTPS e validação dos fluxos publicados. Este checkpoint registra o progresso do código; ainda não representa essa publicação nem o aceite final. Nenhuma URL de produção foi validada nesta etapa.
+A demonstração HTTPS na Vercel foi aberta e o Timer público foi observado conforme as capturas acima. A configuração ausente no primeiro build foi corrigida no redeploy e conferida no bundle; o usuário relatou cadastro e conexão bem-sucedidos. Essa disponibilidade não representa aceite final: os demais fluxos de conta, entrega de email, sincronização e offline completo continuam pendentes.
 
 Contribuições: [CONTRIBUTING.md](CONTRIBUTING.md).
 
