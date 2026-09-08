@@ -1,0 +1,10 @@
+Nexus Cube
+
+Interface original. Icone original vetorial Nexus Cube.
+React e React DOM: MIT. https://github.com/facebook/react
+Lucide: ISC. https://github.com/lucide-icons/lucide
+Cubing.js: MPL-2.0. https://github.com/cubing/cubing.js
+Biblioteca usada para randomScrambleForEvent('333'), sem CDN.
+Fontes do catalogo e validacao: consulte a documentacao distribuida com o projeto, docs/sources-and-licenses.md.
+
+Este aplicativo gera embaralhamentos de treino e nao alega homologacao WCA.

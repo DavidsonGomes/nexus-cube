@@ -1,0 +1,790 @@
+{
+  "capturedAt": "2026-09-08T15:58:02.523Z",
+  "sources": {
+    "oll": {
+      "url": "https://jperm.net/lib/oll.js?v=20190924-1156",
+      "sha256": "d893a359ccbbf66d808469414302933317393bf18b9cfb848f6f126a3c09b3f0"
+    },
+    "pll": {
+      "url": "https://jperm.net/lib/pll.js?v=20190924-1156",
+      "sha256": "c455bd663c80a96ad8d1604aceac8c421000203191c2518060c1ba21e6a10689"
+    }
+  },
+  "references": {
+    "OLL-01": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1212/1111",
+      "setupCount": 72,
+      "setupHash": "0e6454bb5bac583846a7c2a851042eba0454d466456c32ea0e0e3f2c27a034a2"
+    },
+    "OLL-02": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/1111",
+      "setupCount": 72,
+      "setupHash": "5cc71188eef66f0feb75987a87d1212fbae9ae5114d89fc4092f832335373704"
+    },
+    "OLL-03": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/1111",
+      "setupCount": 72,
+      "setupHash": "bf9ab17b7cede3c5f7ac03472ec8c918ffc6603fa5c39c50d179e4a5be975c8a"
+    },
+    "OLL-04": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/1111",
+      "setupCount": 72,
+      "setupHash": "d149adafaa014e47504202aaa5608684a6e5bfb5805fbf7ac7ddc7b321878e33"
+    },
+    "OLL-05": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/0011",
+      "setupCount": 72,
+      "setupHash": "ff40229fd6bc5bcc0d98219f9f7240e5c486fd1dde7e2da48966a1c313f2f47d"
+    },
+    "OLL-06": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/0011",
+      "setupCount": 72,
+      "setupHash": "bbe0eaa6bc7e3b86ffabd4e5f20ecc94a81d8feb26c12878ab83717a78a96e98"
+    },
+    "OLL-07": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/0110",
+      "setupCount": 72,
+      "setupHash": "e1aa35b9a3c53ad5add1852eacaa71f1869630c0fceba4ae40a3eb8bc728363f"
+    },
+    "OLL-08": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/1001",
+      "setupCount": 72,
+      "setupHash": "1f5e3406630ae4ec20e5e2a20ae8e6c9c8f22bcfd94bfe653fd65bfd1abb0c92"
+    },
+    "OLL-09": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/1100",
+      "setupCount": 72,
+      "setupHash": "ecbb6e884fad1384b113080c6ea2dd2d1c289afafe07103c94dfbfaaa3b958de"
+    },
+    "OLL-10": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/1100",
+      "setupCount": 72,
+      "setupHash": "8c55269daddd20c49694efc55d68953c8cf7c494abee553d02520ba3f815f327"
+    },
+    "OLL-11": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/1001",
+      "setupCount": 72,
+      "setupHash": "96b58e48d05049654215f29b40e18ac0a083f0de1aa1d24b1676332f9ce72198"
+    },
+    "OLL-12": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/0110",
+      "setupCount": 72,
+      "setupHash": "9c3c35e2968611c1798ee3a7c1f0ea5b2c4662c0fbc583e0f43ae55a9484e1fa"
+    },
+    "OLL-13": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/0101",
+      "setupCount": 72,
+      "setupHash": "9e5cd577013251679aefa1bf83fe6690de03826409d99dc8e9b04f5d5ad7e583"
+    },
+    "OLL-14": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/1010",
+      "setupCount": 72,
+      "setupHash": "815a01d1446a15cbd01f9469615df6bb10804e504acd9462ea3fb9e9f5c66286"
+    },
+    "OLL-15": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/1010",
+      "setupCount": 72,
+      "setupHash": "5d89c7d29e2124ba209833e48949b99aba64b752c9c1dbe6808c5bff0fe93fee"
+    },
+    "OLL-16": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/0101",
+      "setupCount": 72,
+      "setupHash": "c8d64946402579f5c46860d46c30db414fe3f35a9ceb193adab4977f138bc7f4"
+    },
+    "OLL-17": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/1111",
+      "setupCount": 72,
+      "setupHash": "dd5c4da17dcc1d0bb01f1fa6da682cba655a74184e392d1a2044e454aa9f4631"
+    },
+    "OLL-18": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/1111",
+      "setupCount": 72,
+      "setupHash": "4a6dff360cd8d29ed71663e7a34bdac9ddfae47659f9309f81b3b50d74b840e3"
+    },
+    "OLL-19": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/1111",
+      "setupCount": 72,
+      "setupHash": "bf3fd1bcea093bd31b036636445bcf6c3df2f2b8f5fc85cb72409bd61aa7381c"
+    },
+    "OLL-20": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0000/1111",
+      "setupCount": 72,
+      "setupHash": "8f126eec9a83229a4984d8497df4ffc0a6987feca93a18e04cfe01d0745337fa"
+    },
+    "OLL-21": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1212/0000",
+      "setupCount": 72,
+      "setupHash": "2ab9baa7fd582be972aa9f5afbbeb64fa0b8893cd53f2765ef8f5f8592a61aa1"
+    },
+    "OLL-22": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/0000",
+      "setupCount": 72,
+      "setupHash": "6a8ee1195b91ca4ef6dd8f965a8b9032fde1bf3575167d7682a5ebcd35eb921b"
+    },
+    "OLL-23": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/0000",
+      "setupCount": 72,
+      "setupHash": "7c018e8c04ceca2751ad9c8531d4e8872fd122babc64ee36cdb42111a86f6f44"
+    },
+    "OLL-24": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/0000",
+      "setupCount": 72,
+      "setupHash": "b76b25fff1aa49a40d742d47347cdba1c396feb23461e443be30d6bd3b653ad6"
+    },
+    "OLL-25": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/0000",
+      "setupCount": 72,
+      "setupHash": "81234df07157d1f190140fcb05452bd86ab6c72fec964720ed14ef542f74f07b"
+    },
+    "OLL-26": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0111/0000",
+      "setupCount": 72,
+      "setupHash": "ead28c0d8e7d9bb5813492dcfb1e0c649ca74324dc562849fa19a55243fa49c6"
+    },
+    "OLL-27": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0222/0000",
+      "setupCount": 72,
+      "setupHash": "1d9be60c30790ff6e4cc5ea2fa82974b0c372f2096699d9bfe60f17ab1fb9dc0"
+    },
+    "OLL-28": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0000/0011",
+      "setupCount": 72,
+      "setupHash": "036c8863407634be9f2ab6d7b5014c02d41db63f10fbba068ce24b973d32e1f4"
+    },
+    "OLL-29": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/1100",
+      "setupCount": 72,
+      "setupHash": "7be7d3c7aa7085e751d7b7393f3b81838a670e49c0b2ddb463f13bd17ad12b4f"
+    },
+    "OLL-30": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/0110",
+      "setupCount": 72,
+      "setupHash": "ad53b0e7a6013eb9b1a7611a3c1c57c7674ac38d36fbf287a9718ccafe95b9eb"
+    },
+    "OLL-31": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/1001",
+      "setupCount": 72,
+      "setupHash": "3c1965cb65a935296d4094768fee6a5e76a0b8abdfff582d306f8c4a0bfcbde0"
+    },
+    "OLL-32": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/0011",
+      "setupCount": 72,
+      "setupHash": "49f7ee3a8a2cd71b1595398aa7575c3d20ee1b71592d02bfac80ca79ec7b492e"
+    },
+    "OLL-33": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/1010",
+      "setupCount": 72,
+      "setupHash": "38f4af066df8c421da367f533507230c17475f6d357b2e5b737fa33fb167f46a"
+    },
+    "OLL-34": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0021/0101",
+      "setupCount": 72,
+      "setupHash": "b5483cd6fe05483c7a90b04be14b915ab0286a7f441006c28faca195805dbf8f"
+    },
+    "OLL-35": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/1100",
+      "setupCount": 72,
+      "setupHash": "b0e4d0a89c8c12c12192255227acd4ff4b91f087bf63897429c59461e202f489"
+    },
+    "OLL-36": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/1001",
+      "setupCount": 72,
+      "setupHash": "a1bde7b1befe5f36e922473d88783444559522823dc23f7239aa98f7ea98ba3e"
+    },
+    "OLL-37": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/0011",
+      "setupCount": 72,
+      "setupHash": "1676c01571a51fe52fbab33823bcf2d4ccdc34ff11497ebd7186fa7473eb67d4"
+    },
+    "OLL-38": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/0110",
+      "setupCount": 72,
+      "setupHash": "75e21e6ea816c1836201a76ea61388e9d4b7fb18b235446095a117116f582fa6"
+    },
+    "OLL-39": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/0101",
+      "setupCount": 72,
+      "setupHash": "a2a15eb136add6cc7f1e71f12cfa4375c47ebb7e4c7544046824eb62cfe1639c"
+    },
+    "OLL-40": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0102/1010",
+      "setupCount": 72,
+      "setupHash": "cec860c0f33e4d2f1d4dd33c7398e31e174cc7bf771e5c1c92fbf8cb9919e83f"
+    },
+    "OLL-41": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/0110",
+      "setupCount": 72,
+      "setupHash": "83ddbafed57f3e4981087403424c556e8357002ad601034f06f6dd9a0ce3e940"
+    },
+    "OLL-42": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/1100",
+      "setupCount": 72,
+      "setupHash": "21a572e088c1fcf046aa105f58a5c3925e5d9bc07b4fb1b4d41ff811a5635292"
+    },
+    "OLL-43": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/1001",
+      "setupCount": 72,
+      "setupHash": "d68a610503e8d98c4227449e0fc143b1a3ecf51d92de1cbf5495a3aadcea2613"
+    },
+    "OLL-44": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/0011",
+      "setupCount": 72,
+      "setupHash": "f31bb29d4754b20e788e4f66f50d8e64d7cb3a7b3942658a1e3fe79819db7699"
+    },
+    "OLL-45": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/1010",
+      "setupCount": 72,
+      "setupHash": "363bbe86457b6ff570f6b597b2ccf5834944c729fafe5c6b307157019cb161a4"
+    },
+    "OLL-46": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0012/0101",
+      "setupCount": 72,
+      "setupHash": "7ab76082bb516eda292a52031bc597ef6c04d486485c6d1ed41d885a672c892c"
+    },
+    "OLL-47": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/1100",
+      "setupCount": 72,
+      "setupHash": "d6b35cdbc2c0293add9930b96926f3d8f51edcfb90f53d2a932973f542fb04cf"
+    },
+    "OLL-48": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/1001",
+      "setupCount": 72,
+      "setupHash": "d50e0f9cd15026bde587855c482a36977d8e53d4f4858e3c8a87e7a6eabc655d"
+    },
+    "OLL-49": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/0011",
+      "setupCount": 72,
+      "setupHash": "9d8af82d30cc854aa2e288852e148a8d0ba5b303dcb83fb66965fc2ef20ef70a"
+    },
+    "OLL-50": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/0110",
+      "setupCount": 72,
+      "setupHash": "6c25443a8e8fc913f48a6977268bf426aad2abb5a8c22127fbae9147f9fb5b2a"
+    },
+    "OLL-51": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/0101",
+      "setupCount": 72,
+      "setupHash": "c3d4475c6ef8b877d9eb6cf1cad4d1de6387d5ad2aede5efbb05121e265a2ccb"
+    },
+    "OLL-52": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1122/1010",
+      "setupCount": 72,
+      "setupHash": "8194eb7806b6221060d7bd87a50b40d5b6c4fcba4d4e6bec3204eaf136c6b35d"
+    },
+    "OLL-53": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1212/0011",
+      "setupCount": 72,
+      "setupHash": "d3e2547f76f8c75cb12ef6998590ced8ebda928feae24c56fe3ae32c06b9920b"
+    },
+    "OLL-54": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1212/0110",
+      "setupCount": 72,
+      "setupHash": "4110855efdc4b76043fad89d163f6121ce0bd7d4dd0124997d1fa599626ae12d"
+    },
+    "OLL-55": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1212/0101",
+      "setupCount": 72,
+      "setupHash": "7cb542b91327893b19c838624b1f9dd66098e130ab1907c297b3eb62d66ba075"
+    },
+    "OLL-56": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "1212/1010",
+      "setupCount": 72,
+      "setupHash": "dc37f29108eb748d672101b6a5a0e809cd7f60c3ee747568fd75c23d3e0704ab"
+    },
+    "OLL-57": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0000/0101",
+      "setupCount": 72,
+      "setupHash": "5095f35421de08dba261d0189ca9f9bc3ef0b3ec666758c2a02291ace74a077e"
+    },
+    "PLL-H": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0123/2301",
+      "setupCount": 4,
+      "setupHash": "68ad63835e555fe82361f2bf0726aae3b359f5b72b1847d17e212ec3d1cab56c",
+      "diagramClass": "0123/2301",
+      "arrows": [
+        [
+          1,
+          7
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    "PLL-Z": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0123/1032",
+      "setupCount": 4,
+      "setupHash": "32fbd89aff810f756c68fe2364d139d0d5fc8027b48b47999112965f0ffb51d0",
+      "diagramClass": "0123/1032",
+      "arrows": [
+        [
+          3,
+          7
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    "PLL-Ua": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0123/0231",
+      "setupCount": 4,
+      "setupHash": "66236aec7641c1b65aef864d69152d00a4fa06f21475e1b40ff245a785d35ab2",
+      "diagramClass": "0123/0231",
+      "arrows": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    "PLL-Ub": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0123/0312",
+      "setupCount": 4,
+      "setupHash": "285428e74be2285fe1e72110fb6ca9b5cde436484ef44400d7cd7447445efe18",
+      "diagramClass": "0123/0312",
+      "arrows": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          3
+        ]
+      ]
+    },
+    "PLL-Aa": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/1230",
+      "setupCount": 4,
+      "setupHash": "44146050cefeed362b034e51972cd75d6b8648f8b1b38f5951862da13347f217",
+      "diagramClass": "0132/1230",
+      "arrows": [
+        [
+          2,
+          6
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    "PLL-Ab": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/3012",
+      "setupCount": 4,
+      "setupHash": "faec6dea544de8c0033806859057463af9c8afbac53b5f7cd9776912afefed24",
+      "diagramClass": "0132/3012",
+      "arrows": [
+        [
+          8,
+          0
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          6,
+          8
+        ]
+      ]
+    },
+    "PLL-E": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0321/1230",
+      "setupCount": 4,
+      "setupHash": "15efd12cc499b2476a8b708bded5fa09129eb72a16983b61bd53fde5ff372b6e",
+      "diagramClass": "0321/1230",
+      "arrows": [
+        [
+          0,
+          6
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-F": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/2103",
+      "setupCount": 4,
+      "setupHash": "fea3962b1616b52b44588773a14fcde6f15467cb59dc0369cf84d9acc69f9e9c",
+      "diagramClass": "0132/2103",
+      "arrows": [
+        [
+          1,
+          7
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-Ja": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/3120",
+      "setupCount": 4,
+      "setupHash": "f90a9e3b3c9ef086b71ad2eca069181116803bb29f5c940ed5d532d4c2b0fa34",
+      "diagramClass": "0132/3120",
+      "arrows": [
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-Jb": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/0132",
+      "setupCount": 4,
+      "setupHash": "c82c4dbba3c0707e38d978321d579e09f83071959007be6bb169d2764b2a0f6a",
+      "diagramClass": "0132/0132",
+      "arrows": [
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-Ra": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/1023",
+      "setupCount": 4,
+      "setupHash": "f7518f711b0e7af426832ff12caadefae8d01251e5fc244b2290535e34615848",
+      "diagramClass": "0132/1023",
+      "arrows": [
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-Rb": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/0213",
+      "setupCount": 4,
+      "setupHash": "4fbce7ae3627651d2ac9ffe675c34ab34fb9a4ee640c466cf5af8589b59d42b4",
+      "diagramClass": "0132/0213",
+      "arrows": [
+        [
+          3,
+          7
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-T": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/0321",
+      "setupCount": 4,
+      "setupHash": "2718009d847c029aa4c1002b0401ca21a6b893f607665e854797e3a24aeaebfb",
+      "diagramClass": "0132/0321",
+      "arrows": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    "PLL-Y": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0321/0213",
+      "setupCount": 4,
+      "setupHash": "ee3e64861794fd24487563df5e1a1e20e8b7ce742429052240475c2fff3bf3aa",
+      "diagramClass": "0321/0213",
+      "arrows": [
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          0
+        ]
+      ]
+    },
+    "PLL-V": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0321/0132",
+      "setupCount": 4,
+      "setupHash": "9d1c6a00e93931352a257aad4cf96f0fcd5ea1913ef45b106d1e620ca03afe00",
+      "diagramClass": "0321/0132",
+      "arrows": [
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          0
+        ]
+      ]
+    },
+    "PLL-Na": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0321/0321",
+      "setupCount": 4,
+      "setupHash": "91ed53b7c1617d0ee4a935d333e81981eb415f1e55258f12686e6911154980ce",
+      "diagramClass": "0321/0321",
+      "arrows": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          6,
+          2
+        ]
+      ]
+    },
+    "PLL-Nb": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0321/2103",
+      "setupCount": 4,
+      "setupHash": "e8eda26893d07bb3f1548137b9e7103e898e6256593456b80f46c0069d0434e9",
+      "diagramClass": "0321/2103",
+      "arrows": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          0
+        ]
+      ]
+    },
+    "PLL-Ga": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/2031",
+      "setupCount": 4,
+      "setupHash": "6afc613f77135c54bc664a3bd123bedc0a51035279ce6605380085c7b584a571"
+    },
+    "PLL-Gb": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/1302",
+      "setupCount": 4,
+      "setupHash": "f2dd7ada2d12d16d6f078c8fa5b0471e2ba595855b8fb48a36eaaf9eb969ebd0"
+    },
+    "PLL-Gc": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/3201",
+      "setupCount": 4,
+      "setupHash": "fdd8490949b1e581b371e1272a98796063306cb9ee71d1d69dc33117fc78ef4d"
+    },
+    "PLL-Gd": {
+      "kind": "external-published-setups-independent-engine",
+      "class": "0132/2310",
+      "setupCount": 4,
+      "setupHash": "cacd7494b82cbb64a2809de6a8a9ea773057e800dc410d4e44c1b6d8299d8ca2"
+    }
+  }
+}

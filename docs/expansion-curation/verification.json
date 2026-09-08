@@ -1,0 +1,3945 @@
+{
+  "independentCoordinates": 648,
+  "nonSkipCoordinatesSolved": 644,
+  "classes": 42,
+  "skipCoordinates": 4,
+  "variedEdgeFixtures": 504,
+  "comparedMovementSteps": 607,
+  "lseReferenceChecks": 14,
+  "cmllMoves": {
+    "min": 6,
+    "median": 11.5,
+    "max": 16,
+    "metric": "tokens: quarter, inverse, double, wide, slice or rotation each count one"
+  },
+  "exercises": [
+    {
+      "id": "cfop/cross/alinhar-uma-aresta",
+      "goal": "cross",
+      "moves": 1,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            5,
+            1,
+            3,
+            0,
+            4,
+            2,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              1,
+              3,
+              0,
+              8,
+              5,
+              6,
+              7,
+              9,
+              2,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Aresta alinhada",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/cross/arestas-vizinhas",
+      "goal": "cross",
+      "moves": 2,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            7,
+            4,
+            3,
+            0,
+            1,
+            2,
+            6,
+            5
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              5,
+              3,
+              0,
+              8,
+              1,
+              6,
+              7,
+              10,
+              2,
+              9,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Primeira inserção",
+          "cornerPermutation": [
+            5,
+            1,
+            3,
+            0,
+            4,
+            2,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              1,
+              3,
+              0,
+              8,
+              5,
+              6,
+              7,
+              9,
+              2,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Cruz alinhada",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/cross/arestas-opostas",
+      "goal": "cross",
+      "moves": 2,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            5,
+            6,
+            7,
+            0,
+            4,
+            2,
+            1,
+            3
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              1,
+              6,
+              0,
+              8,
+              5,
+              3,
+              7,
+              9,
+              2,
+              11,
+              10
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Fundo alinhado",
+          "cornerPermutation": [
+            5,
+            1,
+            3,
+            0,
+            4,
+            2,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              1,
+              3,
+              0,
+              8,
+              5,
+              6,
+              7,
+              9,
+              2,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Frente alinhada",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/cross/planejar-quatro",
+      "goal": "cross",
+      "moves": 4,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            7,
+            6,
+            2,
+            4,
+            1,
+            5,
+            0,
+            3
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              1,
+              3,
+              0,
+              10,
+              9,
+              11,
+              2
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Esquerda pronta",
+          "cornerPermutation": [
+            7,
+            6,
+            5,
+            0,
+            1,
+            2,
+            4,
+            3
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              5,
+              6,
+              0,
+              8,
+              1,
+              3,
+              7,
+              10,
+              2,
+              11,
+              9
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Fundo pronto",
+          "cornerPermutation": [
+            7,
+            4,
+            3,
+            0,
+            1,
+            2,
+            6,
+            5
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              5,
+              3,
+              0,
+              8,
+              1,
+              6,
+              7,
+              10,
+              2,
+              9,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Direita pronta",
+          "cornerPermutation": [
+            5,
+            1,
+            3,
+            0,
+            4,
+            2,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              1,
+              3,
+              0,
+              8,
+              5,
+              6,
+              7,
+              9,
+              2,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Cruz completa",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/f2l/par-pronto",
+      "goal": "f2l-pair",
+      "moves": 3,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            3,
+            1,
+            4,
+            2,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              3,
+              2,
+              0,
+              4,
+              5,
+              6,
+              7,
+              1,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Par inserido",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/f2l/formar-par",
+      "goal": "f2l-pair",
+      "moves": 3,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            4,
+            3,
+            2,
+            0,
+            1,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              3,
+              8,
+              1,
+              4,
+              5,
+              6,
+              7,
+              0,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Abrir o slot",
+          "cornerPermutation": [
+            1,
+            4,
+            2,
+            0,
+            7,
+            5,
+            6,
+            3
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              0,
+              8,
+              1,
+              4,
+              10,
+              6,
+              7,
+              5,
+              9,
+              3,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Conectar",
+          "cornerPermutation": [
+            4,
+            2,
+            0,
+            1,
+            7,
+            5,
+            6,
+            3
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              8,
+              1,
+              2,
+              4,
+              10,
+              6,
+              7,
+              5,
+              9,
+              3,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Inserir",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/f2l/conexao-incorreta",
+      "goal": "f2l-pair",
+      "moves": 7,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            3,
+            4,
+            2,
+            1,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              2,
+              8,
+              1,
+              4,
+              5,
+              6,
+              7,
+              3,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Separar",
+          "cornerPermutation": [
+            0,
+            4,
+            3,
+            2,
+            1,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              2,
+              3,
+              8,
+              4,
+              5,
+              6,
+              7,
+              0,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Reposicionar",
+          "cornerPermutation": [
+            4,
+            3,
+            2,
+            0,
+            1,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              3,
+              8,
+              1,
+              4,
+              5,
+              6,
+              7,
+              0,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 7,
+          "title": "Conexão correta",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cfop/f2l/extrair-canto",
+      "goal": "f2l-pair",
+      "moves": 7,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            1,
+            2,
+            3,
+            0,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              8,
+              0,
+              1,
+              4,
+              5,
+              6,
+              7,
+              3,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Canto acessível",
+          "cornerPermutation": [
+            3,
+            2,
+            0,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              3,
+              8,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              0,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Ajustar o par",
+          "cornerPermutation": [
+            4,
+            3,
+            2,
+            0,
+            1,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              3,
+              8,
+              1,
+              4,
+              5,
+              6,
+              7,
+              0,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 7,
+          "title": "Slot concluído",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/fb/aresta-base",
+      "goal": "first-block",
+      "moves": 1,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            2,
+            1,
+            5,
+            6,
+            0,
+            3,
+            4,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              7,
+              4,
+              5,
+              6,
+              0,
+              2,
+              11,
+              10,
+              9
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Base e bloco alinhados",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/fb/quadrado-frontal",
+      "goal": "first-block",
+      "moves": 3,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            1,
+            4,
+            3,
+            5,
+            0,
+            2,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              3,
+              9,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              8,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Quadrado 1×2×2",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/fb/par-traseiro",
+      "goal": "first-block",
+      "moves": 3,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            3,
+            2,
+            6,
+            4,
+            0,
+            5,
+            1,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              11,
+              8,
+              1,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              3
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Primeiro bloco 1×2×3",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/fb/construir-bloco",
+      "goal": "first-block",
+      "moves": 7,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            2,
+            4,
+            3,
+            1,
+            0,
+            6,
+            5,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              9,
+              7,
+              4,
+              5,
+              6,
+              0,
+              2,
+              3,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Fixar a base",
+          "cornerPermutation": [
+            2,
+            4,
+            6,
+            5,
+            0,
+            3,
+            1,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              9,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              11,
+              10,
+              3
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Completar a frente",
+          "cornerPermutation": [
+            3,
+            2,
+            6,
+            4,
+            0,
+            5,
+            1,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              11,
+              8,
+              1,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              3
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 7,
+          "title": "Fechar o bloco",
+          "cornerPermutation": [
+            2,
+            1,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              8,
+              1,
+              3,
+              0,
+              4,
+              5,
+              6,
+              7,
+              2,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/sb/aresta-base",
+      "goal": "second-block",
+      "moves": 1,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            7,
+            4,
+            0,
+            1,
+            3,
+            5,
+            6,
+            2
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              5,
+              1,
+              2,
+              4,
+              3,
+              6,
+              7,
+              10,
+              9,
+              8,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Base direita assentada",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/sb/quadrado-frontal",
+      "goal": "second-block",
+      "moves": 3,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            4,
+            3,
+            2,
+            0,
+            1,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              3,
+              8,
+              1,
+              4,
+              5,
+              6,
+              7,
+              0,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Quadrado direito pronto",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/sb/par-traseiro",
+      "goal": "second-block",
+      "moves": 3,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            2,
+            7,
+            1,
+            3,
+            4,
+            5,
+            6,
+            0
+          ],
+          "edges": {
+            "pieces": [
+              10,
+              3,
+              2,
+              0,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              1,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Dois blocos completos",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/sb/construir-bloco",
+      "goal": "second-block",
+      "moves": 7,
+      "initialGoal": false,
+      "finalGoal": true,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            3,
+            2,
+            1,
+            7,
+            5,
+            6,
+            4
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              5,
+              8,
+              2,
+              4,
+              3,
+              6,
+              7,
+              1,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Base DR",
+          "cornerPermutation": [
+            4,
+            7,
+            2,
+            1,
+            3,
+            5,
+            6,
+            0
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              8,
+              2,
+              4,
+              5,
+              6,
+              7,
+              10,
+              9,
+              1,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Frente direita",
+          "cornerPermutation": [
+            2,
+            7,
+            1,
+            3,
+            4,
+            5,
+            6,
+            0
+          ],
+          "edges": {
+            "pieces": [
+              10,
+              3,
+              2,
+              0,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              1,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 7,
+          "title": "Segundo bloco completo",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              3,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/referencia-centros",
+      "goal": "lse-eo",
+      "moves": 1,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 4,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              6,
+              2,
+              1,
+              0,
+              5,
+              3,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            2,
+            1,
+            5,
+            3,
+            0,
+            4
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Referência válida",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              6,
+              3,
+              1,
+              4,
+              5,
+              0,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/eo-duas",
+      "goal": "lse-eo",
+      "moves": 8,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 2,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              0,
+              6,
+              3,
+              4,
+              5,
+              2,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Redistribuir a orientação",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              6,
+              1,
+              2,
+              0,
+              4,
+              5,
+              3,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 8,
+          "title": "EO concluída",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              6,
+              3,
+              1,
+              4,
+              5,
+              0,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/eo-quatro",
+      "goal": "lse-eo",
+      "moves": 4,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 4,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              6,
+              1,
+              2,
+              0,
+              4,
+              5,
+              3,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "EO concluída",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              6,
+              3,
+              1,
+              4,
+              5,
+              0,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/eo-seis",
+      "goal": "lse-eo",
+      "moves": 12,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 6,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              3,
+              6,
+              1,
+              0,
+              2,
+              5,
+              4,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Primeira transformação",
+          "cornerPermutation": [
+            3,
+            0,
+            1,
+            2,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              6,
+              4,
+              2,
+              3,
+              0,
+              5,
+              1,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            5,
+            1,
+            4,
+            3,
+            2,
+            0
+          ]
+        },
+        {
+          "step": 8,
+          "title": "Preparar a conclusão",
+          "cornerPermutation": [
+            1,
+            2,
+            3,
+            0,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              1,
+              1,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 12,
+          "title": "Seis arestas orientadas",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              6,
+              3,
+              1,
+              4,
+              5,
+              0,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/ul-ur-trocas",
+      "goal": "lse-lr",
+      "moves": 8,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 0,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              4,
+              3,
+              1,
+              6,
+              5,
+              2,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Primeira troca",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              1,
+              2,
+              4,
+              6,
+              5,
+              3,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Alinhar a próxima troca",
+          "cornerPermutation": [
+            3,
+            0,
+            1,
+            2,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              2,
+              4,
+              0,
+              6,
+              5,
+              3,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 7,
+          "title": "Segunda troca",
+          "cornerPermutation": [
+            1,
+            2,
+            3,
+            0,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              0,
+              3,
+              2,
+              6,
+              5,
+              4,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 8,
+          "title": "UL/UR concluídas",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              1,
+              0,
+              3,
+              6,
+              5,
+              4,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/ul-ur-meias-voltas",
+      "goal": "lse-lr",
+      "moves": 8,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 0,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              4,
+              2,
+              6,
+              0,
+              3,
+              5,
+              1,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Transportar as duas arestas",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              1,
+              4,
+              3,
+              6,
+              0,
+              5,
+              2,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 8,
+          "title": "UL/UR alinhadas",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              1,
+              0,
+              3,
+              6,
+              5,
+              4,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/quatro-arestas",
+      "goal": "solved",
+      "moves": 4,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 0,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              2,
+              1,
+              0,
+              3,
+              6,
+              5,
+              4,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Transportar em M",
+          "cornerPermutation": [
+            2,
+            3,
+            0,
+            1,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              6,
+              3,
+              4,
+              1,
+              0,
+              5,
+              2,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            5,
+            1,
+            4,
+            3,
+            2,
+            0
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Cubo resolvido",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roux/lse/fechar-centros",
+      "goal": "solved",
+      "moves": 1,
+      "initialGoal": false,
+      "finalGoal": true,
+      "initialBadEdges": 0,
+      "finalBadEdges": 0,
+      "milestones": [
+        {
+          "step": 0,
+          "title": "Reconhecer e planejar",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              6,
+              1,
+              4,
+              3,
+              2,
+              5,
+              0,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            5,
+            1,
+            4,
+            3,
+            2,
+            0
+          ]
+        },
+        {
+          "step": 1,
+          "title": "Resolução concluída",
+          "cornerPermutation": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "edges": {
+            "pieces": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "orientation": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "centers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    }
+  ],
+  "hashes": {
+    "cmll": "81321cfd0f4e93b9ca85856690678f8ecc22196d743ca37ef707e8ef896382eb",
+    "exercises": "c1702706f18fa93ebaea9e5228abf7ecb881aef53ff5d4061471cca2cd807830"
+  }
+}

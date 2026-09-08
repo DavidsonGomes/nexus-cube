@@ -1,0 +1,66 @@
+# Ambiente privado de coordenação
+/.maestri/
+
+# Dependências, builds e caches
+node_modules/
+/dist/
+coverage/
+.vite/
+.vercel/
+.cache/
+*.tsbuildinfo
+
+# Segredos e dados locais, nunca fixtures versionadas
+.env
+.env.*
+!.env.example
+*.local
+*.local.*
+/backups/
+/data/
+nexus-cube-backup-*.json
+nexus-cube-recuperacao*.txt
+
+# Evidências geradas no navegador, processos e arquivos temporários
+/docs/qa/evidence/
+/docs/visual/
+/tmp/
+/temp/
+*.tmp
+*.temp
+*.log
+*.pid
+*.pid.lock
+*.flag
+*.exit
+
+# Sistema e editor
+.DS_Store
+.idea/
+.vscode/
+
+# Planejamento e registros internos de coordenação
+/docs/delivery-plan.md
+/docs/expansion-plan.md
+/docs/acceptance.md
+/docs/qa/execution-log.md
+/docs/qa/final-run-plan.md
+/docs/domain-contract.md
+/docs/method-research.md
+/docs/qa/acceptance-matrix.md
+/docs/qa/expansion-matrix.md
+/docs/qa/offline-protocol.md
+/docs/qa/pedagogical-visual-acceptance.md
+/docs/qa/sources-audit.md
+/docs/modes-plan.md
+/docs/auth-sync-plan.md
+/docs/imports-plan.md
+/docs/release-plan.md
+/tests/domain/modes-evidence.md
+/tests/domain/domain-expansion-evidence.md
+/docs/qa/modes-qa-matrix.md
+
+/docs/qa/r1-integrated-run-plan.md
+/docs/security/r1-auth-local-plan.md
+/docs/security/r1-evidence.md
+/docs/imports-contract.md

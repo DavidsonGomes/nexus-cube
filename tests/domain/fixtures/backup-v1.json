@@ -1,0 +1,517 @@
+{
+  "format": "nexus-cube",
+  "version": 1,
+  "exportedAt": "2026-09-08T13:00:00.000Z",
+  "data": {
+    "version": 1,
+    "sessions": [
+      {
+        "id": "legacy-session",
+        "name": "Sessão arquivada",
+        "createdAt": "2026-09-08T12:00:00.000Z"
+      }
+    ],
+    "activeSessionId": "legacy-session",
+    "solves": [
+      {
+        "id": "legacy-solve",
+        "sessionId": "legacy-session",
+        "rawMs": 12345,
+        "penalty": "+2",
+        "scramble": "R U R'",
+        "createdAt": "2026-09-08T12:01:00.000Z",
+        "note": "Preservar tempo bruto",
+        "source": "timer"
+      }
+    ],
+    "progress": {
+      "OLL-01": {
+        "caseId": "OLL-01",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-01"
+      },
+      "OLL-02": {
+        "caseId": "OLL-02",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-02"
+      },
+      "OLL-03": {
+        "caseId": "OLL-03",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-03"
+      },
+      "OLL-04": {
+        "caseId": "OLL-04",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-04"
+      },
+      "OLL-05": {
+        "caseId": "OLL-05",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-05"
+      },
+      "OLL-06": {
+        "caseId": "OLL-06",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-06"
+      },
+      "OLL-07": {
+        "caseId": "OLL-07",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-07"
+      },
+      "OLL-08": {
+        "caseId": "OLL-08",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-08"
+      },
+      "OLL-09": {
+        "caseId": "OLL-09",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-09"
+      },
+      "OLL-10": {
+        "caseId": "OLL-10",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-10"
+      },
+      "OLL-11": {
+        "caseId": "OLL-11",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-11"
+      },
+      "OLL-12": {
+        "caseId": "OLL-12",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-12"
+      },
+      "OLL-13": {
+        "caseId": "OLL-13",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-13"
+      },
+      "OLL-14": {
+        "caseId": "OLL-14",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-14"
+      },
+      "OLL-15": {
+        "caseId": "OLL-15",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-15"
+      },
+      "OLL-16": {
+        "caseId": "OLL-16",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-16"
+      },
+      "OLL-17": {
+        "caseId": "OLL-17",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-17"
+      },
+      "OLL-18": {
+        "caseId": "OLL-18",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-18"
+      },
+      "OLL-19": {
+        "caseId": "OLL-19",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-19"
+      },
+      "OLL-20": {
+        "caseId": "OLL-20",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-20"
+      },
+      "OLL-21": {
+        "caseId": "OLL-21",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-21"
+      },
+      "OLL-22": {
+        "caseId": "OLL-22",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-22"
+      },
+      "OLL-23": {
+        "caseId": "OLL-23",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-23"
+      },
+      "OLL-24": {
+        "caseId": "OLL-24",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-24"
+      },
+      "OLL-25": {
+        "caseId": "OLL-25",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-25"
+      },
+      "OLL-26": {
+        "caseId": "OLL-26",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-26"
+      },
+      "OLL-27": {
+        "caseId": "OLL-27",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-27"
+      },
+      "OLL-28": {
+        "caseId": "OLL-28",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-28"
+      },
+      "OLL-29": {
+        "caseId": "OLL-29",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-29"
+      },
+      "OLL-30": {
+        "caseId": "OLL-30",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-30"
+      },
+      "OLL-31": {
+        "caseId": "OLL-31",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-31"
+      },
+      "OLL-32": {
+        "caseId": "OLL-32",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-32"
+      },
+      "OLL-33": {
+        "caseId": "OLL-33",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-33"
+      },
+      "OLL-34": {
+        "caseId": "OLL-34",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-34"
+      },
+      "OLL-35": {
+        "caseId": "OLL-35",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-35"
+      },
+      "OLL-36": {
+        "caseId": "OLL-36",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-36"
+      },
+      "OLL-37": {
+        "caseId": "OLL-37",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-37"
+      },
+      "OLL-38": {
+        "caseId": "OLL-38",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-38"
+      },
+      "OLL-39": {
+        "caseId": "OLL-39",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-39"
+      },
+      "OLL-40": {
+        "caseId": "OLL-40",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-40"
+      },
+      "OLL-41": {
+        "caseId": "OLL-41",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-41"
+      },
+      "OLL-42": {
+        "caseId": "OLL-42",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-42"
+      },
+      "OLL-43": {
+        "caseId": "OLL-43",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-43"
+      },
+      "OLL-44": {
+        "caseId": "OLL-44",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-44"
+      },
+      "OLL-45": {
+        "caseId": "OLL-45",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-45"
+      },
+      "OLL-46": {
+        "caseId": "OLL-46",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-46"
+      },
+      "OLL-47": {
+        "caseId": "OLL-47",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-47"
+      },
+      "OLL-48": {
+        "caseId": "OLL-48",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-48"
+      },
+      "OLL-49": {
+        "caseId": "OLL-49",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-49"
+      },
+      "OLL-50": {
+        "caseId": "OLL-50",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-50"
+      },
+      "OLL-51": {
+        "caseId": "OLL-51",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-51"
+      },
+      "OLL-52": {
+        "caseId": "OLL-52",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-52"
+      },
+      "OLL-53": {
+        "caseId": "OLL-53",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-53"
+      },
+      "OLL-54": {
+        "caseId": "OLL-54",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-54"
+      },
+      "OLL-55": {
+        "caseId": "OLL-55",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-55"
+      },
+      "OLL-56": {
+        "caseId": "OLL-56",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-56"
+      },
+      "OLL-57": {
+        "caseId": "OLL-57",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota OLL-57"
+      },
+      "PLL-Aa": {
+        "caseId": "PLL-Aa",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Aa"
+      },
+      "PLL-Ab": {
+        "caseId": "PLL-Ab",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Ab"
+      },
+      "PLL-E": {
+        "caseId": "PLL-E",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-E"
+      },
+      "PLL-F": {
+        "caseId": "PLL-F",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-F"
+      },
+      "PLL-Ga": {
+        "caseId": "PLL-Ga",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Ga"
+      },
+      "PLL-Gb": {
+        "caseId": "PLL-Gb",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Gb"
+      },
+      "PLL-Gc": {
+        "caseId": "PLL-Gc",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Gc"
+      },
+      "PLL-Gd": {
+        "caseId": "PLL-Gd",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Gd"
+      },
+      "PLL-H": {
+        "caseId": "PLL-H",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-H"
+      },
+      "PLL-Ja": {
+        "caseId": "PLL-Ja",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Ja"
+      },
+      "PLL-Jb": {
+        "caseId": "PLL-Jb",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Jb"
+      },
+      "PLL-Na": {
+        "caseId": "PLL-Na",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Na"
+      },
+      "PLL-Nb": {
+        "caseId": "PLL-Nb",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Nb"
+      },
+      "PLL-Ra": {
+        "caseId": "PLL-Ra",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Ra"
+      },
+      "PLL-Rb": {
+        "caseId": "PLL-Rb",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Rb"
+      },
+      "PLL-T": {
+        "caseId": "PLL-T",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-T"
+      },
+      "PLL-Ua": {
+        "caseId": "PLL-Ua",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Ua"
+      },
+      "PLL-Ub": {
+        "caseId": "PLL-Ub",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Ub"
+      },
+      "PLL-V": {
+        "caseId": "PLL-V",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-V"
+      },
+      "PLL-Y": {
+        "caseId": "PLL-Y",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Y"
+      },
+      "PLL-Z": {
+        "caseId": "PLL-Z",
+        "favorite": true,
+        "status": "learning",
+        "note": "Nota PLL-Z"
+      }
+    },
+    "studyAttempts": [
+      {
+        "id": "legacy-study",
+        "caseId": "OLL-30",
+        "createdAt": "2026-09-08T12:02:00.000Z",
+        "recognition": "good",
+        "execution": "again",
+        "durationMs": 5000
+      }
+    ],
+    "settings": {
+      "theme": "dark",
+      "inspection": true,
+      "inspectionSound": false,
+      "holdMs": 400,
+      "focus": true,
+      "hideRunningTime": true,
+      "animationSpeed": 0.8
+    }
+  }
+}

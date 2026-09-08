@@ -1,0 +1,481 @@
+# Fontes e licencas
+
+Pesquisa em 2026-09-08. Recursos locais, sem CDN.
+
+## Catalogo
+
+Fonte primaria: [Cube Coach, Luke Jackson](https://github.com/lukejacksonn/cube), commit `856b269c63715fbd164b90aee1de5f4725fd277a`, [dados originais](https://github.com/lukejacksonn/cube/blob/856b269c63715fbd164b90aee1de5f4725fd277a/src/algorithms.ts). O [README no mesmo commit](https://github.com/lukejacksonn/cube/blob/856b269c63715fbd164b90aee1de5f4725fd277a/README.md) declara MIT. Foram adaptados os registros matematicos de 41 F2L, 57 OLL e 21 PLL, removendo parenteses de agrupamento, normalizando orientacao e traduzindo grupos; nenhum codigo visual ou ativo foi copiado. A atribuicao e a declaracao MIT acompanham os dados em src/data/catalog-source.ts e este documento. Autoria: Luke Jackson e contribuidores de Cube Coach. O repositorio nao possui arquivo LICENSE separado nem aviso com ano de copyright; nao inventamos um.
+
+## Gerador
+
+[cubing.js](https://github.com/cubing/cubing.js), pacote `cubing@0.63.4`. [API oficial](https://js.cubing.net/cubing/scramble/) fornece `randomScrambleForEvent('333')`, com selecao de estado e solver, nao sequencia de movimentos aleatorios. [Licenca do projeto](https://github.com/cubing/cubing.js/blob/main/LICENSE-MPL.md): pacote declara `MPL-2.0 OR GPL-3.0-or-later`; usamos a alternativa MPL-2.0, com fontes de terceiros sob licencas adicionais preservadas no pacote. Nao modificamos seu codigo. Worker de app em src/workers/scramble.worker.ts, worker/solver interno da biblioteca empacotado localmente pelo Vite.
+
+## Referencias funcionais e regras
+
+[csTimer](https://cstimer.net/) foi consultado como referencia funcional, sem copiar implementacao ou assets. [Regulamento WCA, versao 1 de abril de 2026](https://www.worldcubeassociation.org/regulations/) e [scrambles WCA](https://www.worldcubeassociation.org/regulations/scrambles/) consultados. O produto e um treinador, sem alegar homologacao WCA. Inspecao segue os limiares explicitamente pedidos: antes de 15s sem penalidade, de 15 ate antes de 17s +2, a partir de 17s DNF. Medias longas sao politica do app: excluir ceil(5% n) de cada extremo; media de sessao sem corte inclui DNF.
+
+## Recursos autorais
+
+Geometria de 54 adesivos, parser, miniaturas geradas do estado, estatisticas, persistencia, backup e testes sao implementacao propria. Nao usamos imagens externas do catalogo.
+
+## Caminho auditado do random-state
+
+A versao instalada foi conferida no package.json do pacote: 0.63.4. O [sampler 3x3](https://github.com/cubing/cubing.js/blob/main/src/cubing/search/inside/solve/puzzles/3x3x3/index.ts) escolhe representantes de uma cadeia de estabilizadores ([tabela SGS](https://github.com/cubing/cubing.js/blob/main/src/cubing/search/inside/solve/puzzles/3x3x3/legacy-sgs.ts)), aplica o filtro da biblioteca e resolve o estado com min2phase. A distribuicao vem da amostragem dos representantes da cadeia, nao de uma caminhada arbitraria de comprimento fixo. A biblioteca devolve a solucao do estado sorteado; como scramble aplicado ao resolvido, isso corresponde ao estado inverso, mantendo a distribuicao via inversao. Nao alegamos certificacao nem substituimos o filtro da biblioteca.
+
+Worker do app serializa pedidos. Cliente correlaciona por ID, reporta erro, cancela pendencias ao descartar e admite nova inicializacao; timeout de 120 segundos. Nenhum solver roda no thread principal do app. O teste unitario exerce o sampler/solver real em worker Node, mas evidencia offline de browser pertence a Matiz/Sonda.
+
+## Notice min2phase
+
+O pacote aponta `src/cubing/vendor/mit/cs0x7f/min2phase/3x3x3-min2phase.js`. A [fonte primaria min2phase](https://github.com/cs0x7f/min2phase#license-mit) declara a alternativa MIT, com o aviso abaixo preservado. Nao confundir com o arquivo LICENSE de cstimer adjacente na arvore.
+
+```text
+Copyright (c) 2023 Chen Shuang
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+```
+
+## Reprodutibilidade e validacao
+
+`npm view cubing@0.63.4 gitHead` retorna `82d6034ae61da9aa1f3acbe84a0a8407e2fcd2a7`, usado no link de fontes exatas. A tag v0.63.4 nao esta publicada no GitHub; nao usamos link inexistente. O npm preserva sourcemaps com sourcesContent, incluindo o solver.
+
+Dados fonte em src/data/catalog-source.ts. `tsx tests/domain/compile-catalog.ts` normaliza os algoritmos, acrescenta rotacoes finais para manter os centros na orientacao padrao e encontra ajustes U/y explicitos para alternativas. Gera src/data/catalog-compiled.ts; a interface apenas le o resultado e aplica setup, sem realizar essa busca ao abrir a pagina.
+
+`tests/domain/oracle.ts` usa a convencao Reid de pecas e KPuzzle do cubing.js, independente do motor geometrico do app. Gera as 216 orientacoes legais por soma modular (3^3 * 2^3), e as 288 permutacoes legais por igualdade de paridade (4! * 4! / 2). `tests/domain/cube-catalog.test.ts` encontra 57 classes OLL e 21 PLL, mais um skip em cada familia, e aplica os algoritmos a esses estados construidos sem usar inversas. O teste adicional confronta todos os movimentos basicos/largos/internos/rotacoes e cada passo dos 78 casos contra KPuzzle. Identificadores e nomes seguem a fonte MIT fixada; a enumeracao prova cobertura e semantica, nao a proveniencia historica dos nomes.
+
+Validacao de dominio em 2026-09-08: 5 testes cubo/catalogo, 6 testes timer/estatisticas/persistencia/estudo/CSV, 2 testes sampler real e protocolo worker. Testes proprios apenas. Nenhum build ou suite de integracao completa foi executado por Prisma. Evidencia visual/offline deve ser coletada por Matiz/Sonda.
+
+## Permissao MIT do catalogo
+
+Cube Coach, Luke Jackson e contribuidores. Declaracao upstream: MIT (README no commit fixado), sem ano ou texto LICENSE separado. Atribuicao preservada sem criar data de copyright. Termos MIT que acompanham a adaptacao:
+
+```text
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Texto MPL-2.0 distribuido com a biblioteca
+
+Fonte: https://github.com/cubing/cubing.js/blob/main/LICENSE-MPL.md . Fontes completas da biblioteca: https://github.com/cubing/cubing.js/tree/82d6034ae61da9aa1f3acbe84a0a8407e2fcd2a7 . Usamos a biblioteca sem modificacoes.
+
+
+# Mozilla Public License Version 2.0
+
+### 1. Definitions
+
+**1.1. “Contributor”**  
+    means each individual or legal entity that creates, contributes to
+    the creation of, or owns Covered Software.
+
+**1.2. “Contributor Version”**  
+    means the combination of the Contributions of others (if any) used
+    by a Contributor and that particular Contributor's Contribution.
+
+**1.3. “Contribution”**  
+    means Covered Software of a particular Contributor.
+
+**1.4. “Covered Software”**  
+    means Source Code Form to which the initial Contributor has attached
+    the notice in Exhibit A, the Executable Form of such Source Code
+    Form, and Modifications of such Source Code Form, in each case
+    including portions thereof.
+
+**1.5. “Incompatible With Secondary Licenses”**  
+    means
+
+* **(a)** that the initial Contributor has attached the notice described
+    in Exhibit B to the Covered Software; or
+* **(b)** that the Covered Software was made available under the terms of
+    version 1.1 or earlier of the License, but not also under the
+    terms of a Secondary License.
+
+**1.6. “Executable Form”**  
+    means any form of the work other than Source Code Form.
+
+**1.7. “Larger Work”**  
+    means a work that combines Covered Software with other material, in 
+    a separate file or files, that is not Covered Software.
+
+**1.8. “License”**  
+    means this document.
+
+**1.9. “Licensable”**  
+    means having the right to grant, to the maximum extent possible,
+    whether at the time of the initial grant or subsequently, any and
+    all of the rights conveyed by this License.
+
+**1.10. “Modifications”**  
+    means any of the following:
+
+* **(a)** any file in Source Code Form that results from an addition to,
+    deletion from, or modification of the contents of Covered
+    Software; or
+* **(b)** any new file in Source Code Form that contains any Covered
+    Software.
+
+**1.11. “Patent Claims” of a Contributor**  
+    means any patent claim(s), including without limitation, method,
+    process, and apparatus claims, in any patent Licensable by such
+    Contributor that would be infringed, but for the grant of the
+    License, by the making, using, selling, offering for sale, having
+    made, import, or transfer of either its Contributions or its
+    Contributor Version.
+
+**1.12. “Secondary License”**  
+    means either the GNU General Public License, Version 2.0, the GNU
+    Lesser General Public License, Version 2.1, the GNU Affero General
+    Public License, Version 3.0, or any later versions of those
+    licenses.
+
+**1.13. “Source Code Form”**  
+    means the form of the work preferred for making modifications.
+
+**1.14. “You” (or “Your”)**  
+    means an individual or a legal entity exercising rights under this
+    License. For legal entities, “You” includes any entity that
+    controls, is controlled by, or is under common control with You. For
+    purposes of this definition, “control” means **(a)** the power, direct
+    or indirect, to cause the direction or management of such entity,
+    whether by contract or otherwise, or **(b)** ownership of more than
+    fifty percent (50%) of the outstanding shares or beneficial
+    ownership of such entity.
+
+
+### 2. License Grants and Conditions
+
+#### 2.1. Grants
+
+Each Contributor hereby grants You a world-wide, royalty-free,
+non-exclusive license:
+
+* **(a)** under intellectual property rights (other than patent or trademark)
+    Licensable by such Contributor to use, reproduce, make available,
+    modify, display, perform, distribute, and otherwise exploit its
+    Contributions, either on an unmodified basis, with Modifications, or
+    as part of a Larger Work; and
+* **(b)** under Patent Claims of such Contributor to make, use, sell, offer
+    for sale, have made, import, and otherwise transfer either its
+    Contributions or its Contributor Version.
+
+#### 2.2. Effective Date
+
+The licenses granted in Section 2.1 with respect to any Contribution
+become effective for each Contribution on the date the Contributor first
+distributes such Contribution.
+
+#### 2.3. Limitations on Grant Scope
+
+The licenses granted in this Section 2 are the only rights granted under
+this License. No additional rights or licenses will be implied from the
+distribution or licensing of Covered Software under this License.
+Notwithstanding Section 2.1(b) above, no patent license is granted by a
+Contributor:
+
+* **(a)** for any code that a Contributor has removed from Covered Software;
+    or
+* **(b)** for infringements caused by: **(i)** Your and any other third party's
+    modifications of Covered Software, or **(ii)** the combination of its
+    Contributions with other software (except as part of its Contributor
+    Version); or
+* **(c)** under Patent Claims infringed by Covered Software in the absence of
+    its Contributions.
+
+This License does not grant any rights in the trademarks, service marks,
+or logos of any Contributor (except as may be necessary to comply with
+the notice requirements in Section 3.4).
+
+#### 2.4. Subsequent Licenses
+
+No Contributor makes additional grants as a result of Your choice to
+distribute the Covered Software under a subsequent version of this
+License (see Section 10.2) or under the terms of a Secondary License (if
+permitted under the terms of Section 3.3).
+
+#### 2.5. Representation
+
+Each Contributor represents that the Contributor believes its
+Contributions are its original creation(s) or it has sufficient rights
+to grant the rights to its Contributions conveyed by this License.
+
+#### 2.6. Fair Use
+
+This License is not intended to limit any rights You have under
+applicable copyright doctrines of fair use, fair dealing, or other
+equivalents.
+
+#### 2.7. Conditions
+
+Sections 3.1, 3.2, 3.3, and 3.4 are conditions of the licenses granted
+in Section 2.1.
+
+
+### 3. Responsibilities
+
+#### 3.1. Distribution of Source Form
+
+All distribution of Covered Software in Source Code Form, including any
+Modifications that You create or to which You contribute, must be under
+the terms of this License. You must inform recipients that the Source
+Code Form of the Covered Software is governed by the terms of this
+License, and how they can obtain a copy of this License. You may not
+attempt to alter or restrict the recipients' rights in the Source Code
+Form.
+
+#### 3.2. Distribution of Executable Form
+
+If You distribute Covered Software in Executable Form then:
+
+* **(a)** such Covered Software must also be made available in Source Code
+    Form, as described in Section 3.1, and You must inform recipients of
+    the Executable Form how they can obtain a copy of such Source Code
+    Form by reasonable means in a timely manner, at a charge no more
+    than the cost of distribution to the recipient; and
+
+* **(b)** You may distribute such Executable Form under the terms of this
+    License, or sublicense it under different terms, provided that the
+    license for the Executable Form does not attempt to limit or alter
+    the recipients' rights in the Source Code Form under this License.
+
+#### 3.3. Distribution of a Larger Work
+
+You may create and distribute a Larger Work under terms of Your choice,
+provided that You also comply with the requirements of this License for
+the Covered Software. If the Larger Work is a combination of Covered
+Software with a work governed by one or more Secondary Licenses, and the
+Covered Software is not Incompatible With Secondary Licenses, this
+License permits You to additionally distribute such Covered Software
+under the terms of such Secondary License(s), so that the recipient of
+the Larger Work may, at their option, further distribute the Covered
+Software under the terms of either this License or such Secondary
+License(s).
+
+#### 3.4. Notices
+
+You may not remove or alter the substance of any license notices
+(including copyright notices, patent notices, disclaimers of warranty,
+or limitations of liability) contained within the Source Code Form of
+the Covered Software, except that You may alter any license notices to
+the extent required to remedy known factual inaccuracies.
+
+#### 3.5. Application of Additional Terms
+
+You may choose to offer, and to charge a fee for, warranty, support,
+indemnity or liability obligations to one or more recipients of Covered
+Software. However, You may do so only on Your own behalf, and not on
+behalf of any Contributor. You must make it absolutely clear that any
+such warranty, support, indemnity, or liability obligation is offered by
+You alone, and You hereby agree to indemnify every Contributor for any
+liability incurred by such Contributor as a result of warranty, support,
+indemnity or liability terms You offer. You may include additional
+disclaimers of warranty and limitations of liability specific to any
+jurisdiction.
+
+
+### 4. Inability to Comply Due to Statute or Regulation
+
+If it is impossible for You to comply with any of the terms of this
+License with respect to some or all of the Covered Software due to
+statute, judicial order, or regulation then You must: **(a)** comply with
+the terms of this License to the maximum extent possible; and **(b)**
+describe the limitations and the code they affect. Such description must
+be placed in a text file included with all distributions of the Covered
+Software under this License. Except to the extent prohibited by statute
+or regulation, such description must be sufficiently detailed for a
+recipient of ordinary skill to be able to understand it.
+
+
+### 5. Termination
+
+**5.1.** The rights granted under this License will terminate automatically
+if You fail to comply with any of its terms. However, if You become
+compliant, then the rights granted under this License from a particular
+Contributor are reinstated **(a)** provisionally, unless and until such
+Contributor explicitly and finally terminates Your grants, and **(b)** on an
+ongoing basis, if such Contributor fails to notify You of the
+non-compliance by some reasonable means prior to 60 days after You have
+come back into compliance. Moreover, Your grants from a particular
+Contributor are reinstated on an ongoing basis if such Contributor
+notifies You of the non-compliance by some reasonable means, this is the
+first time You have received notice of non-compliance with this License
+from such Contributor, and You become compliant prior to 30 days after
+Your receipt of the notice.
+
+**5.2.** If You initiate litigation against any entity by asserting a patent
+infringement claim (excluding declaratory judgment actions,
+counter-claims, and cross-claims) alleging that a Contributor Version
+directly or indirectly infringes any patent, then the rights granted to
+You by any and all Contributors for the Covered Software under Section
+2.1 of this License shall terminate.
+
+**5.3.** In the event of termination under Sections 5.1 or 5.2 above, all
+end user license agreements (excluding distributors and resellers) which
+have been validly granted by You or Your distributors under this License
+prior to termination shall survive termination.
+
+
+### 6. Disclaimer of Warranty
+
+> Covered Software is provided under this License on an “as is”
+> basis, without warranty of any kind, either expressed, implied, or
+> statutory, including, without limitation, warranties that the
+> Covered Software is free of defects, merchantable, fit for a
+> particular purpose or non-infringing. The entire risk as to the
+> quality and performance of the Covered Software is with You.
+> Should any Covered Software prove defective in any respect, You
+> (not any Contributor) assume the cost of any necessary servicing,
+> repair, or correction. This disclaimer of warranty constitutes an
+> essential part of this License. No use of any Covered Software is
+> authorized under this License except under this disclaimer.
+
+### 7. Limitation of Liability
+
+> Under no circumstances and under no legal theory, whether tort
+> (including negligence), contract, or otherwise, shall any
+> Contributor, or anyone who distributes Covered Software as
+> permitted above, be liable to You for any direct, indirect,
+> special, incidental, or consequential damages of any character
+> including, without limitation, damages for lost profits, loss of
+> goodwill, work stoppage, computer failure or malfunction, or any
+> and all other commercial damages or losses, even if such party
+> shall have been informed of the possibility of such damages. This
+> limitation of liability shall not apply to liability for death or
+> personal injury resulting from such party's negligence to the
+> extent applicable law prohibits such limitation. Some
+> jurisdictions do not allow the exclusion or limitation of
+> incidental or consequential damages, so this exclusion and
+> limitation may not apply to You.
+
+
+### 8. Litigation
+
+Any litigation relating to this License may be brought only in the
+courts of a jurisdiction where the defendant maintains its principal
+place of business and such litigation shall be governed by laws of that
+jurisdiction, without reference to its conflict-of-law provisions.
+Nothing in this Section shall prevent a party's ability to bring
+cross-claims or counter-claims.
+
+
+### 9. Miscellaneous
+
+This License represents the complete agreement concerning the subject
+matter hereof. If any provision of this License is held to be
+unenforceable, such provision shall be reformed only to the extent
+necessary to make it enforceable. Any law or regulation which provides
+that the language of a contract shall be construed against the drafter
+shall not be used to construe this License against a Contributor.
+
+
+### 10. Versions of the License
+
+#### 10.1. New Versions
+
+Mozilla Foundation is the license steward. Except as provided in Section
+10.3, no one other than the license steward has the right to modify or
+publish new versions of this License. Each version will be given a
+distinguishing version number.
+
+#### 10.2. Effect of New Versions
+
+You may distribute the Covered Software under the terms of the version
+of the License under which You originally received the Covered Software,
+or under the terms of any subsequent version published by the license
+steward.
+
+#### 10.3. Modified Versions
+
+If you create software not governed by this License, and you want to
+create a new license for such software, you may create and use a
+modified version of this License if you rename the license and remove
+any references to the name of the license steward (except to note that
+such modified license differs from this License).
+
+#### 10.4. Distributing Source Code Form that is Incompatible With Secondary Licenses
+
+If You choose to distribute Source Code Form that is Incompatible With
+Secondary Licenses under the terms of this version of the License, the
+notice described in Exhibit B of this License must be attached.
+
+## Exhibit A - Source Code Form License Notice
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+If it is not possible or desirable to put the notice in a particular
+file, then You may include the notice in a location (such as a LICENSE
+file in a relevant directory) where a recipient would be likely to look
+for such a notice.
+
+You may add additional accurate notices of copyright ownership.
+
+## Exhibit B - “Incompatible With Secondary Licenses” Notice
+
+    This Source Code Form is "Incompatible With Secondary Licenses", as
+    defined by the Mozilla Public License, v. 2.0.
+
+## Nomenclatura dos mesmos 78 casos (2026-09-08)
+
+`src/data/case-metadata.ts` acrescenta nomes de exibicao, aliases, tipo e fonte do nome. Os dados de algoritmos, setups principais e IDs do catalogo existente permanecem intactos. Metadados de exibicao nao alteram o backup v1.
+
+A nomenclatura varia entre professores e tabelas. Para todos os casos sem nome comum selecionado, usamos descricoes autorais em portugues a partir dos grupos da fonte MIT Cube Coach, numeradas por ID dentro de cada grupo. O campo `nameKind: descriptive` explicita essa escolha editorial. Ponto, Quadrado, Peixe, Cavalo, Raio pequeno/grande, Linha e formas de letras descrevem esses grupos; nao alegamos que a numeracao ou traducao seja padrao universal. O campo `nameSource` aponta o registro fonte do grupo.
+
+As referencias do usuario fixam Irregular 1/2/3/4 e Awkward 1/2/3/4 em OLL-29/30/41/42. Conferencia externa: a [folha OLL de Feliks Zemdegs e Andy Klise, CubeSkills](https://www.cubeskills.com/uploads/pdf/tutorials/oll-algorithms.pdf), pagina 3, associa A1/A2/A3/A4 a esses mesmos IDs sob Awkward Shapes. Apenas verificamos essa correspondencia; nao incorporamos PDF, imagens, algoritmos ou layout da folha. Os aliases aceitam ingles, portugues e IDs com/sem separadores.
+
+Sune e Antisune sao nomes comuns conferidos no [glossario CubeSkills](https://www.cubeskills.com/tools/glossary), junto a suas sequencias/inversao, e correspondem a OLL-27 e OLL-26 do catalogo. As letras Aa, Ab, E, F, Ga/Gb/Gc/Gd, H, Ja/Jb, Na/Nb, Ra/Rb, T, Ua/Ub, V, Y e Z foram conferidas na [folha PLL dos mesmos autores](https://www.cubeskills.com/uploads/pdf/tutorials/pll-algorithms.pdf); a exibicao usa Permutacao seguida dessa designacao, com aliases como H perm.
+
+Os [termos de uso CubeSkills](https://www.cubeskills.com/terms-of-use) reservam direitos sobre seus materiais e exigem aprovacao para reproducao. Nao os tratamos como conteudo sob MIT. A implementacao usa nomes/designacoes factuais curtas, traducoes editoriais dos grupos da fonte MIT e links de verificacao; nenhuma tabela de algoritmos, texto explicativo, PDF, imagem ou asset CubeSkills foi copiado para o produto. A origem dos algoritmos continua sendo Cube Coach, com a atribuicao ja registrada. Nenhuma autorizacao de terceiros foi solicitada ou presumida.
+
+`tests/domain/metadata-playback.test.ts` verifica todos os IDs e algoritmos inalterados, nomes/aliases/origem, correspondencias Awkward, busca normalizada, backup com IDs antigos e preparo/solucao de cada alternativa. O preparo usa a inversa da alternativa selecionada: troca a ordem dos movimentos e inverte cada movimento, mantendo duplos. Cada passo de preparo e confrontado com KPuzzle independente; o estado montado deve pertencer a classe do caso e a solucao escolhida deve resolve-lo. Para OLL, diferentes alternativas podem produzir permutacao lateral diferente no preparo, sem mudar o caso de orientacao.
+
+## Expansao CFOP e Roux, corpus local 161 + 24
+
+F2L: 41 casos e 20 alternativas adaptados da mesma fonte MIT [Cube Coach, Luke Jackson](https://github.com/lukejacksonn/cube/blob/856b269c63715fbd164b90aee1de5f4725fd277a/src/algorithms.ts), commit fixado `856b269c63715fbd164b90aee1de5f4725fd277a`. O recorte bruto esta em `src/data/f2l-source.ts`; `tests/domain/compile-f2l.ts` normaliza notacao/rotacoes e alinha alternativas ao slot FR. Saida local `src/data/f2l-compiled.ts`. Preservar o aviso MIT de Luke Jackson ja transcrito neste documento. Nomes em portugues sao descricoes editoriais dos grupos da fonte, com ordinais por grupo; IDs seguem a numeracao da fonte, sem alegar nomenclatura universal.
+
+A prova F2L `tests/domain/expansion-f2l.test.ts` constroi 150 estados legais de canto/aresta alvo diretamente em KPuzzle, compensa twists/flips/paridade nas pecas U livres e enumera 42 classes modulo U: 41 casos mais par resolvido. Nao gera essas fixtures por algoritmo/inversa do catalogo. Cada classe encontra seu algoritmo, mantendo a cruz e os tres slots restantes. Todas as 20 alternativas tambem atingem o objetivo.
+
+CMLL: 42 classes autorais geradas pela curadoria Trama, a partir de geradores/sementes do Cube Coach sob MIT, sem copiar colecao externa de CMLL. Dados em `src/data/expansion-sources/cmll.ts`; gerador, reconhecimento cp/co, prova, fontes primarias e recorte em `docs/expansion-curation/`. Grupos O/H/Pi/U/T/S/AS/L e contagens 2/4/6/6/6/6/6/6. Titulos/ordinais sao editoriais, identificados como descritivos. Algoritmos nao prometem otimalidade. A derivacao preserva a atribuicao MIT das sementes.
+
+Exercicios: 24 roteiros autorais de Trama, em `src/data/expansion-sources/exercises.ts`, com referencias factuais primarias a Jessica Fridrich (CFOP) e Gilles Roux (Roux). Sao quatro de cruz, quatro fundamentos F2L, quatro primeiro bloco, quatro segundo bloco e oito LSE. Os exemplos cobrem reconhecer/planejar/inserir, preservar blocos, normalizar centros, EO com 2/4/6 arestas ruins, UL/UR e conclusao de arestas/centros. Nao sao uma enumeracao universal de construcoes intuitivas. Textos, setups, marcos e ilustracoes sao produzidos localmente; fontes externas de ensino sao referencia factual, sem copia de imagens, tabelas ou texto.
+
+Os exercicios possuem contexto residual intencional da etapa seguinte. Seu preparo completo autoral difere, quando necessario, da inversa da solucao parcial. Ambos ficam disponiveis distintamente. `tests/domain/expansion-content.test.ts` confronta cada passo do preparo e da solucao com KPuzzle, verifica objetivo, foco por IDs e a reversibilidade da solucao a partir do estado final real.
+
+Nenhuma dependencia ou CDN nova foi introduzida. Dados, algoritmos e geometrias sao modulos locais; solver e workers continuam os assets locais sob as licencas ja transcritas. Este documento e a curadoria devem acompanhar os notices locais distribuidos pela UI. Migracao de dados do usuario para v2 nao altera autoria/licenca do corpus.
+
+## Reconhecimento PLL e ajuste U explicito
+
+Referencia primaria adicional de classificacao didatica: [PLL Algorithms, Feliks Zemdegs e Andy Klise, CubeSkills](https://www.cubeskills.com/uploads/pdf/tutorials/pll-algorithms.pdf), paginas 1 e 2, consultada em 2026-09-08. A folha distingue permutacoes somente de arestas, somente de cantos, trocas adjacentes/diagonais e ciclos duplos G; explicita tambem ajustes da face U. Usamos esses fatos para definir perfis nominais de reconhecimento, sem copiar suas sequencias, imagens, diagramas, textos, layout ou dataset.
+
+`src/domain/pll-permutation.ts` calcula identidades e setas diretamente da geometria e centros do CubeState. `src/domain/pll-recognition.ts` escolhe um ajuste U que satisfaz o perfil da classe e o expoe separadamente. O desempate de apresentacao e autoral e documentado, sem alegar orientacao universal de diagramas. Preparo e solucao efetivos incorporam esse ajuste de modo inverso; algoritmos originais, IDs e corpus licenciado permanecem intactos. A geracao local das setas nao depende de assets de terceiros nem CDN.
+
+Os termos CubeSkills continuam sendo os descritos na secao de nomenclatura: consulta factual nao foi tratada como permissao de redistribuicao de materiais. Os algoritmos do produto continuam derivados do Cube Coach sob MIT. Nao houve dependencia ou licenca adicional de software.
