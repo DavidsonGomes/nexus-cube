@@ -196,15 +196,10 @@ A demonstração HTTPS na Vercel foi aberta e o Timer público foi observado con
 
 Contribuições: [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Créditos e primeiro checkpoint
+## Créditos
 
-Desenvolvido com Codex, com coordenacao e implementacao principal usando GPT-6 Astra.
+Desenvolvido com Codex, usando principalmente GPT-6 Astra, com agentes coordenados pelo Maestri e direção humana de produto.
 
-A equipe utilizou modelos diferentes. O crédito não indica que todos os agentes usaram Astra nem representa endosso da OpenAI.
+Tempo registrado no estudo: aproximadamente **5 horas e 20 minutos**.
 
-Tempo decorrido estimado ate o primeiro checkpoint: **3 horas e 33 minutos**, arredondados para baixo, entre a criação da documentação inicial em 8 de setembro de 2026 às 12:40:05 e o fechamento editorial às 16:13:48, no fuso UTC-03:00. O marco inicial é documental e aproximado, não um registro exato do kickoff. É tempo de calendário até este checkpoint, não soma do trabalho dos agentes nem duração até um MVP completo.
-
-
-Tempo decorrido estimado até este fechamento documental: **5 horas e 20 minutos**, arredondados para baixo, entre o início documental estimado de `2026-09-08T12:40:05-03:00` e `2026-09-08T18:00:47-03:00`, no fuso America/Sao_Paulo. É tempo de calendário, incluindo coordenação e esperas, não horas ativas, soma do trabalho dos agentes ou conclusão do MVP ampliado. A estimativa histórica de 3h33 do primeiro checkpoint permanece preservada.
-
-Leia o [estudo de caso sobre o desenvolvimento com Maestri e Codex](docs/estudo-de-caso-maestri-codex.md), com papéis, decisões, retrabalho, evidências e limites. O estudo conserva seu próprio corte documental de `2026-09-08T17:59:36-03:00`; esse relato distingue o código publicado dos recursos em implementação e das provas locais. Nenhum conteúdo foi publicado em rede social por esta entrega documental.
+[Como o Nexus Cube foi desenvolvido: experimento, metodologia e resultados](docs/estudo-de-caso-maestri-codex.md).
