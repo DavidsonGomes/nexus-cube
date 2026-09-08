@@ -83,6 +83,7 @@ Configure o retorno dos e-mails de recuperação e de eventual confirmação em 
 - **Roux:** quatro exercícios de primeiro bloco, quatro de segundo bloco, **42 CMLL** e oito exercícios LSE, cobrindo normalização dos centros, orientação das seis arestas, UL/UR e conclusão das arestas e centros.
 - **Estudo:** seleção, sorteio, preparo para cubo físico, solução oculta até revelar, autoavaliação e tempo opcional. Os registros de estudo não entram nas estatísticas de solves.
 - **Cubo 3D:** câmera por arrasto de mouse/pointer e setas, foco nas peças estudadas, cores completas opcionais, reprodução com pausa, passos, velocidade e notação sincronizada. Marcos dos exercícios explicam posições reais. Os 21 PLL mostram diagramas convencionais de permutação com ajuste U explícito quando necessário e acesso à sequência original.
+- **Solucionador 3×3:** área autenticada com editor dos 54 adesivos, seis centros fixos e validação física. Os modos Direta, CFOP e Roux calculam soluções reais a partir do estado informado. CFOP apresenta oito etapas e Roux sete, com objetivos, ajustes e reprodução por etapa ou movimento. A sequência não tem garantia de ser a mais curta; atingir o limite de busca não significa que o cubo seja impossível.
 
 São **161 casos algorítmicos e 24 exercícios guiados**. Os exercícios são exemplos finitos de progressão, não uma enumeração de todas as construções intuitivas de cruz/blocos ou posições LSE. Os fundamentos e casos F2L usam o slot frontal direito. A [curadoria](docs/expansion-curation/README.md) registra os recortes, as referências, os grupos e as provas reproduzíveis.
 
@@ -153,12 +154,28 @@ node --import tsx --test \
   tests/security/sync-codec.test.ts \
   tests/security/sync-engine-adversarial.test.ts \
   tests/security/sync-input-preservation.test.ts \
-  tests/security/sync-projection-boundary.test.ts
+  tests/security/sync-projection-boundary.test.ts \
+  tests/domain/solver/validation.test.ts \
+  tests/domain/solver/solution.test.ts \
+  tests/domain/solver/client.test.ts \
+  tests/domain/solver/worker-lifecycle.test.ts \
+  tests/domain/solver/cfop.test.ts \
+  tests/domain/solver/roux/plan.test.ts \
+  tests/domain/solver/roux/stages.test.ts \
+  tests/qa/solver-oracle-contract.test.ts \
+  tests/qa/solver-validation-integration.test.ts \
+  tests/qa/solver-real-oracle.test.ts \
+  tests/qa/solver-stage-oracle.test.ts \
+  tests/qa/solver-method-plan-contract.test.ts \
+  tests/qa/solver-roux-plan-oracle.test.ts \
+  tests/qa/solver-cfop-plan-oracle.test.ts \
+  tests/qa/solver-client-method-discriminator.test.ts \
+  tests/security/roux-cancellation-boundary.test.ts
 node --import tsx --test --test-name-pattern='OFF keeps' tests/security/sync-gate-boundary.test.ts
 npm run build
 ```
 
-Em um workspace compartilhado, combine a pausa dos escritores e a janela de integração antes da suíte completa ou build. Este manifesto é o recorte de integração UX com sincronização OFF: 47 arquivos, 221 testes aprovados, mais dois testes aprovados no comando separado filtrado por `OFF keeps`. Execute cada comando seguinte somente se o anterior terminar com exit 0. Os cenários ON excluídos pelo filtro, incluindo um cenário com falha conhecida, não são declarados aprovados; o arquivo original permanece preservado. SQL, backend de sync ON e o baseline arquivado em `tests/qa/fixtures-v1-baseline/` ficam fora deste recorte. Não substitua a lista por um glob de todos os testes. Os testes usam fixtures sintéticas e oráculos independentes; não são dados iniciais do aplicativo. Consulte [os testes de QA](tests/qa/README.md).
+Em um workspace compartilhado, combine a pausa dos escritores e a janela de integração antes da suíte completa ou build. Este manifesto é o recorte Solver com três modos e sincronização OFF: **63 arquivos, 261 testes aprovados**, mais **dois testes OFF** aprovados no comando separado filtrado por `OFF keeps`; o build terminou com exit 0. Execute cada comando seguinte somente se o anterior terminar com exit 0. Os cenários ON excluídos pelo filtro, incluindo um cenário com falha conhecida, não são declarados aprovados; o arquivo original permanece preservado. SQL, backend de sync ON e o baseline arquivado em `tests/qa/fixtures-v1-baseline/` ficam fora deste recorte. Não substitua a lista por um glob de todos os testes. Os testes usam fixtures sintéticas e oráculos independentes; não são dados iniciais do aplicativo. Consulte [os testes de QA](tests/qa/README.md).
 
 O build produz `dist/`. Para experimentar o build, `npm run preview` usa a porta 3001. Se ela estiver ocupada, escolha uma porta livre explicitamente, por exemplo:
 
@@ -188,9 +205,11 @@ O primeiro checkpoint passou **156 de 156 testes integrados**, cobrindo domínio
 
 O checkpoint UX com sync OFF passou **221 testes em 47 arquivos**, além de **2 testes OFF** em execução filtrada separada, todos com exit 0. O build terminou com exit 0 e gerou 31 arquivos. Esse recorte cobre as alterações de primeiro uso, captura, Auth e fronteiras locais; não concede aceite de sync ON, SQL ou solver. Os testes filtrados de ON continuam no código, sem aprovação presumida. Não houve nova suíte ou build por causa desta atualização documental.
 
-Cadastro, login, confirmação, recuperação, logout e refresh estão implementados; a validação com contas reais e email ainda está pendente. Nesta fase, o cadastro usa email e senha. No projeto desta entrega, a confirmação de email desativada foi verificada em 8 de setembro de 2026 às 19:03:33 UTC. Uma sessão retornada pelo cadastro permite entrada imediata; uma eventual exigência de confirmação é tratada somente se o serviço a retornar. A configuração SMTP e seus parâmetros foram verificados às 19:06:01 UTC, mantendo a confirmação desativada. Isso não comprova entrega de email nem recuperação de senha: nenhum envio real foi validado nesta rodada. Os redirects de produção ainda dependem da URL de deploy. A interface não promete entrega.
+Cadastro, login, confirmação, recuperação, logout e refresh estão implementados; a validação com contas reais e email ainda está pendente. Nesta fase, o cadastro usa email e senha. No projeto desta entrega, a confirmação de email desativada foi verificada em 8 de setembro de 2026 às 19:03:33 UTC. Uma sessão retornada pelo cadastro permite entrada imediata; uma eventual exigência de confirmação é tratada somente se o serviço a retornar. A configuração SMTP e seus parâmetros foram verificados às 19:06:01 UTC, mantendo a confirmação desativada. Isso não comprova entrega de email nem recuperação de senha: nenhum envio real foi validado nesta rodada. A URL de produção e os callbacks autorizados foram configurados e conferidos; o fluxo real por email ainda não foi validado. A interface não promete entrega.
 
-Sincronização entre dispositivos, adoção dos dados de visitante e importação para conta permanecem indisponíveis neste checkpoint. A infraestrutura parcial de sync está no código, com gate OFF seguro: sem envio, agendamento ou adoção ativos, e sem tratar gravação local como confirmação do servidor. Dados e filas existentes são preservados. O padrão inicial de contas aguarda hidratação; somente o padrão de visitante novo está concluído nesta fase. Os parsers sintéticos de importação existem, mas o fluxo completo de importação Cube Timer/csTimer não está implementado. O solucionador de estados 3×3 e a área administrativa também não estão implementados. A recuperação técnica de backup de visitante fica no Timer somente quando seu armazenamento está corrompido ou bloqueado. Não é um atalho público para as áreas autenticadas. A fonte original é preservada. Os dados de treino permanecem locais neste dispositivo, mesmo quando houver uma conta conectada.
+Sincronização entre dispositivos, adoção dos dados de visitante e importação para conta permanecem indisponíveis neste checkpoint. A infraestrutura parcial de sync está no código, com gate OFF seguro: sem envio, agendamento ou adoção ativos, e sem tratar gravação local como confirmação do servidor. Dados e filas existentes são preservados. O padrão inicial de contas aguarda hidratação; somente o padrão de visitante novo está concluído nesta fase. Os parsers sintéticos de importação existem, mas o fluxo completo de importação Cube Timer/csTimer e a área administrativa não fazem parte desta entrega. A recuperação técnica de backup de visitante fica no Timer somente quando seu armazenamento está corrompido ou bloqueado. Não é um atalho público para as áreas autenticadas. A fonte original é preservada. Os dados de treino permanecem locais neste dispositivo, mesmo quando houver uma conta conectada.
+
+O Solver de três modos passou o recorte de 261 testes e o build citados acima. O smoke local usou uma conta sintética e workers reais, verificando editor, soluções, etapas e controles do player em desktop e mobile. Isso não comprova desempenho para toda entrada válida, execução offline completa desta versão, toque físico ou encerramento instantâneo de workers pelo sistema operacional. A validação da fatia Solver não concede aceite das funcionalidades ainda indisponíveis.
 
 A demonstração HTTPS na Vercel foi aberta e o Timer público foi observado conforme as capturas acima. A configuração ausente no primeiro build foi corrigida no redeploy e conferida no bundle; o usuário relatou cadastro e conexão bem-sucedidos. Essa disponibilidade não representa aceite final: os demais fluxos de conta, entrega de email, sincronização e offline completo continuam pendentes.
 

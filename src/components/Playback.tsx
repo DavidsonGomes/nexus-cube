@@ -1,14 +1,15 @@
 import {contentReference,getPresentationPlayback} from './contentPresentation';
 import type {PLLPresentation} from './contentPresentation';
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {useMemo, useState} from 'react';
 import {Copy, Pause, Play, RotateCcw, SkipBack, SkipForward} from 'lucide-react';
-import {cubeAtStep, getContentPlayback, getPLLRecognition, moveInfo, parseAlgorithm} from '../domain';
+import {cubeAtStep, getContentPlayback, getPLLRecognition} from '../domain';
 import type {LearningContent} from '../domain';
 import {useData} from './AppContext';
 import StudyCube from './StudyCube';
 import ContentThumbnail from './ContentThumbnail';
 import PreparationCard from './PreparationCard';
 import {LessonTimeline} from './LearningPath';
+import {useCubePlayback} from './useCubePlayback';
 
 type PlaybackMode = 'prepare' | 'solve';
 export default function Playback({item, algorithm = item.algorithm, hideSolution = false, showSetup = true,pllPresentation,onPLLPresentationChange}: {
@@ -38,91 +39,9 @@ export default function Playback({item, algorithm = item.algorithm, hideSolution
 function PlaybackTimeline({item, playback}: {item: LearningContent; playback: ReturnType<typeof getContentPlayback>}) {
   const algorithm = playback.algorithm;
   const {data, update} = useData();
-  const tokens = useMemo(() => parseAlgorithm(algorithm), [algorithm]);
-  const [step, setStep] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [singleStep, setSingleStep] = useState(false);
-  const [moving, setMoving] = useState(false);
-  const [angle, setAngle] = useState(0);
-  const progress = useRef(0);
-  const frame = useRef(0);
-  const active = useRef(false);
+  const initialState = useMemo(() => cubeAtStep(playback.setup, algorithm, 0), [playback.setup, algorithm]);
   const speed = data.settings.animationSpeed;
-  const running = playing || singleStep;
-  const state = useMemo(() => cubeAtStep(playback.setup, algorithm, step), [playback.setup, algorithm, step]);
-  const current = step < tokens.length ? moveInfo(tokens[step]) : undefined;
-  const turns = current?.quarterTurns ?? 0;
-
-  function stopClock() {
-    active.current = false;
-    cancelAnimationFrame(frame.current);
-  }
-  function reset() {
-    stopClock();
-    progress.current = 0;
-    setPlaying(false);
-    setSingleStep(false);
-    setMoving(false);
-    setAngle(0);
-    setStep(0);
-  }
-  useEffect(() => {
-    reset();
-    return stopClock;
-  }, [item.id, algorithm]);
-
-  useEffect(() => {
-    if (!moving || !running) return;
-    active.current = true;
-    let previous = performance.now();
-    const tick = (now: number) => {
-      if (!active.current) return;
-      progress.current = Math.min(1, progress.current + (now - previous) * speed / 650);
-      previous = now;
-      setAngle(turns * 90 * (0.5 - Math.cos(progress.current * Math.PI) / 2));
-      if (progress.current < 1) frame.current = requestAnimationFrame(tick);
-      else {
-        active.current = false;
-        progress.current = 0;
-        setAngle(0);
-        setMoving(false);
-        setSingleStep(false);
-        setStep(value => value + 1);
-      }
-    };
-    frame.current = requestAnimationFrame(tick);
-    return stopClock;
-  }, [moving, running, speed, turns]);
-
-  useEffect(() => {
-    if (!playing || moving) return;
-    if (step >= tokens.length) {
-      setPlaying(false);
-      return;
-    }
-    const timeout = setTimeout(() => setMoving(true), 120 / speed);
-    return () => clearTimeout(timeout);
-  }, [playing, moving, step, tokens.length, speed]);
-
-  function togglePlayback() {
-    if (running) {
-      stopClock();
-      setPlaying(false);
-      setSingleStep(false);
-      return;
-    }
-    if (step === tokens.length) reset();
-    setPlaying(true);
-  }
-  function jump(next: number) {
-    stopClock();
-    progress.current = 0;
-    setAngle(0);
-    setMoving(false);
-    setPlaying(false);
-    setSingleStep(false);
-    setStep(next);
-  }
+  const {tokens, step, state, current, moving, angle, running, reset, jump, next, togglePlayback} = useCubePlayback(initialState, algorithm, speed);
 
   return <div className="playback" data-playback-mode={playback.mode} data-playback-step={step} data-playback-angle={angle.toFixed(6)} data-playback-paused={moving && !running}>
     <div className="playback-stage">
@@ -133,7 +52,7 @@ function PlaybackTimeline({item, playback}: {item: LearningContent; playback: Re
       <button className="icon-button" aria-label="Reiniciar algoritmo" onClick={reset}><RotateCcw size={18}/></button>
       <button className="icon-button" aria-label="Movimento anterior" disabled={step === 0 || moving} onClick={() => jump(step - 1)}><SkipBack size={19}/></button>
       <button className="play-button" aria-label={running ? 'Pausar algoritmo' : 'Reproduzir algoritmo'} onClick={togglePlayback}>{running ? <Pause size={21}/> : <Play size={21}/>}</button>
-      <button className="icon-button" aria-label="Próximo movimento" disabled={step === tokens.length || moving} onClick={() => {setPlaying(false); setSingleStep(true); setMoving(true);}}><SkipForward size={19}/></button>
+      <button className="icon-button" aria-label="Próximo movimento" disabled={step === tokens.length || moving} onClick={next}><SkipForward size={19}/></button>
       <select aria-label="Velocidade da animação" value={speed} onChange={event => {const animationSpeed=Number(event.target.value);void update(previous => ({...previous, settings: {...previous.settings, animationSpeed}}));}}>
         {[0.5, 1, 1.5, 2, 3].map(value => <option key={value} value={value}>{value}×</option>)}
       </select>
