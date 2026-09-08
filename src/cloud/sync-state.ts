@@ -11,10 +11,24 @@ export interface SyncAccountState {
   received: { header: SyncCommitHeader; upperBound: string; nextOrdinal: number; records: SyncStoredRecord[] } | null;
   adoptedSources: Record<string, string>;
   hydrated?: boolean;
-  previews?: Record<string, { generation: number; localRevision: number; remoteRevision: string; source: 'account' | 'guest'; sourceDigest: string; sourceSnapshot: AppData; merged: AppData; remote: AppData }>;
+  previews?: Record<string, { generation: number; localRevision: number; remoteRevision: string; source: 'account' | 'guest'; sourceDigest: string; sourceSnapshot: AppData; merged: AppData; remote: AppData; queueSnapshot: OutboxEntry[] }>;
+  reconciliationArchive?: Record<string, { sourceSnapshot: AppData; outbox: OutboxEntry[]; sourceDigest: string }>;
 }
 export const keyOf = (record: { entity: string; id: string }) => `${record.entity}:${record.id}`;
-export const equal = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+/** Object insertion order is not domain data. Array order and key presence are.
+ * JS numeric equality preserves binary64 values, with persisted -0 == +0.
+ */
+export function equal(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (a === null || b === null || typeof a !== 'object' || typeof b !== 'object') return false;
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) if (Object.hasOwn(a, i) !== Object.hasOwn(b, i) || !equal(a[i], b[i])) return false;
+    return true;
+  }
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length && keys.every(key => Object.hasOwn(b, key) && equal((a as Record<string, unknown>)[key], (b as Record<string, unknown>)[key]));
+}
 export function initialSyncState(reconciliation: boolean): SyncAccountState {
   return { version: 1, revision: '0', epoch: null, base: [], outbox: [], reconciliation, status: reconciliation ? 'reconciliation-required' : 'pending', error: null, received: null, adoptedSources: {} };
 }

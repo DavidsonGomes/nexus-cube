@@ -12,6 +12,10 @@ export function createRPCSyncTransport(rpc: (name: string, args: Record<string, 
       const chunks = Math.ceil(payload.length / 131072);
       const manifest = { operationId: operation.operationId, requestDigest: operation.requestDigest, bytes: payload.length, chunks };
       await rpc('nexus_sync_stage_begin', { manifest });
+      const stage = await rpc('nexus_sync_stage_status', { operation_id: operation.operationId }) as { status: string; requestDigest: string };
+      if (stage.requestDigest !== operation.requestDigest) throw new Error('Stage identity mismatch');
+      if (stage.status === 'finalized' || stage.status === 'conflicted') return await rpc('nexus_sync_stage_finalize', { operation_id: operation.operationId }) as SyncReceipt | SyncRejected;
+      if (stage.status !== 'receiving') throw new Error('Stage closed; a new confirmed plan is required');
       for (let index = 0; index < chunks; index++) await rpc('nexus_sync_stage_chunk', { operation_id: operation.operationId, chunk_index: index, chunk: payload.slice(index * 131072, (index + 1) * 131072) });
       return await rpc('nexus_sync_stage_finalize', { operation_id: operation.operationId }) as SyncReceipt | SyncRejected;
     },

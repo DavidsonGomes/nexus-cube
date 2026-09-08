@@ -86,7 +86,7 @@ export function createSyncEngine(ports: SyncEnginePorts) {
     try {
       if (!ports.online()) { await update(context, sync => { sync.status = 'offline'; }); return; }
       const transport = await ports.transport(context); if (!transport) return;
-      await update(context, sync => { sync.status = 'syncing'; sync.error = null; });
+      await update(context, sync => { sync.status = 'syncing'; sync.error = null; sync.hydrated = false; });
       await pull(context, transport);
       await ports.onHydrated?.(context);
       for (let count = 0; count < 100 && !stopped; count++) {
@@ -97,7 +97,7 @@ export function createSyncEngine(ports: SyncEnginePorts) {
         if (entry.receipt) { await pull(context, transport); break; }
         if (!entry.operation) {
           const revisions = new Map(sync.base.map(record => [keyOf(record), record]));
-          const payload = { protocolVersion: 1 as const, domainVersion: 3 as const, wireVersion: 1 as const, operationId: entry.id, baseRevision: sync.revision, changes: entry.changes.map(change => ({ entity: change.entity, id: change.id, action: !change.after ? 'delete' as const : change.restore ? 'restore' as const : 'set' as const, expectedRevision: revisions.get(keyOf(change))?.revision ?? null, record: change.after ? encodeWire(change.after) : null })), ...(entry.sourceDigest ? { sourceDigest: entry.sourceDigest } : {}) };
+          const payload = { protocolVersion: 1 as const, domainVersion: 3 as const, wireVersion: 1 as const, kind: entry.sourceDigest ? 'adoption' as const : 'mutation' as const, operationId: entry.id, baseRevision: sync.revision, changes: entry.changes.map(change => ({ entity: change.entity, id: change.id, action: !change.after ? 'delete' as const : change.restore ? 'restore' as const : 'set' as const, expectedRevision: revisions.get(keyOf(change))?.revision ?? null, record: change.after ? encodeWire(change.after) : null })), ...(entry.sourceDigest ? { sourceDigest: entry.sourceDigest } : {}) };
           // An empty account still needs the settings record when first written.
           if (sync.revision === '0' && !payload.changes.some(change => change.entity === 'settings')) {
             const settings = toSyncRecords(createInitialData()).find(record => record.entity === 'settings')!;

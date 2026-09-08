@@ -22,12 +22,20 @@ const same=(a:ContextHandle|null,b:ContextHandle|null)=>!!a&&!!b&&a.projectRef==
 let singleton:CloudService|undefined;
 const initializations=new WeakMap<CloudService,Promise<void>>();
 let callbackUrl:string|null=null;
+export function readAuthCallback(url:URL):{callbackUrl:string;cleanPath:string}|null{
+ const parameters=['code','cloud_flow','token','token_hash','access_token','refresh_token','error','error_code','error_description','type','expires_in','expires_at'];
+ const hash=new URLSearchParams(url.hash.slice(1));
+ if(!parameters.some(name=>url.searchParams.has(name)||hash.has(name)))return null;
+ const clean=new URL(url.href);
+ for(const name of parameters)clean.searchParams.delete(name);
+ clean.hash='';
+ return {callbackUrl:url.href,cleanPath:clean.pathname+clean.search};
+}
 if(typeof location!=='undefined'){
- const url=new URL(location.href);
- if(url.pathname==='/auth/callback'||url.searchParams.has('code')||url.searchParams.has('error')||url.hash.includes('access_token=')){
-   callbackUrl=url.href;
-   for(const name of ['code','cloud_flow','token','token_hash','access_token','refresh_token','error','error_code','error_description','type','expires_in','expires_at'])url.searchParams.delete(name);
-   url.hash='';history.replaceState(null,'',url.pathname+url.search);
+ const callback=readAuthCallback(new URL(location.href));
+ if(callback){
+   callbackUrl=callback.callbackUrl;
+   history.replaceState(null,'',callback.cleanPath);
  }
 }
 async function initialize(service:CloudService){
@@ -35,7 +43,7 @@ async function initialize(service:CloudService){
  if(!operation){const callback=callbackUrl;callbackUrl=null;operation=(async()=>{await service.initialize();if(callback)await service.handleAuthCallback(callback);})();initializations.set(service,operation);}
  await operation;
 }
-function getService(){return singleton??=createCloudService({url:import.meta.env.VITE_SUPABASE_URL??'',publishableKey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY??'',redirectTo:location.origin+'/auth/callback',syncEnabled:false});}
+function getService(){return singleton??=createCloudService({url:import.meta.env.VITE_SUPABASE_URL??'',publishableKey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY??'',redirectTo:location.origin+'/auth/callback',syncEnabled:true});}
 export function DataProvider({children,service:provided}:{children:ReactNode;service?:CloudService}){
  const [service]=useState<CloudService>(()=>provided??getService());
  const cloud=useSyncExternalStore(service.subscribe,service.getSnapshot,service.getSnapshot);

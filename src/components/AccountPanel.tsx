@@ -37,7 +37,7 @@ export default function AccountPanel({onClose,onAuthenticated,requestedFeature}:
       break;
     }
     case 'confirmation-required':setMessage('O serviço solicitou confirmação deste cadastro. O envio depende da configuração de e-mail; se receber o link, abra neste navegador para continuar.');break;
-    case 'email-requested':setMessage('Solicitação recebida. Para uma conta existente, o envio depende da configuração de e-mail, ainda em andamento. Se receber as instruções, abra o link neste navegador.');break;
+    case 'email-requested':setMessage('Solicitação recebida. Se houver uma conta para este e-mail e as instruções chegarem, abra o link neste navegador. A resposta do serviço não confirma a entrega.');break;
     case 'recovery-required':setMessage('Link validado. Escolha sua nova senha.');break;
     case 'password-updated':setMessage('Senha atualizada. Entre com a nova senha para continuar.');setScreen('signin');break;
     case 'logged-out':setLogoutFailed(false);setMessage(result.remote==='confirmed'?'Você saiu desta conta neste dispositivo.':'A conta foi bloqueada neste dispositivo. Não foi possível confirmar a revogação remota.');break;
@@ -79,7 +79,7 @@ export default function AccountPanel({onClose,onAuthenticated,requestedFeature}:
     {!recovery&&screen==='signin'&&<button className="text-button" data-testid="auth-recovery" disabled={blocked} onClick={()=>changeScreen('reset')}>Esqueci minha senha</button>}
     {cloud.status==='locked'&&<button className="button secondary" disabled={blocked} onClick={()=>void perform(service=>service.resumeOffline())}>Retomar conta anterior offline</button>}
     <button className="text-button" disabled={blocked} onClick={()=>void perform(service=>service.openGuest())}>{recovery?'Cancelar recuperação':'Continuar como visitante'}</button>
-    {screen==='reset'&&!recovery&&<p className="account-feedback">A recuperação depende do serviço de e-mail, cuja configuração pública ainda está em andamento. Envio e recebimento não estão garantidos nesta etapa.</p>}
+    {screen==='reset'&&!recovery&&<p className="account-feedback">O serviço de e-mail está configurado. A entrega e o fluxo completo de recuperação ainda não foram validados nesta versão.</p>}
     <p className="account-privacy"><LockKeyhole size={15}/> Entrar não transfere seus dados de visitante. Os dados de cada conta permanecem separados. Consulte o estado de armazenamento ao conectar.</p>
    </>}
    {timerBusy&&<p role="status" className="muted small">Conclua ou cancele o tempo em andamento antes de mudar sua conta.</p>}

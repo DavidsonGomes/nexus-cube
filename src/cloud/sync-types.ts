@@ -6,7 +6,7 @@ export type Revision = string;
 /** Versioned JSON-safe envelope. All user strings are UTF16 code units in hex. */
 export type WireValue = ['null'] | ['bool', boolean] | ['number', string, string] | ['string', string] | ['array', WireValue[]] | ['object', [string, WireValue][]];
 export interface SyncChange { action: 'set' | 'delete' | 'restore'; entity: SyncRecord['entity']; id: string; expectedRevision: Revision | null; record: WireValue | null }
-export interface SyncOperation { protocolVersion: 1; domainVersion: 3; wireVersion: 1; operationId: string; requestDigest: string; baseRevision: Revision; changes: SyncChange[]; sourceDigest?: string }
+export interface SyncOperation { protocolVersion: 1; domainVersion: 3; wireVersion: 1; kind?: 'mutation' | 'adoption'; operationId: string; requestDigest: string; baseRevision: Revision; changes: SyncChange[]; sourceDigest?: string }
 export interface SyncReceipt { kind: 'applied'; operationId: string; requestDigest: string; commitRevision: Revision; changeCount: number }
 export interface SyncRejected { kind: 'conflict'; operationId: string; requestDigest: string; currentRevision: Revision; reason: 'revision' | 'tombstone' | 'source-adopted' }
 export interface SyncStoredRecord { entity: SyncRecord['entity']; id: string; revision: Revision; tombstone: boolean; record: WireValue | null }

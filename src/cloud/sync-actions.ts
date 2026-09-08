@@ -4,7 +4,7 @@ import type { CloudAtomicStore, CloudState } from './storage';
 import type { CloudSyncAPI, SyncCounts, SyncTransport } from './sync-types';
 import type { ContextHandle, Failure } from './types';
 import { digest } from './codec';
-import { diffRecords, equal, fold, keyOf, liveBase } from './sync-state';
+import { diffRecords, equal, fold, keyOf, liveBase, type SyncAccountState } from './sync-state';
 
 interface Ports {
   store: CloudAtomicStore; guard(state: CloudState, context: ContextHandle): void;
@@ -46,6 +46,12 @@ function merge(remote: AppData, source: AppData, id: () => string): { data: AppD
   return { data, collisions };
 }
 export function createSyncActions(ports: Ports): CloudSyncAPI {
+  async function failFor(context: ContextHandle, error: unknown): Promise<Failure> {
+    try { return await ports.after(context, failed(error)); } catch (failure) { return failed(failure); }
+  }
+  function requireHydrated(sync: SyncAccountState) {
+    if (!sync.hydrated || sync.received || sync.error || ['syncing','error','offline','unavailable'].includes(sync.status)) throw new Error('A base remota ainda não foi confirmada. Reconecte e tente novamente.');
+  }
   function account(state: CloudState, context: ContextHandle) {
     ports.guard(state, context); ports.idle(state);
     if (!context.userId || !state.accounts[context.userId]?.sync) throw new Error('Sincronização de conta indisponível.');
@@ -55,6 +61,7 @@ export function createSyncActions(ports: Ports): CloudSyncAPI {
     try {
       await ports.drain();
       const state = await ports.store.read(); const current = account(state, context); const sync = current.sync!;
+      requireHydrated(sync);
       const sourceSnapshot = structuredClone(source === 'guest' ? state.guest?.data : current.data);
       if (!sourceSnapshot || (source === 'guest' && state.guestError)) throw new Error('Recupere a fonte visitante antes da adoção.');
       const sourceDigest = await digest({ source, data: toSyncAccountData(sourceSnapshot) });
@@ -65,26 +72,33 @@ export function createSyncActions(ports: Ports): CloudSyncAPI {
       const remote = projected(liveBase(sync), current.data); const plan = merge(remote, sourceSnapshot, ports.randomId); const previewId = ports.randomId();
       await ports.store.transact(next => {
         const currentNext = account(next, context);
-        if (currentNext.revision !== current.revision || currentNext.sync!.revision !== sync.revision) throw new Error('Os dados mudaram. Gere nova prévia.');
+        requireHydrated(currentNext.sync!);
+        if (currentNext.revision !== current.revision || currentNext.sync!.revision !== sync.revision || !equal(currentNext.sync!.outbox, sync.outbox)) throw new Error('Os dados mudaram. Gere nova prévia.');
         const previews = currentNext.sync!.previews ??= {};
         // One active preview per source, preserving already adopted sources.
         for (const [key, old] of Object.entries(previews)) if (old.source === source) delete previews[key];
-        previews[previewId] = { generation: context.generation, localRevision: current.revision, remoteRevision: sync.revision, source, sourceDigest, sourceSnapshot, merged: plan.data, remote };
+        previews[previewId] = { generation: context.generation, localRevision: current.revision, remoteRevision: sync.revision, source, sourceDigest, sourceSnapshot, merged: plan.data, remote, queueSnapshot: structuredClone(sync.outbox) };
       });
       return await ports.after(context, { kind: 'preview' as const, preview: { previewId, source, local: counts(sourceSnapshot), remote: counts(remote), collisions: plan.collisions, sourceDigest, remoteRevision: sync.revision, warning: 'Mesclar preserva registros com IDs diferentes, renomeia colisões e usa progresso e configurações desta fonte. A fonte confirmada é um snapshot; dados posteriores continuam separados.' } });
-    } catch (error) { return failed(error); }
+    } catch (error) { return failFor(context, error); }
   }
   async function confirm(context: ContextHandle, previewId: string, choice: 'remote' | 'merge', source: 'account' | 'guest') {
     try {
       const operationId = ports.randomId();
       const result = await ports.store.transact(state => {
         const current = account(state, context); const sync = current.sync!; const plan = sync.previews?.[previewId];
+        requireHydrated(sync);
         if (!plan || plan.source !== source || plan.generation !== context.generation || plan.localRevision !== current.revision || plan.remoteRevision !== sync.revision) throw new Error('Prévia expirada ou dados alterados. Revise novamente.');
-        if (sync.outbox.length) throw new Error('Resolva ou conclua as alterações pendentes antes desta escolha.');
+        if (!equal(sync.outbox, plan.queueSnapshot)) throw new Error('A fila mudou. Gere nova prévia.');
+        if (sync.outbox.length && (source !== 'account' || !sync.reconciliation)) throw new Error('Conclua ou resolva a fila antes de adotar outra fonte.');
         if (sync.adoptedSources[plan.sourceDigest]) throw new Error('Fonte já adotada.');
         const next = choice === 'remote' ? plan.remote : plan.merged;
         const changes = diffRecords(plan.remote, next, liveBase(sync));
-        current.data = next; current.revision++; sync.reconciliation = false;
+        if (sync.outbox.length) {
+          (sync.reconciliationArchive ??= {})[previewId] = { sourceSnapshot: plan.sourceSnapshot, outbox: structuredClone(sync.outbox), sourceDigest: plan.sourceDigest };
+          sync.outbox = [];
+        }
+        current.data = next; current.revision++; sync.reconciliation = false; current.syncNeedsReconciliation = false;
         if (changes.length) sync.outbox.push({ id: operationId, changes, sourceDigest: plan.sourceDigest });
         else sync.adoptedSources[plan.sourceDigest] = operationId;
         // Keep the exact source for crash recovery; never erase guest/source bytes.
@@ -92,35 +106,38 @@ export function createSyncActions(ports: Ports): CloudSyncAPI {
         return { kind: 'queued' as const, operationId: changes.length ? operationId : null };
       });
       ports.trigger(); return await ports.after(context, result, true);
-    } catch (error) { return failed(error); }
+    } catch (error) { return failFor(context, error); }
   }
   return {
-    previewAccountReconciliation: input => preview(input.context, 'account'),
-    previewGuestAdoption: input => preview(input.context, 'guest'),
-    confirmAccountReconciliation: input => confirm(input.context, input.previewId, input.choice, 'account'),
-    confirmGuestAdoption: input => confirm(input.context, input.previewId, 'merge', 'guest'),
-    listSyncConflicts: async context => {
-      try { const state = await ports.store.read(); const current = account(state, context); return await ports.after(context, { kind: 'conflicts' as const, conflicts: current.sync!.outbox.filter(entry => entry.conflict).map(entry => ({ id: entry.id, operationId: entry.id, reason: entry.conflict!, expectedRemoteRevision: current.sync!.revision, localChangeCount: entry.changes.length, entities: [...new Set(entry.changes.map(change => change.entity))] })) }); } catch (error) { return failed(error); }
+    previewAccountReconciliation: input => preview({ ...input.context }, 'account'),
+    previewGuestAdoption: input => preview({ ...input.context }, 'guest'),
+    confirmAccountReconciliation: input => confirm({ ...input.context }, input.previewId, input.choice, 'account'),
+    confirmGuestAdoption: input => confirm({ ...input.context }, input.previewId, 'merge', 'guest'),
+    listSyncConflicts: async suppliedContext => {
+      const context = { ...suppliedContext };
+      try { const state = await ports.store.read(); const current = account(state, context); return await ports.after(context, { kind: 'conflicts' as const, conflicts: current.sync!.outbox.filter(entry => entry.conflict).map(entry => ({ id: entry.id, operationId: entry.id, reason: entry.conflict!, expectedRemoteRevision: current.sync!.revision, localChangeCount: entry.changes.length, entities: [...new Set(entry.changes.map(change => change.entity))] })) }); } catch (error) { return failFor(context, error); }
     },
     resolveSyncConflict: async input => {
+      const context = { ...input.context };
+      const { conflictId, choice, expectedRemoteRevision } = input;
       try {
         const operationId = ports.randomId();
         const result = await ports.store.transact(state => {
-          const current = account(state, input.context); const sync = current.sync!;
-          if (sync.revision !== input.expectedRemoteRevision) throw new Error('O servidor mudou. Revise o conflito novamente.');
-          const index = sync.outbox.findIndex(entry => entry.id === input.conflictId && entry.conflict);
+          const current = account(state, context); const sync = current.sync!;
+          if (sync.revision !== expectedRemoteRevision) throw new Error('O servidor mudou. Revise o conflito novamente.');
+          const index = sync.outbox.findIndex(entry => entry.id === conflictId && entry.conflict);
           if (index < 0) throw new Error('Conflito não disponível.');
           const entry = sync.outbox[index];
-          if (input.choice === 'remote') sync.outbox.splice(index, 1);
+          if (choice === 'remote') sync.outbox.splice(index, 1);
           else {
             const base = new Map(liveBase(sync).map(record => [keyOf(record), record]));
             sync.outbox[index] = { id: operationId, changes: entry.changes.map(change => ({ ...change, before: base.get(keyOf(change)) ?? null, restore: !!change.after && sync.base.some(record => keyOf(record) === keyOf(change) && record.tombstone) })), sourceDigest: entry.sourceDigest };
           }
           current.data = fold(sync, current.data); current.revision++; sync.status = 'pending';
-          return { kind: 'queued' as const, operationId: input.choice === 'remote' ? null : operationId };
+          return { kind: 'queued' as const, operationId: choice === 'remote' ? null : operationId };
         });
-        ports.trigger(); return await ports.after(input.context, result, true);
-      } catch (error) { return failed(error); }
+        ports.trigger(); return await ports.after(context, result, true);
+      } catch (error) { return failFor(context, error); }
     },
   };
 }

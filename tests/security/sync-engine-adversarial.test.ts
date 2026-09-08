@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createSyncEngine } from '../../src/cloud/sync-engine';
 import type { SyncAccountState, OutboxEntry } from '../../src/cloud/sync-state';
 import type { ContextHandle } from '../../src/cloud/types';
-import type { SyncOperation, SyncStoredRecord, SyncTransport } from '../../src/cloud/sync-types';
+import type { SyncOperation, SyncReceipt, SyncStoredRecord, SyncTransport } from '../../src/cloud/sync-types';
 import { ControlledStore } from './controlled-dependencies';
 import { automaticSyncFixture, SYNC_OPERATION_IDS } from './sync-fixtures';
 import { QA_IDENTITIES, deferred } from './fixtures';
@@ -143,8 +143,47 @@ test('sync engine: hasMore false before confirmed upper bound cannot report sync
   await h.engine.drain();
   assert.notEqual(h.sync().status, 'synced', 'commit eleven was advertised but never received');
   assert.notEqual(h.sync().revision, '11', 'upper bound cannot fabricate applied revision');
-  assert.equal(h.sync().hydrated, before.sync!.hydrated, 'invalid page cannot confirm hydration');
+  assert.equal(h.sync().hydrated, false, 'an incomplete confirmed cut must leave hydration explicitly false');
   assert.deepEqual(h.sync().base, before.sync!.base);
   assert.deepEqual(h.sync().outbox, before.sync!.outbox);
   assert.deepEqual(h.store.peek().accounts[QA_IDENTITIES.a.id].data, before.data);
+});
+
+test('sync engine: late receipt and commit for archived queue cannot remove replacement intent', async t => {
+  const acknowledgement = deferred<SyncReceipt>(), dispatched = deferred<void>();
+  const pushes: SyncOperation[] = []; let pulls = 0;
+  const transport: SyncTransport = {
+    status: async () => ({ revision: '10' }),
+    pull: async () => {
+      if (++pulls === 1) return emptyPage('9');
+      return fixturePage([{ entity: 'solve', id: h.after.id, revision: '10', tombstone: false, record: oracleWire(h.after) }], pushes[0]);
+    },
+    push: async operation => {
+      pushes.push(structuredClone(operation));
+      if (pushes.length === 1) { dispatched.resolve(); return acknowledgement.promise; }
+      throw new Error('Synthetic stop with replacement still pending');
+    },
+  };
+  const h = await harness(transport); t.after(() => h.engine.dispose());
+  const running = h.engine.drain(); await dispatched.promise;
+  // Another context's confirmed local reconciliation is a dependency event.
+  // Its own atomic archive/marker behavior is covered through the service test.
+  await h.store.transact(root => {
+    const account = root.accounts[QA_IDENTITIES.a.id], sync = account.sync!;
+    sync.reconciliationArchive = { 'synthetic-confirmed-plan': { sourceSnapshot: structuredClone(account.data), outbox: structuredClone(sync.outbox), sourceDigest: 'synthetic-source' } };
+    sync.outbox = [{ id: SYNC_OPERATION_IDS.edit, changes: [{ entity: 'solve', id: h.after.id, before: h.after, after: { ...h.after, value: h.fixture.intentAfterCreate } }] }];
+  });
+  acknowledgement.resolve({ kind: 'applied', operationId: pushes[0].operationId, requestDigest: pushes[0].requestDigest, commitRevision: '10', changeCount: 1 });
+  await running;
+  assert.equal(h.sync().revision, '10'); assert.equal(h.sync().outbox.length, 1);
+  assert.equal(h.sync().outbox[0].id, SYNC_OPERATION_IDS.edit);
+  assert.deepEqual(h.sync().outbox[0].changes[0].after?.value, h.fixture.intentAfterCreate);
+  assert.equal(h.sync().outbox[0].receipt, undefined);
+  assert.deepEqual(h.sync().base.find(record => record.id === h.after.id)?.record, oracleWire(h.sync().outbox[0].changes[0].before));
+  assert.equal(h.sync().outbox[0].conflict, undefined, 'canonical before equals confirmed record; property insertion order is not a domain conflict');
+  assert.equal(pushes.length, 2); assert.equal(pushes[1].baseRevision, '10');
+  assert.equal(pushes[1].changes[0].expectedRevision, '10');
+  assert.deepEqual(h.sync().reconciliationArchive!['synthetic-confirmed-plan'].outbox[0].operation, pushes[0]);
+  assert.deepEqual(h.store.peek().accounts[QA_IDENTITIES.a.id].data.solves.find(solve => solve.id === h.after.id), h.fixture.intentAfterCreate);
+  assert.deepEqual(h.store.peek().accounts[QA_IDENTITIES.b.id].data, h.fixture.b);
 });
