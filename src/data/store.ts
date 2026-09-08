@@ -14,7 +14,13 @@ const MAX_SESSION_COUNT=1000,MAX_SOLVE_COUNT=100000,MAX_STUDY_ATTEMPT_COUNT=1000
 // Adding ,"mode":null costs exactly 12 bytes per session/solve. Version stays 1 digit.
 export const MIGRATION_NUMBER_ALLOWANCE_BYTES=24*(MAX_SOLVE_COUNT+MAX_STUDY_ATTEMPT_COUNT+2);
 export const MIGRATION_MODE_ALLOWANCE_BYTES=12*(MAX_SESSION_COUNT+MAX_SOLVE_COUNT);
-export const MAX_SNAPSHOT_BYTES=2*MAX_LEGACY_SOURCE_BYTES+MIGRATION_NUMBER_ALLOWANCE_BYTES+MIGRATION_MODE_ALLOWANCE_BYTES;
+/** Historical R6 snapshot capacity. This anchor never grows on a round-trip. */
+export const V3_COMPAT_SNAPSHOT_BYTES=2*MAX_LEGACY_SOURCE_BYTES+MIGRATION_NUMBER_ALLOWANCE_BYTES+MIGRATION_MODE_ALLOWANCE_BYTES;
+// A historical one-character ID occupies 3 JSON bytes; null occupies 4.
+export const MAX_ACCOUNT_SNAPSHOT_BYTES=V3_COMPAT_SNAPSHOT_BYTES+1;
+// Any valid ASCII ID occupies at most 102 quoted bytes, versus null's 4.
+export const MAX_SYNC_SELECTION_EXTRA_BYTES=98;
+export const MAX_SNAPSHOT_BYTES=MAX_ACCOUNT_SNAPSHOT_BYTES+MAX_SYNC_SELECTION_EXTRA_BYTES;
 export function utf8ByteLength(text:string):number {return new TextEncoder().encode(text).byteLength;}
 function backupEnvelope(snapshotJSON:string,exportedAt:string):string {
   return '{"format":"nexus-cube","version":3,"exportedAt":'+JSON.stringify(exportedAt)+',"data":'+snapshotJSON+'}';
@@ -54,11 +60,12 @@ function assertLegacySourceSize(value:unknown,text:string):void {
   if(value&&typeof value==='object'&&[1,2].includes((value as {version:number}).version)&&utf8ByteLength(text)>MAX_LEGACY_SOURCE_BYTES)throw new Error('Fonte legada excede o limite histórico de 20 MiB em UTF-8.');
 }
 function snapshotJSON(data:AppData):string {
-  const text=JSON.stringify(validateData(data));
+  const checked=validateData(data),text=JSON.stringify(checked);
+  if(utf8ByteLength(JSON.stringify({...checked,activeSessionId:null}))>MAX_ACCOUNT_SNAPSHOT_BYTES)throw new Error(`Conteúdo da conta excede o limite fixo de ${MAX_ACCOUNT_SNAPSHOT_BYTES} bytes UTF-8. A seleção local não amplia esse orçamento.`);
   if(utf8ByteLength(text)>MAX_SNAPSHOT_BYTES)throw new Error(`Dados excedem o limite de ${MAX_SNAPSHOT_BYTES} bytes UTF-8. O conteúdo original foi preservado; baixe a cópia de recuperação antes de alterar os dados.`);
   return text;
 }
-export function loadData(storage?: StorageLike): {data:AppData;error:string|null} {try{const raw=storageOrThrow(storage).getItem(STORAGE_KEY);if(raw===null)return {data:createInitialData(),error:null};const parsed=limitedJSON(raw,MAX_SNAPSHOT_BYTES);assertLegacySourceSize(parsed,raw);return {data:validateData(parsed),error:null};}catch(error){return {data:createInitialData(),error:error instanceof Error?error.message:'Falha ao carregar dados.'};}}
+export function loadData(storage?: StorageLike): {data:AppData;error:string|null} {try{const raw=storageOrThrow(storage).getItem(STORAGE_KEY);if(raw===null)return {data:createInitialData(),error:null};const parsed=limitedJSON(raw,MAX_SNAPSHOT_BYTES);assertLegacySourceSize(parsed,raw);const data=validateData(parsed);snapshotJSON(data);return {data,error:null};}catch(error){return {data:createInitialData(),error:error instanceof Error?error.message:'Falha ao carregar dados.'};}}
 export function saveData(data: AppData,storage?: StorageLike): void {const text=snapshotJSON(data);try{storageOrThrow(storage).setItem(STORAGE_KEY,text);}catch(error){throw new Error(`Nao foi possivel salvar: ${error instanceof Error?error.message:'armazenamento indisponivel'}`);}}
 export function exportBackup(data: AppData): string {
   const snapshot=snapshotJSON(data),exportedAt=new Date().toISOString();date(exportedAt);
@@ -66,7 +73,7 @@ export function exportBackup(data: AppData): string {
   if(utf8ByteLength(text)>MAX_BACKUP_BYTES)throw new Error('Backup excede o limite do arquivo em bytes UTF-8.');
   return text;
 }
-export function parseBackup(text: string): AppData {const b=object(limitedJSON(text,MAX_BACKUP_BYTES),['format','version','exportedAt','data']);if(b.format!=='nexus-cube'||(b.version!==1&&b.version!==2&&b.version!==3))fail('formato ou versao de backup nao suportado.');assertLegacySourceSize(b,text);date(b.exportedAt);if(!b.data||typeof b.data!=='object'||(b.data as Record<string,unknown>).version!==b.version)fail('versoes de envelope e dados divergentes.');return validateData(b.data);}
+export function parseBackup(text: string): AppData {const b=object(limitedJSON(text,MAX_BACKUP_BYTES),['format','version','exportedAt','data']);if(b.format!=='nexus-cube'||(b.version!==1&&b.version!==2&&b.version!==3))fail('formato ou versao de backup nao suportado.');assertLegacySourceSize(b,text);date(b.exportedAt);if(!b.data||typeof b.data!=='object'||(b.data as Record<string,unknown>).version!==b.version)fail('versoes de envelope e dados divergentes.');const data=validateData(b.data);snapshotJSON(data);return data;}
 export function importBackup(text: string,storage?: StorageLike): AppData {const data=parseBackup(text);saveData(data,storage);return data;}
 function csvCell(value: unknown): string {let text=String(value??'');if(/^[\s]*[=+@-]/.test(text))text="'"+text;return '"'+text.replace(/"/g,'""')+'"';}
 export function exportCSV(data: AppData,scope:CSVScope): string {

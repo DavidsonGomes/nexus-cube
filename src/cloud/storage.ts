@@ -1,7 +1,9 @@
 import type { AppData, Solve, SolveCapture } from '../domain/types';
 import type { CaptureInputResult, CloudIdentity } from './types';
+import type { SyncAccountState } from './sync-state';
 
 export interface StoredDraft { id: string; capabilityId: string; userId: string | null; generation: number; capture: SolveCapture; source?: 'timer' | 'manual'; state: 'armed' | 'completed' | 'committed' | 'cancelled'; result: CaptureInputResult | null; solve?: Solve | null }
+export interface FirstUseState { eligible: boolean; initialized: boolean; sessionId: string; createdAt: string }
 export interface CloudState {
   version: 1;
   generation: number;
@@ -11,8 +13,8 @@ export interface CloudState {
   allowedAuth: string[];
   auth: Record<string, string>;
   flow: { id: string; instance: string; generation: number; kind: 'signup' | 'recovery'; expiresAt: number; user: CloudIdentity | null; consumed: boolean } | null;
-  accounts: Record<string, { data: AppData; revision: number }>;
-  guest: { data: AppData; revision: number } | null;
+  accounts: Record<string, { data: AppData; revision: number; sync?: SyncAccountState; firstUse?: FirstUseState; syncNeedsReconciliation?: boolean }>;
+  guest: { data: AppData; revision: number; firstUse?: FirstUseState } | null;
   guestError: string | null;
   drafts: Record<string, StoredDraft>;
 }

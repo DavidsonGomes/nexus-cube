@@ -28,6 +28,7 @@ export function createSupabaseAuthFactory(url: string, publishableKey: string): 
       return identity(data.user);
     }
     return {
+      rpc: async (name, args) => { const { data, error } = await client.rpc(name, args); if (error) throw new Error('Serviço de sincronização indisponível.'); return data; },
       signUp: async (email, password, redirectTo) => { const { data, error } = await client.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo } }); if (error) throw error; session = data.session; return data.session ? verified() : null; },
       signIn: async (email, password) => { const { data, error } = await client.auth.signInWithPassword({ email, password }); if (error) throw error; session = data.session; const user = await verified(); if (!user) throw new Error('Sessão indisponível.'); return user; },
       getUser: verified,

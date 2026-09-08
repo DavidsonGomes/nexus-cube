@@ -1,4 +1,5 @@
 import type { AppData, Solve, SolveCapture } from '../domain/types';
+import type { CloudSyncAPI, SyncStatus } from './sync-types';
 
 export interface CloudIdentity { id: string; email: string | null }
 /** Trusted AuthDriver classification, never inferred from an arbitrary Error message. */
@@ -6,7 +7,7 @@ export class AuthSessionInvalidError extends Error { readonly kind = 'auth-sessi
 export interface ContextHandle { projectRef: string; userId: string | null; generation: number }
 export type CloudFailureCode = 'unavailable' | 'offline' | 'auth-error' | 'identity-changed' | 'locked' | 'busy-capture' | 'stale-local' | 'invalid' | 'storage-error' | 'recovery-invalid' | 'outcome-unknown' | 'import-unavailable';
 export type Failure = { kind: 'error'; code: CloudFailureCode; message: string };
-export type AuthResult = { kind: 'authenticated'; identity: CloudIdentity } | { kind: 'confirmation-required' } | { kind: 'email-requested' } | { kind: 'recovery-required'; recoveryContextId: string; identity: CloudIdentity } | { kind: 'password-updated' } | Failure;
+export type AuthResult = { kind: 'authenticated'; identity: CloudIdentity; context: ContextHandle } | { kind: 'confirmation-required' } | { kind: 'email-requested' } | { kind: 'recovery-required'; recoveryContextId: string; identity: CloudIdentity } | { kind: 'password-updated' } | Failure;
 export type LogoutResult = { kind: 'logged-out'; local: 'durable'; remote: 'confirmed' | 'unconfirmed' } | { kind: 'logout-storage-error'; local: 'memory-only'; message: string } | Failure;
 export interface CloudSnapshot {
   status: 'initializing' | 'guest' | 'authenticated' | 'offline-account' | 'locked' | 'recovery' | 'unavailable';
@@ -16,11 +17,15 @@ export interface CloudSnapshot {
   localRevision: number;
   error: Failure | null;
   recoveryContextId: string | null;
-  sync: 'unavailable';
-  accountImport: 'unavailable';
+  sync: SyncStatus;
+  syncPendingCount: number;
+  syncError: string | null;
+  syncConfirmedRevision: string | null;
+  syncHydrated: boolean;
+  accountImport: 'unavailable' | 'available';
   storageLabel: 'Dados locais neste dispositivo';
 }
-export type CommitResult = { kind: 'committed'; data: AppData; localRevision: number; context: ContextHandle; sync: 'unavailable' } | Failure;
+export type CommitResult = { kind: 'committed'; data: AppData; localRevision: number; context: ContextHandle; sync: SyncStatus } | Failure;
 export interface CaptureHandle { readonly id: string; readonly context: ContextHandle }
 export type CaptureResult = { kind: 'armed'; capture: CaptureHandle } | { kind: 'resumed'; capture: CaptureHandle; draft: RecoveryDraft } | { kind: 'draft-saved'; id: string } | { kind: 'cancelled' } | Failure;
 export interface CaptureInputResult { rawMs: number; penalty: 'none' | '+2' | 'DNF'; note: string }
@@ -28,6 +33,7 @@ export interface RecoveryDraft { id: string; state: 'interrupted' | 'completed' 
 
 /** Small SDK seam. Test doubles implement this without real credentials or network. */
 export interface AuthDriver {
+  rpc?(name: string, args: Record<string, unknown>): Promise<unknown>;
   signUp(email: string, password: string, redirectTo: string): Promise<CloudIdentity | null>;
   signIn(email: string, password: string): Promise<CloudIdentity>;
   getUser(): Promise<CloudIdentity | null>;
@@ -42,10 +48,11 @@ export interface AuthDriver {
 export interface AuthStorage { getItem(key: string): Promise<string | null>; setItem(key: string, value: string): Promise<void>; removeItem(key: string): Promise<void> }
 export type AuthDriverFactory = (options: { storage: AuthStorage; storageKey: string }) => AuthDriver;
 
-export interface CloudService {
+export interface CloudService extends CloudSyncAPI {
   getSnapshot(): CloudSnapshot;
   subscribe(listener: () => void): () => void;
   initialize(): Promise<void>;
+  ensureFirstUse(context: ContextHandle): Promise<CommitResult>;
   signUp(input: { email: string; password: string }): Promise<AuthResult>;
   signIn(input: { email: string; password: string }): Promise<AuthResult>;
   requestPasswordReset(email: string): Promise<AuthResult>;

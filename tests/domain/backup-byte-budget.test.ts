@@ -10,8 +10,8 @@ const stamp='2026-09-08T12:00:00.000Z';
 // Independent byte oracle: Buffer, never the product's TextEncoder helper.
 const bytes=(text:string)=>Buffer.byteLength(text,'utf8');
 function emptyFixture():AppData {
-  return {version:3,sessions:[{id:'boundary',name:'Limite sintético',createdAt:stamp,mode:'two-handed'}],activeSessionId:'boundary',
-    solves:Array.from({length:5500},(_,i)=>({id:`boundary-${i}`,sessionId:'boundary',mode:'two-handed',rawMs:1000,penalty:'none',scramble:'',createdAt:stamp,note:'',source:'manual'})),
+  return {version:3,sessions:[{id:'b'.repeat(100),name:'Limite sintético',createdAt:stamp,mode:'two-handed'}],activeSessionId:'b'.repeat(100),
+    solves:Array.from({length:5500},(_,i)=>({id:`boundary-${i}`,sessionId:'b'.repeat(100),mode:'two-handed',rawMs:1000,penalty:'none',scramble:'',createdAt:stamp,note:'',source:'manual'})),
     progress:{},studyAttempts:[],settings:{theme:'dark',inspection:false,inspectionSound:false,holdMs:300,focus:false,hideRunningTime:false,animationSpeed:1}};
 }
 function fill<T extends {solves:{note:string}[]}>(data:T,size:number,emoji=false):T {
@@ -29,7 +29,7 @@ function storage(initial='original') {let raw=initial,writes=0;return {get raw()
 
 test('bounded migration allowance and exact snapshot/file budgets preserve ASCII and emoji at -1/exact/+1',t=>{
   const overhead=bytes(JSON.stringify({format:'nexus-cube',version:3,exportedAt:stamp,data:{}}))-bytes('{}');
-  const snapshotLimit=2*LIMIT+24*200002+12*101000;
+  const snapshotLimit=2*LIMIT+24*200002+12*101000+99;
   assert.equal(MAX_LEGACY_SOURCE_BYTES,LIMIT);assert.equal(MAX_SNAPSHOT_BYTES,snapshotLimit);assert.equal(BACKUP_ENVELOPE_OVERHEAD_BYTES,overhead);assert.equal(MAX_BACKUP_BYTES,snapshotLimit+overhead);
   t.diagnostic(JSON.stringify({legacy:MAX_LEGACY_SOURCE_BYTES,snapshot:MAX_SNAPSHOT_BYTES,envelope:BACKUP_ENVELOPE_OVERHEAD_BYTES,backup:MAX_BACKUP_BYTES}));
   assert.equal(utf8ByteLength('🧊á'),6);

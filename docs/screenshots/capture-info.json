@@ -8,7 +8,7 @@
   "operatorVerifiedAuthSuccess": false,
   "smtpDeliveryVerified": false,
   "timerSession": "demonstrative-empty",
-  "totalImageBytes": 2197170,
+  "totalImageBytes": 4109026,
   "images": [
     {
       "file": "login-desktop-dark.png",
@@ -22,7 +22,9 @@
       "sha256": "36d4725173d218f561024c9306a6682844339440d2dd3125ab9974e6a96b5671",
       "entry": "/assets/index-CdvfY9QR.js",
       "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
-      "authConfigurationInCapturedBuild": "present-valid"
+      "authConfigurationInCapturedBuild": "present-valid",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "login-desktop-light.png",
@@ -36,7 +38,9 @@
       "sha256": "09caaa6c10992c57a7877e5ddd6fa970a4c7b923fa3afee06fed6c3da72d3dde",
       "entry": "/assets/index-CdvfY9QR.js",
       "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
-      "authConfigurationInCapturedBuild": "present-valid"
+      "authConfigurationInCapturedBuild": "present-valid",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "login-mobile-dark.png",
@@ -50,7 +54,9 @@
       "sha256": "4ae03f23e9b03e0b6c1b30cae26f24a0b26dda92a5a302d6b02c31535bb3cc68",
       "entry": "/assets/index-CdvfY9QR.js",
       "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
-      "authConfigurationInCapturedBuild": "present-valid"
+      "authConfigurationInCapturedBuild": "present-valid",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "login-mobile-light.png",
@@ -64,7 +70,9 @@
       "sha256": "2edde1ae066b4b0bd9d6aad4786bbe9b3a3e3e453f3ecdb9139c6b312dfdc296",
       "entry": "/assets/index-CdvfY9QR.js",
       "entrySHA256": "bcd4625147d77c0ebc4a207d7bec0aec5d9941a2060299c15606cbe60de92e43",
-      "authConfigurationInCapturedBuild": "present-valid"
+      "authConfigurationInCapturedBuild": "present-valid",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "timer-desktop-dark.png",
@@ -78,7 +86,9 @@
       "sha256": "57bcc9d9304257a5a106417da9f7d51cb98c8df089020be16d926c5f46eb8b54",
       "entry": "/assets/index-yZAwXSCH.js",
       "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
-      "authConfigurationInCapturedBuild": "unavailable"
+      "authConfigurationInCapturedBuild": "unavailable",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "timer-desktop-light.png",
@@ -92,7 +102,9 @@
       "sha256": "c0dfa71cbb9065e27f50a2d09dc26c7c84fd1ceb9be828cddabcdac092942713",
       "entry": "/assets/index-yZAwXSCH.js",
       "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
-      "authConfigurationInCapturedBuild": "unavailable"
+      "authConfigurationInCapturedBuild": "unavailable",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "timer-mobile-dark.png",
@@ -106,7 +118,9 @@
       "sha256": "f3b41fb27317892ce4d8941d15836e9b882bd9dccb37e6f29b929db514bc24f5",
       "entry": "/assets/index-yZAwXSCH.js",
       "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
-      "authConfigurationInCapturedBuild": "unavailable"
+      "authConfigurationInCapturedBuild": "unavailable",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
     },
     {
       "file": "timer-mobile-light.png",
@@ -120,7 +134,99 @@
       "sha256": "af5926b4d4842de4250a96a4fe35ddb354e81ff3c9e6aed88eaaeb40e48500a8",
       "entry": "/assets/index-yZAwXSCH.js",
       "entrySHA256": "b3551c80452437787e42d6f81a620341ae74cb8c5916580bf622cc69772655ff",
-      "authConfigurationInCapturedBuild": "unavailable"
+      "authConfigurationInCapturedBuild": "unavailable",
+      "environment": "public-production",
+      "url": "https://nexus-cube-phi.vercel.app/"
+    },
+    {
+      "file": "library-f2l-desktop-light.png",
+      "environment": "historical-local-development",
+      "url": "http://localhost:3000/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelWidth": 2880,
+      "pixelHeight": 2000,
+      "bytes": 607742,
+      "sha256": "cda7d13f4c8b893fe878db0f80729caf427e4c85ba343a7f125322071effdbba",
+      "persistedAtUTC": "2026-09-08T16:53:56Z",
+      "timestampBasis": "Original file birth/mtime; exact capture time not independently established.",
+      "sourceCollection": "expansion-e2",
+      "entrySHA256": null,
+      "deploymentCommit": "not-applicable-local-uncommitted-development",
+      "authContext": "Before the authentication gate; not an authenticated production capture.",
+      "personalDataObserved": false,
+      "metadata": "Technical EXIF resolution, dimensions and color space only. No author, GPS, date or text tags.",
+      "contentEdited": false
+    },
+    {
+      "file": "library-pll-desktop-dark.png",
+      "environment": "historical-local-development",
+      "url": "http://localhost:3000/",
+      "viewport": {
+        "width": 1439,
+        "height": 999
+      },
+      "pixelWidth": 2878,
+      "pixelHeight": 1998,
+      "bytes": 521506,
+      "sha256": "b7a28eaf08a87baccc016d1d1052be53b89ffc8f6508c64f31b22cb777778752",
+      "persistedAtUTC": "2026-09-08T17:26:30Z",
+      "timestampBasis": "Original file birth/mtime; exact capture time not independently established.",
+      "sourceCollection": "pll-recognition",
+      "entrySHA256": null,
+      "deploymentCommit": "not-applicable-local-uncommitted-development",
+      "authContext": "Before the authentication gate; not an authenticated production capture.",
+      "personalDataObserved": false,
+      "metadata": "Technical EXIF resolution, dimensions and color space only. No author, GPS, date or text tags.",
+      "contentEdited": false
+    },
+    {
+      "file": "pll-z-player-desktop-dark.png",
+      "environment": "historical-local-development",
+      "url": "http://localhost:3000/",
+      "viewport": {
+        "width": 1439,
+        "height": 1200
+      },
+      "pixelWidth": 2878,
+      "pixelHeight": 2400,
+      "bytes": 639298,
+      "sha256": "68f8449b0565f28bd489b88934fa7e28ba92199517e0cb8ad665715696a3c7a7",
+      "persistedAtUTC": "2026-09-08T17:24:56Z",
+      "timestampBasis": "Original file birth/mtime; exact capture time not independently established.",
+      "sourceCollection": "pll-recognition",
+      "entrySHA256": null,
+      "deploymentCommit": "not-applicable-local-uncommitted-development",
+      "authContext": "Before the authentication gate; not an authenticated production capture.",
+      "personalDataObserved": false,
+      "metadata": "Technical EXIF resolution, dimensions and color space only. No author, GPS, date or text tags.",
+      "contentEdited": false
+    },
+    {
+      "file": "roux-lse-player-mobile-dark.png",
+      "environment": "historical-local-development",
+      "url": "http://localhost:3000/",
+      "viewport": {
+        "width": 374,
+        "height": 667
+      },
+      "pixelWidth": 748,
+      "pixelHeight": 1334,
+      "bytes": 143310,
+      "sha256": "7322f3489ef1e8f49bde4e26ff5e0fe47f619d7f313f8d0aec4db8c1dfbef5b1",
+      "persistedAtUTC": "2026-09-08T17:03:20Z",
+      "timestampBasis": "Original file birth/mtime; exact capture time not independently established.",
+      "sourceCollection": "expansion-e2",
+      "entrySHA256": null,
+      "deploymentCommit": "not-applicable-local-uncommitted-development",
+      "authContext": "Before the authentication gate; not an authenticated production capture.",
+      "personalDataObserved": false,
+      "metadata": "Technical EXIF resolution, dimensions and color space only. No author, GPS, date or text tags.",
+      "contentEdited": false
     }
-  ]
+  ],
+  "scope": "Mixed collections: original public Timer/login captures and historical local library captures; per-image provenance takes precedence.",
+  "historicalLocalImageBytes": 1911856
 }
