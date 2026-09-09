@@ -1,0 +1,109 @@
+{
+  "id": "tricks/sexy-right",
+  "name": "Sexy move (direito)",
+  "aliases": [
+    "Trigger direito",
+    "R U R' U'"
+  ],
+  "moves": "R U R' U'",
+  "handedness": "right",
+  "mirrorOf": "tricks/sexy-left",
+  "category": "trigger",
+  "initialGrip": {
+    "summary": "Pegada base: polegares na frente, cubo apoiado na mao esquerda.",
+    "stabilizingHand": "left",
+    "left": "Polegar na face F em baixo a esquerda, medio e anular atras em B, segurando as camadas L e central.",
+    "right": "Polegar na frente em baixo a direita e dedos atras, envolvendo a camada R; indicador livre acima."
+  },
+  "touches": [
+    {
+      "move": "R",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada R inteira presa entre polegar (frente) e dedos (tras).",
+      "direction": "Pulso gira a camada R para longe de voce (horario visto da direita).",
+      "regripAfter": null
+    },
+    {
+      "move": "U",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Indicador direito na aresta traseira da camada U, alcancado porque o pulso ficou girado apos R.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Flick puxa a aresta traseira da camada U para a direita (horario visto de cima).",
+      "regripAfter": "O flick devolve o pulso direito a posicao neutra."
+    },
+    {
+      "move": "R'",
+      "moveIndex": 2,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada R entre polegar e dedos, mesma presa do primeiro toque.",
+      "direction": "Pulso gira a camada R de volta para voce (anti-horario visto da direita).",
+      "regripAfter": null
+    },
+    {
+      "move": "U'",
+      "moveIndex": 3,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador esquerdo na aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Empurra a aresta traseira da camada U para a esquerda (anti-horario visto de cima).",
+      "regripAfter": "Nenhum; a pegada volta ao estado inicial e o proximo ciclo comeca direto."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Automatizar o gatilho mais frequente do CFOP com o minimo de reposicionamento.",
+    "watchFor": "R e R' saem do pulso, nao dos dedos. U aproveita a rotacao que o R deixou. So o U' cruza para a mao esquerda.",
+    "commonErrors": [
+      "Reposicionar a mao direita entre R e U em vez de aproveitar o pulso girado.",
+      "Fazer U com a mao esquerda e perder a fluidez do retorno de pulso."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Mapa indicador direito para U e indicador esquerdo para U'."
+      },
+      {
+        "title": "J Perm, Rubik's Cube Finger Tricks",
+        "url": "https://jperm.net/3x3/fingertricks",
+        "accessedAt": "2026-09-09",
+        "license": "Copyright 2026 J Perm, sem licenca de reuso; referencia citada, conteudo em video nao transcrito nem copiado.",
+        "supports": "Pegada varia por contexto de algoritmo."
+      }
+    ],
+    "authorialJustification": "Descricao autoral derivada do consenso das fontes citadas; nenhuma frase, imagem ou tabela copiada.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

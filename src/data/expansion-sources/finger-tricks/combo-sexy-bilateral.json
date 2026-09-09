@@ -1,0 +1,160 @@
+{
+  "id": "tricks/combo-sexy-bilateral",
+  "name": "Combo sexy bilateral",
+  "aliases": [
+    "Sexy direito + esquerdo",
+    "R U R' U' L' U' L U"
+  ],
+  "moves": "R U R' U' L' U' L U",
+  "handedness": "both",
+  "mirrorOf": null,
+  "category": "combo",
+  "components": [
+    "tricks/sexy-right",
+    "tricks/sexy-left"
+  ],
+  "initialGrip": {
+    "summary": "Pegada base do sexy direito; a transicao para o lado esquerdo acontece no meio do combo sem parada.",
+    "stabilizingHand": "left",
+    "left": "Estabiliza durante a metade direita; assume a execucao a partir do quinto movimento.",
+    "right": "Executa a metade direita; passa a estabilizar a partir do quinto movimento."
+  },
+  "touches": [
+    {
+      "move": "R",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada R entre polegar e dedos.",
+      "direction": "Camada R para longe de voce.",
+      "regripAfter": null
+    },
+    {
+      "move": "U",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Aresta traseira da camada U, com o pulso ainda girado do R.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Aresta traseira para a direita (horario visto de cima).",
+      "regripAfter": "Pulso direito volta ao neutro."
+    },
+    {
+      "move": "R'",
+      "moveIndex": 2,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada R, mesma presa.",
+      "direction": "Camada R de volta para voce.",
+      "regripAfter": null
+    },
+    {
+      "move": "U'",
+      "moveIndex": 3,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Aresta traseira para a esquerda (anti-horario visto de cima).",
+      "regripAfter": "TRANSICAO DO COMBO: a mao esquerda desce direto do toque para a presa da camada L; a direita assume a estabilizacao."
+    },
+    {
+      "move": "L'",
+      "moveIndex": 4,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada L entre polegar e dedos.",
+      "direction": "Camada L para longe de voce.",
+      "regripAfter": null
+    },
+    {
+      "move": "U'",
+      "moveIndex": 5,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Aresta traseira da camada U, com o pulso esquerdo ainda girado do L'.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Aresta traseira para a esquerda.",
+      "regripAfter": "Pulso esquerdo volta ao neutro."
+    },
+    {
+      "move": "L",
+      "moveIndex": 6,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada L, mesma presa.",
+      "direction": "Camada L de volta para voce.",
+      "regripAfter": null
+    },
+    {
+      "move": "U",
+      "moveIndex": 7,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Aresta traseira para a direita.",
+      "regripAfter": "Nenhum; a pegada retorna ao inicio e o proximo ciclo comeca direto."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Treinar a troca de mao executora no meio de um gatilho encadeado, sem pausa nem reposicionamento visivel.",
+    "watchFor": "Os dois U' vizinhos usam o mesmo indicador esquerdo com papeis diferentes: o primeiro fecha o sexy direito, o segundo ja pertence ao esquerdo com o pulso girado. E o motivo de o binding por movimento precisar de indice.",
+    "commonErrors": [
+      "Pausar na transicao do quarto para o quinto movimento.",
+      "Executar a metade esquerda com a mao direita por habito."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Registros componentes tricks/sexy-right e tricks/sexy-left",
+        "url": null,
+        "accessedAt": "2026-09-09",
+        "license": "Curadoria interna deste repositorio.",
+        "supports": "Toques herdados dos componentes; apenas a transicao central e nova."
+      }
+    ],
+    "authorialJustification": "Composicao autoral dos dois registros componentes; a transicao central e producao propria e deve ser conferida na revisao.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

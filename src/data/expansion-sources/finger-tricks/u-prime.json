@@ -1,0 +1,62 @@
+{
+  "id": "tricks/u-prime",
+  "name": "Giro U' isolado",
+  "aliases": [
+    "U'"
+  ],
+  "moves": "U'",
+  "handedness": "left",
+  "mirrorOf": "tricks/u",
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada base espelhada para o toque: indicador esquerdo livre atras da camada U.",
+    "stabilizingHand": "right",
+    "right": "Segura o corpo do cubo pelas camadas R e central.",
+    "left": "Segura a camada L sem prende-la a camada U; indicador solto atras do topo."
+  },
+  "touches": [
+    {
+      "move": "U'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Indicador esquerdo na aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Flick puxa a aresta traseira para a esquerda, em direcao a palma esquerda (anti-horario visto de cima).",
+      "regripAfter": "Nenhum; o indicador volta a posicao de espera atras do topo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Isolar o flick de U' na mao esquerda, espelho exato do flick de U.",
+    "watchFor": "Mesmo padrao motor do U direito, espelhado; a mao direita estabiliza.",
+    "commonErrors": [
+      "Compensar com o pulso direito em vez de estabilizar.",
+      "Usar o indicador direito empurrando de volta, o que treina o dedo errado."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Indicador esquerdo para U'."
+      }
+    ],
+    "authorialJustification": "Espelho autoral do registro tricks/u.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

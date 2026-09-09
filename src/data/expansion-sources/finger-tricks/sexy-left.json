@@ -1,0 +1,102 @@
+{
+  "id": "tricks/sexy-left",
+  "name": "Sexy move (esquerdo)",
+  "aliases": [
+    "Trigger esquerdo",
+    "L' U' L U"
+  ],
+  "moves": "L' U' L U",
+  "handedness": "left",
+  "mirrorOf": "tricks/sexy-right",
+  "category": "trigger",
+  "initialGrip": {
+    "summary": "Espelho da pegada base: polegares na frente, cubo apoiado na mao direita.",
+    "stabilizingHand": "right",
+    "right": "Polegar na face F em baixo a direita, medio e anular atras em B, segurando as camadas R e central.",
+    "left": "Polegar na frente em baixo a esquerda e dedos atras, envolvendo a camada L; indicador livre acima."
+  },
+  "touches": [
+    {
+      "move": "L'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada L inteira presa entre polegar (frente) e dedos (tras).",
+      "direction": "Pulso gira a camada L para longe de voce (anti-horario visto da esquerda).",
+      "regripAfter": null
+    },
+    {
+      "move": "U'",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Indicador esquerdo na aresta traseira da camada U, alcancado porque o pulso ficou girado apos L'.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Flick puxa a aresta traseira da camada U para a esquerda (anti-horario visto de cima).",
+      "regripAfter": "O flick devolve o pulso esquerdo a posicao neutra."
+    },
+    {
+      "move": "L",
+      "moveIndex": 2,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada L entre polegar e dedos, mesma presa do primeiro toque.",
+      "direction": "Pulso gira a camada L de volta para voce (horario visto da esquerda).",
+      "regripAfter": null
+    },
+    {
+      "move": "U",
+      "moveIndex": 3,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador direito na aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Empurra a aresta traseira da camada U para a direita (horario visto de cima).",
+      "regripAfter": "Nenhum; a pegada volta ao estado inicial e o proximo ciclo comeca direto."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Treinar o espelho do gatilho principal e equilibrar as duas maos para combos bilaterais.",
+    "watchFor": "Espelho exato do sexy direito: L' e L saem do pulso esquerdo, U' aproveita a rotacao do pulso e so o U final cruza para a direita.",
+    "commonErrors": [
+      "Executar como sequencia nova em vez de espelhar o padrao motor ja treinado.",
+      "Reposicionar a mao esquerda entre L' e U'."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Mapa indicador direito para U e indicador esquerdo para U'."
+      }
+    ],
+    "authorialJustification": "Espelho autoral do registro tricks/sexy-right; a simetria e geometrica, sem copia de material de terceiros.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

@@ -1,12 +1,17 @@
 import {CheckCircle2, ChevronLeft, ChevronRight, Flag} from 'lucide-react';
 import type {MethodPlan, MethodStage} from '../solver';
+import {ptBR} from '../i18n/pt-BR';
 
+const lblStage = ptBR.trainers.catalog;
 export const METHOD_STAGE_LABELS: Record<MethodStage['id'], string> = {
   'cfop.cross': 'Cruz branca', 'cfop.f2l.FR': 'Par da frente à direita', 'cfop.f2l.FL': 'Par da frente à esquerda',
   'cfop.f2l.BR': 'Par de trás à direita', 'cfop.f2l.BL': 'Par de trás à esquerda', 'cfop.oll': 'Orientar a última camada',
   'cfop.pll': 'Permutar a última camada', 'cfop.auf': 'Alinhamento final', 'roux.fb': 'Bloco esquerdo',
   'roux.sb': 'Bloco direito', 'roux.cmll': 'Resolver os cantos', 'roux.cmll-auf': 'Alinhar os cantos',
   'roux.eo': 'Orientar as seis arestas', 'roux.lr': 'Completar esquerda e direita', 'roux.finish': 'Concluir arestas e centros',
+  'lbl.cross': lblStage['lbl-cross'].name, 'lbl.corners': lblStage['lbl-corners'].name, 'lbl.middle': lblStage['lbl-middle'].name,
+  'lbl.top-cross': lblStage['lbl-top-cross'].name, 'lbl.top-edges': lblStage['lbl-top-edges'].name,
+  'lbl.top-corners-position': lblStage['lbl-top-corners-position'].name, 'lbl.top-corners-orient': lblStage['lbl-top-corners-orient'].name,
 };
 function objective(stage: MethodStage): string {
   switch (stage.goal.kind) {
@@ -21,6 +26,10 @@ function objective(stage: MethodStage): string {
     case 'cmll': return 'Alinhar os quatro cantos superiores às suas posições e orientações fixas.';
     case 'lse-eo': return 'Orientar as seis arestas restantes, com seus adesivos amarelos ou brancos voltados para cima ou para baixo.';
     case 'lse-lr': return 'Posicionar as arestas superiores dos lados laranja e vermelho, mantendo a orientação das demais ao final.';
+    case 'first-layer': return lblStage['lbl-corners'].description;
+    case 'll-edges-oriented': return lblStage['lbl-top-cross'].description;
+    case 'll-edges-solved': return lblStage['lbl-top-edges'].description;
+    case 'll-corners-placed': return lblStage['lbl-top-corners-position'].description;
     case 'solved': return 'Resolver os 54 adesivos e alinhar todos os centros na referência inicial.';
   }
 }

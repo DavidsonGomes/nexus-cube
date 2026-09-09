@@ -1,5 +1,8 @@
 import { applyAlgorithm, faceColors, parseAlgorithm, solvedCube } from '../../domain/cube';
 import { arePiecesSolved, CROSS_PIECES, FIRST_BLOCK_PIECES, SECOND_BLOCK_PIECES, U_CORNERS, isCMLLSolved, validateStage } from '../../domain/stage-validation';
+// Single-signature contract: the LBL goals below delegate to the same trainer-domain
+// predicates used by the two-look P2 and the LBL fixture table, never a reimplementation.
+import { isLLCornersPlaced, isLLEdgesOriented } from '../../data/trainers/stage-validators';
 import type { CubeState } from '../../domain/types';
 import { revalidateSolverInput } from '../solution';
 import type { ValidatedSolverInput } from '../types';
@@ -28,6 +31,15 @@ export const METHOD_STAGE_PROFILES:Readonly<Record<SolverMethod,readonly StagePr
     {id:'roux.lr',goal:{kind:'lse-lr'},preservedPieces:[...blocks,...U_CORNERS],centerPolicy:'m-slice-even'},
     {id:'roux.finish',goal:{kind:'solved'},preservedPieces:[...blocks,...U_CORNERS,'UL','UR']},
   ],
+  lbl:[
+    {id:'lbl.cross',goal:{kind:'cross'},preservedPieces:[]},
+    {id:'lbl.corners',goal:{kind:'first-layer'},preservedPieces:CROSS_PIECES},
+    {id:'lbl.middle',goal:{kind:'f2l'},preservedPieces:[...CROSS_PIECES,'DFR','DFL','DBR','DBL']},
+    {id:'lbl.top-cross',goal:{kind:'ll-edges-oriented'},preservedPieces:f2l},
+    {id:'lbl.top-edges',goal:{kind:'ll-edges-solved'},preservedPieces:f2l},
+    {id:'lbl.top-corners-position',goal:{kind:'ll-corners-placed'},preservedPieces:[...f2l,'UF','UR','UB','UL']},
+    {id:'lbl.top-corners-orient',goal:{kind:'solved'},preservedPieces:[...f2l,'UF','UR','UB','UL']},
+  ],
 };
 for(const profiles of Object.values(METHOD_STAGE_PROFILES)){for(const p of profiles){Object.freeze(p.goal);if(p.preservedPieces)Object.freeze(p.preservedPieces);Object.freeze(p);}Object.freeze(profiles);}Object.freeze(METHOD_STAGE_PROFILES);
 export function methodTokens(algorithm:string):string[]{
@@ -42,6 +54,10 @@ export function methodGoalSatisfied(state:CubeState,goal:MethodGoal):boolean {
   if(goal.kind==='pll-up-to-auf')return AUF_OPTIONS.some(u=>fixedSolved(applyAlgorithm(state,u)));
   if(goal.kind==='cmll-up-to-auf')return AUF_OPTIONS.some(u=>isCMLLSolved(applyAlgorithm(state,u)));
   if(goal.kind==='f2l-pair')return validateStage(state,{goal:'f2l-pair',targetSlot:goal.slot,referenceFrame:'fixed'});
+  if(goal.kind==='first-layer')return validateStage(state,{goal:'cross'})&&arePiecesSolved(state,['DFR','DFL','DBR','DBL']);
+  if(goal.kind==='ll-edges-oriented')return isLLEdgesOriented(state);
+  if(goal.kind==='ll-edges-solved')return validateStage(state,{goal:'f2l'})&&arePiecesSolved(state,['UF','UR','UB','UL']);
+  if(goal.kind==='ll-corners-placed')return validateStage(state,{goal:'f2l'})&&isLLCornersPlaced(state);
   return validateStage(state,{goal:goal.kind,referenceFrame:'fixed'});
 }
 export function methodStateKey(state:CubeState):string{return state.map(s=>`${s.id}:${s.color}:${s.position.join(',')}:${s.normal.join(',')}`).sort().join('|');}
@@ -96,8 +112,8 @@ export function createMethodPlanBuilder(method:SolverMethod,input:ValidatedSolve
 export function verifyMethodPlan(input:ValidatedSolverInput,plan:MethodPlan):boolean {
   try{
     const validated=revalidateSolverInput(input);
-    if(!plan||!['cfop','roux'].includes(plan.method)||!Array.isArray(plan.stages)||plan.stages.length!==METHOD_STAGE_PROFILES[plan.method].length||!Array.isArray(plan.tokens)||plan.tokens.length>METHOD_MAX_MOVES||typeof plan.algorithm!=='string'||plan.algorithm.length>METHOD_MAX_MOVES*4||!stateShape(plan.initialState)||!stateShape(plan.finalState))return false;
-    if(plan.version!==1||!['cfop','roux'].includes(plan.method)||plan.inputKey!==validated.inputKey||plan.referenceFrame!==SOLVER_FRAME||methodStateKey(plan.initialState)!==methodStateKey(validated.state))return false;
+    if(!plan||!['cfop','roux','lbl'].includes(plan.method)||!Array.isArray(plan.stages)||plan.stages.length!==METHOD_STAGE_PROFILES[plan.method].length||!Array.isArray(plan.tokens)||plan.tokens.length>METHOD_MAX_MOVES||typeof plan.algorithm!=='string'||plan.algorithm.length>METHOD_MAX_MOVES*4||!stateShape(plan.initialState)||!stateShape(plan.finalState))return false;
+    if(plan.version!==1||plan.inputKey!==validated.inputKey||plan.referenceFrame!==SOLVER_FRAME||methodStateKey(plan.initialState)!==methodStateKey(validated.state))return false;
     const builder=createMethodPlanBuilder(plan.method,validated);
     for(const stage of plan.stages){
       if(!stage||!stateShape(stage.initialState)||!stateShape(stage.finalState)||!Array.isArray(stage.tokens)||stage.tokens.length>METHOD_MAX_MOVES||!Array.isArray(stage.preservedPieces)||stage.preservedPieces.length>26||stage.preservedPieces.some((p:unknown)=>typeof p!=='string'||! /^[URFDLB]{1,3}$/.test(p))||!Array.isArray(stage.adjustments)||stage.adjustments.length>METHOD_MAX_MOVES)return false;

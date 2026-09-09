@@ -1,0 +1,70 @@
+{
+  "id": "tricks/m2",
+  "name": "Giro M2 em dois toques",
+  "aliases": [
+    "M2",
+    "Duplo central"
+  ],
+  "moves": "M2",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada elevada com coluna central livre; anular e medio direitos curvados sob o cubo para toques encadeados.",
+    "stabilizingHand": "left",
+    "left": "Prende a coluna L; polegar na frente, dedos atras.",
+    "right": "Prende a coluna R; anular e medio soltos sob a camada central."
+  },
+  "touches": [
+    {
+      "move": "M2",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "ring",
+      "action": "flick",
+      "contactPoint": "Anular direito na aresta de baixo da camada central.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Primeiro quarto de volta no sentido de M': puxa a parte de baixo da camada central para a frente.",
+      "regripAfter": "Troca de dedo: o medio assume a nova aresta de baixo enquanto o anular recolhe."
+    },
+    {
+      "move": "M2",
+      "moveIndex": 0,
+      "touchIndex": 2,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "middle",
+      "action": "flick",
+      "contactPoint": "Medio direito na aresta que chegou a posicao de baixo apos o primeiro toque.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Segundo quarto de volta no mesmo sentido: puxa a parte de baixo da camada central para a frente.",
+      "regripAfter": "Nenhum; os dois dedos voltam a posicao sob o cubo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Encadear anular e medio para a meia volta central sem pausa, tecnica nuclear de execucoes com M2.",
+    "watchFor": "Meia volta tem sentido indiferente no resultado: executar como dois quartos no sentido de M' e legitimo e mais confortavel para a mao direita; a animacao segue a notacao M2.",
+    "commonErrors": [
+      "Meia volta arrastada com um dedo so, que trava e desalinha.",
+      "Segundo toque atrasado por recolher o anular antes de o medio assumir."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [],
+    "authorialJustification": "Producao autoral de CONFIANCA BAIXA, por analogia com o duplo de topo e consenso recordado do encadeamento anular+medio; nenhuma fonte textual forte localizada nesta rodada. A equivalencia de meia volta nos dois sentidos e fato geometrico.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito. Pendencia mantida: localizar fonte textual forte para a familia M; nao bloqueia o verified."
+  }
+}

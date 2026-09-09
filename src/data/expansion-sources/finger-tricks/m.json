@@ -1,0 +1,62 @@
+{
+  "id": "tricks/m",
+  "name": "Giro M isolado",
+  "aliases": [
+    "M"
+  ],
+  "moves": "M",
+  "handedness": "left",
+  "mirrorOf": null,
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada elevada: presa nas colunas L e R pelas duas maos, coluna central livre; anular esquerdo pairando sob o cubo.",
+    "stabilizingHand": "right",
+    "right": "Polegar na frente e dedos atras, prendendo a coluna R.",
+    "left": "Polegar na frente e dedos atras na coluna L; anular curvado sob a camada central."
+  },
+  "touches": [
+    {
+      "move": "M",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "ring",
+      "action": "push",
+      "contactPoint": "Anular esquerdo na aresta de baixo da camada central (regiao DF/D).",
+      "anchorPieces": [
+        "DF"
+      ],
+      "direction": "Empurra a parte de baixo da camada central para tras, longe de voce (a coluna da frente desce).",
+      "regripAfter": "Nenhum; o anular volta a posicao sob o cubo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar a camada central sem mexer as colunas L e R, base de LSE no metodo Roux.",
+    "watchFor": "As duas maos prendem apenas as colunas externas; so a camada central se move.",
+    "commonErrors": [
+      "Arrastar r ou l largo por prender a coluna externa junto.",
+      "Girar o pulso e desalinhar os centros de referencia."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks (secao de comentarios)",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto.",
+        "supports": "Comentario associa M ao anular esquerdo, o mesmo dedo de D'. Suporte FRACO: comentario de pagina, nao corpo do artigo."
+      }
+    ],
+    "authorialJustification": "Direcao derivada geometricamente do ciclo de adesivos (M segue L: a coluna de baixo vai para tras). Atribuicao de dedo com confianca baixa.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito. Pendencia mantida: localizar fonte textual forte para a familia M; nao bloqueia o verified."
+  }
+}

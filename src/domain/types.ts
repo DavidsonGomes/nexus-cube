@@ -33,8 +33,10 @@ export interface Scramble { id: string; algorithm: string; state: CubeState; gen
 export type PlaybackMode = 'prepare' | 'solve';
 export interface AlgorithmPlayback { preparation: string; setup: string; algorithm: string; initialState: CubeState; caseState: CubeState; solution: string; mode: PlaybackMode; inverseSolution: string; usesAuthoredSetup: boolean }
 
-export type MethodId = 'cfop' | 'roux';
-export type StageId = 'cross' | 'f2l' | 'oll' | 'pll' | 'fb' | 'sb' | 'cmll' | 'lse';
+export type MethodId = 'lbl' | 'cfop' | 'roux';
+export type StageId =
+  | 'cross' | 'f2l' | 'oll' | 'pll' | 'fb' | 'sb' | 'cmll' | 'lse'
+  | 'white-cross' | 'first-corners' | 'middle-edges' | 'top-cross' | 'top-edges' | 'top-corners-position' | 'top-corners-orient';
 export type ContentFamily = 'CROSS' | 'F2L' | 'OLL' | 'PLL' | 'FB' | 'SB' | 'CMLL' | 'LSE';
 export interface LearningMilestone { step: number; title: string; explanation: string }
 export interface ContentProvenance { title: string; url: string; author: string; license: string; notes?: string }

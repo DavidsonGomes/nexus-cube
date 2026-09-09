@@ -1,0 +1,62 @@
+{
+  "id": "tricks/d",
+  "name": "Giro D isolado",
+  "aliases": [
+    "D"
+  ],
+  "moves": "D",
+  "handedness": "right",
+  "mirrorOf": "tricks/d-prime",
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada elevada: polegar e dois primeiros dedos seguram as camadas central e de cima, anular e minimo pairando atras.",
+    "stabilizingHand": "left",
+    "left": "Polegar na frente e dois primeiros dedos atras, nas camadas central e U.",
+    "right": "Mesma presa elevada; anular direito pairando atras da camada D."
+  },
+  "touches": [
+    {
+      "move": "D",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "ring",
+      "action": "push",
+      "contactPoint": "Anular direito na aresta traseira da camada D.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Empurra a aresta traseira da camada D para a esquerda (horario visto de baixo).",
+      "regripAfter": "Nenhum; o anular volta a pairar atras."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Executar D sem soltar a pegada nem virar o cubo, usando o anular como dedo dedicado da camada de baixo.",
+    "watchFor": "A presa fica nas camadas central e de cima; a camada D gira livre por baixo.",
+    "commonErrors": [
+      "Segurar tambem a camada D e travar o giro.",
+      "Inclinar o cubo para ver a camada de baixo em vez de confiar no tato."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Pegada pelas camadas central e de cima com anular e minimo pairando atras; anular empurra a camada D."
+      }
+    ],
+    "authorialJustification": "Atribuicao do anular DIREITO para D e derivacao autoral: a fonte cita qualquer anular; a direcao foi conferida geometricamente (D horario visto de baixo move a aresta traseira para a esquerda).",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

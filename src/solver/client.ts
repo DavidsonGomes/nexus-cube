@@ -26,7 +26,7 @@ export function createSolverClient(config:SolverClientConfig={}):SolverClient {
     const method=request?.method??'direct';
     if(disposed)return Promise.resolve({kind:'error',requestId,inputKey,code:'disposed',message:'O solucionador foi encerrado.'});
     if(typeof requestId!=='string'||!requestId||requestId.length>128)return Promise.resolve(solverError(requestId,inputKey,new SolverFailure('invalid-input','Identificador de solicitação inválido.')));
-    if(!['direct','cfop','roux'].includes(method))return Promise.resolve(solverError(requestId,inputKey,new SolverFailure('invalid-input','Método desconhecido.')));
+    if(!['direct','cfop','roux','lbl'].includes(method))return Promise.resolve(solverError(requestId,inputKey,new SolverFailure('invalid-input','Método desconhecido.')));
     let validated;
     try{validated=revalidateSolverInput(request.validated);}catch(error){return Promise.resolve(solverError(requestId,inputKey,error));}
     const frozen=validated;

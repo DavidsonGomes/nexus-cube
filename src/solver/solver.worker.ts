@@ -27,9 +27,9 @@ scope.onmessage=async(event:MessageEvent<SolverWorkerRequest|SolverWorkerCancel>
     if(method==='direct'){
       const result=await solveValidatedInput(validated,phase=>send({kind:'progress',requestId,inputKey,phase,method} as SolverWorkerResponse));
       children.close();send({kind:'solution',requestId,inputKey,method,...result} as SolverWorkerResponse);
-    }else if(method==='cfop'||method==='roux'){
+    }else if(method==='cfop'||method==='roux'||method==='lbl'){
       send({kind:'progress',requestId,inputKey,phase:'initializing',method} as SolverWorkerResponse);
-      const planner=method==='cfop'?(await import('./methods/cfop')).planCFOP:(await import('./methods/roux')).planRoux;
+      const planner=method==='cfop'?(await import('./methods/cfop')).planCFOP:method==='roux'?(await import('./methods/roux')).planRoux:(await import('./methods/lbl-plan')).planLBL;
       const plan=await planner(validated,{signal:controller.signal,onStage:stage=>send({kind:'progress',requestId,inputKey,phase:'solving',method,stageId:stage.id} as SolverWorkerResponse)});
       send({kind:'progress',requestId,inputKey,phase:'verifying',method} as SolverWorkerResponse);
       const {verifyMethodPlan}=await import('./methods/plan');

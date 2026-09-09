@@ -10,6 +10,7 @@ import SolverWizard from '../components/SolverWizard';
 import SolverPlayer from '../components/SolverPlayer';
 import type {SolverSpeedControl} from '../components/SolverPlayer';
 import {METHOD_STAGE_LABELS} from '../components/SolverMethodStages';
+import {ptBR} from '../i18n/pt-BR';
 
 type Solution = Extract<SolverOutcome, {kind:'solution'}>;
 type DraftEnvelope = {scheme:string; draft:DraftFacelets};
@@ -20,9 +21,10 @@ const modes: {id:SolverMode; title:string; description:string}[] = [
   {id:'direct',title:'Direta',description:'Uma sequência geral para o estado informado, um giro por vez.'},
   {id:'cfop',title:'CFOP',description:'Cruz branca, quatro pares, orientação e permutação da última camada.'},
   {id:'roux',title:'Roux',description:'Dois blocos, cantos e conclusão das seis arestas e dos centros.'},
+  {id:'lbl',title:ptBR.solver.lblMode.title,description:ptBR.solver.lblMode.description},
 ];
-// All three real worker paths passed the coordinated local UI checks.
-const releasedMethods:readonly SolverMode[] = ['direct', 'cfop', 'roux'];
+// All four real worker paths have focused domain proofs (lbl: lbl-plan.test.ts).
+const releasedMethods:readonly SolverMode[] = ['direct', 'cfop', 'roux', 'lbl'];
 
 export interface SolverViewProps {createClient?:()=>SolverClient;availableMethods?:readonly SolverMode[];speedControl?:SolverSpeedControl;authority:{owner:object;context:ContextHandle|null;authorized:boolean;current:()=>{context:ContextHandle|null;authorized:boolean};notifyForContext:(text:string,context:ContextHandle)=>void}}
 export default function SolverView(props:SolverViewProps) {

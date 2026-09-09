@@ -1,0 +1,62 @@
+{
+  "id": "tricks/u",
+  "name": "Giro U isolado",
+  "aliases": [
+    "U"
+  ],
+  "moves": "U",
+  "handedness": "right",
+  "mirrorOf": "tricks/u-prime",
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada base: polegares na frente, dedos atras; indicador direito livre atras da camada U.",
+    "stabilizingHand": "left",
+    "left": "Segura o corpo do cubo pelas camadas L e central.",
+    "right": "Segura a camada R sem prende-la a camada U; indicador solto atras do topo."
+  },
+  "touches": [
+    {
+      "move": "U",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Indicador direito na aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Flick puxa a aresta traseira para a direita, em direcao a palma direita (horario visto de cima).",
+      "regripAfter": "Nenhum; o indicador volta a posicao de espera atras do topo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Isolar o flick de U ate ele sair sem mover o resto do cubo.",
+    "watchFor": "O dedo curva em direcao a palma; a mao esquerda impede que o cubo gire junto.",
+    "commonErrors": [
+      "Girar o pulso junto com o flick e arrastar o cubo inteiro.",
+      "Tocar duas camadas e produzir u largo em vez de U."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Indicador direito para U, empurrando a camada do topo."
+      }
+    ],
+    "authorialJustification": "Descricao autoral; direcao conferida geometricamente (U horario move a aresta traseira para a direita).",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

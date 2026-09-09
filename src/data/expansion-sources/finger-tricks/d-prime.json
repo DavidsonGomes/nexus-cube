@@ -1,0 +1,62 @@
+{
+  "id": "tricks/d-prime",
+  "name": "Giro D' isolado",
+  "aliases": [
+    "D'"
+  ],
+  "moves": "D'",
+  "handedness": "left",
+  "mirrorOf": "tricks/d",
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada elevada espelhada: presa nas camadas central e de cima, anular esquerdo pairando atras da camada D.",
+    "stabilizingHand": "right",
+    "right": "Polegar na frente e dois primeiros dedos atras, nas camadas central e U.",
+    "left": "Mesma presa elevada; anular esquerdo pairando atras da camada D."
+  },
+  "touches": [
+    {
+      "move": "D'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "ring",
+      "action": "push",
+      "contactPoint": "Anular esquerdo na aresta traseira da camada D.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Empurra a aresta traseira da camada D para a direita (anti-horario visto de baixo).",
+      "regripAfter": "Nenhum; o anular volta a pairar atras."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Espelhar o toque de D na mao esquerda e preparar a base do dedo usado tambem em movimentos de M.",
+    "watchFor": "Mesma presa elevada; so muda a mao que empurra e o sentido.",
+    "commonErrors": [
+      "Executar D' girando o cubo com a mao direita.",
+      "Empurrar com o minimo por engano, perdendo forca e precisao."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Anular empurra a camada D; comentario da pagina associa o anular esquerdo de D' ao usado em M."
+      }
+    ],
+    "authorialJustification": "Espelho autoral do registro tricks/d; associacao D' com anular esquerdo apoiada em comentario da fonte, que e suporte fraco e depende de revisao.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

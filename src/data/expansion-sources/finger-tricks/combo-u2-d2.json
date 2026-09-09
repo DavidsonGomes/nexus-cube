@@ -1,0 +1,112 @@
+{
+  "id": "tricks/combo-u2-d2",
+  "name": "Combo U2 D2 bilateral",
+  "aliases": [
+    "Duplos alternados",
+    "U2 D2"
+  ],
+  "moves": "U2 D2",
+  "handedness": "both",
+  "mirrorOf": null,
+  "category": "combo",
+  "components": [
+    "tricks/u2",
+    "tricks/d2"
+  ],
+  "initialGrip": {
+    "summary": "Pegada elevada: presa nas camadas centrais, mao direita cuida do topo (indicador e medio) e a esquerda do fundo (anular e minimo).",
+    "stabilizingHand": "left",
+    "right": "Presa na coluna R e camada central; indicador e medio soltos atras do topo.",
+    "left": "Presa na coluna L e camada central; anular e minimo pairando atras da camada D."
+  },
+  "touches": [
+    {
+      "move": "U2",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Primeiro quarto: aresta traseira para a direita (horario visto de cima).",
+      "regripAfter": "Medio direito assume a nova aresta traseira."
+    },
+    {
+      "move": "U2",
+      "moveIndex": 0,
+      "touchIndex": 2,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "middle",
+      "action": "flick",
+      "contactPoint": "Aresta que chegou a posicao traseira do topo.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Segundo quarto: aresta traseira para a direita.",
+      "regripAfter": "Dedos direitos voltam a espera; a esquerda ja inicia o fundo."
+    },
+    {
+      "move": "D2",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 2,
+      "hand": "left",
+      "finger": "ring",
+      "action": "push",
+      "contactPoint": "Aresta traseira da camada D.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Primeiro quarto no sentido de D': aresta traseira para a direita (anti-horario visto de baixo).",
+      "regripAfter": "Minimo esquerdo assume a nova aresta traseira."
+    },
+    {
+      "move": "D2",
+      "moveIndex": 1,
+      "touchIndex": 2,
+      "touchCount": 2,
+      "hand": "left",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Aresta que chegou a posicao traseira do fundo.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Segundo quarto no mesmo sentido: aresta traseira para a direita.",
+      "regripAfter": "Nenhum; pegada retorna ao inicio para o proximo ciclo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Alternar duplos de topo e fundo entre as maos, cada uma com seu par de dedos, sem mover a presa central.",
+    "watchFor": "Quatro toques reais: indicador+medio direitos no topo, anular+minimo esquerdos no fundo. Meia volta tem sentido indiferente no resultado; o fundo executa no sentido de D' por conforto e a animacao segue a notacao D2.",
+    "commonErrors": [
+      "Fazer os dois duplos com a mesma mao e perder o objetivo bilateral.",
+      "Arrastar meias voltas em um toque so."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Registros componentes tricks/u2 e tricks/d2",
+        "url": null,
+        "accessedAt": "2026-09-09",
+        "license": "Curadoria interna deste repositorio.",
+        "supports": "Tecnica dos duplos herdada; a distribuicao bilateral e a execucao do fundo pela mao esquerda sao novas."
+      }
+    ],
+    "authorialJustification": "Composicao autoral de CONFIANCA BAIXA: o D2 pela mao esquerda no sentido de D' e adaptacao propria para o treino bilateral pedido na spec, sem fonte externa direta.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

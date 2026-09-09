@@ -1,0 +1,54 @@
+{
+  "id": "tricks/m-prime",
+  "name": "Giro M' isolado",
+  "aliases": [
+    "M'"
+  ],
+  "moves": "M'",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada elevada: presa nas colunas L e R, coluna central livre; anular direito curvado sob o cubo.",
+    "stabilizingHand": "left",
+    "left": "Polegar na frente e dedos atras, prendendo a coluna L.",
+    "right": "Polegar na frente e dedos atras na coluna R; anular curvado sob a camada central."
+  },
+  "touches": [
+    {
+      "move": "M'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "ring",
+      "action": "flick",
+      "contactPoint": "Anular direito na aresta de baixo da camada central (regiao DB/D).",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Flick puxa a parte de baixo da camada central para a frente, em direcao a voce (a coluna da frente sobe).",
+      "regripAfter": "Nenhum; o anular volta a posicao sob o cubo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Automatizar o flick de M', o toque central mais frequente de LSE e dos combos M U.",
+    "watchFor": "O flick nasce debaixo do cubo, curto e seco; as colunas externas nao acompanham.",
+    "commonErrors": [
+      "Fazer M' de pulso girando o cubo inteiro e perdendo a referencia dos centros.",
+      "Flick longo que passa do ponto e desalinha a camada central."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [],
+    "authorialJustification": "Producao autoral de CONFIANCA BAIXA: nenhuma fonte textual forte localizada nesta rodada para o dedo de M'; descricao segue o consenso da comunidade de velocidade recordado pelo curador. Direcao derivada geometricamente (M': a coluna de baixo vem para a frente).",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito. Pendencia mantida: localizar fonte textual forte para a familia M; nao bloqueia o verified."
+  }
+}

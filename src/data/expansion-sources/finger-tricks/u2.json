@@ -1,0 +1,78 @@
+{
+  "id": "tricks/u2",
+  "name": "Giro U2 em dois toques",
+  "aliases": [
+    "U2",
+    "Duplo de topo"
+  ],
+  "moves": "U2",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada base; indicador e medio direitos livres atras da camada U, prontos para toques encadeados.",
+    "stabilizingHand": "left",
+    "left": "Segura o corpo do cubo pelas camadas L e central.",
+    "right": "Segura a camada R; indicador e medio soltos atras do topo."
+  },
+  "touches": [
+    {
+      "move": "U2",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "index",
+      "action": "flick",
+      "contactPoint": "Indicador direito na aresta traseira da camada U.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Primeiro quarto de volta: puxa a aresta traseira para a direita (horario visto de cima).",
+      "regripAfter": "Troca de dedo imediata: o medio assume a nova aresta traseira antes de o indicador recolher."
+    },
+    {
+      "move": "U2",
+      "moveIndex": 0,
+      "touchIndex": 2,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "middle",
+      "action": "flick",
+      "contactPoint": "Medio direito na aresta que chegou a posicao traseira apos o primeiro toque.",
+      "anchorPieces": [
+        "UB"
+      ],
+      "direction": "Segundo quarto de volta: puxa a aresta traseira para a direita (horario visto de cima).",
+      "regripAfter": "Nenhum; os dois dedos voltam a espera atras do topo."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Encadear indicador e medio para o duplo de topo sem pausa entre os dois quartos de volta.",
+    "watchFor": "Sao dois toques reais com troca de dedo, nao um empurrao longo; o segundo dedo ja espera na posicao.",
+    "commonErrors": [
+      "Fazer um unico empurrao arrastado, que perde precisao e trava o loop.",
+      "Recolher o indicador antes de o medio assumir, criando pausa."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Base do flick de U com indicador; a pagina cita U2 sem tecnica distinta."
+      }
+    ],
+    "authorialJustification": "Encadeamento indicador+medio e descricao autoral do consenso de execucao; a fonte citada nao detalha U2, por isso o registro depende de revisao independente.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

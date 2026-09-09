@@ -1,0 +1,104 @@
+{
+  "id": "tricks/sledgehammer-right",
+  "name": "Sledgehammer",
+  "aliases": [
+    "Martelo",
+    "R' F R F'"
+  ],
+  "moves": "R' F R F'",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "trigger",
+  "initialGrip": {
+    "summary": "Pegada base com polegares na frente; a mao esquerda estabiliza durante os giros de R e libera o indicador para o F.",
+    "stabilizingHand": "left",
+    "left": "Polegar na face F em baixo a esquerda, dedos atras; indicador livre para tocar o topo da camada F.",
+    "right": "Polegar na frente em baixo a direita e dedos atras, envolvendo a camada R; indicador livre acima."
+  },
+  "touches": [
+    {
+      "move": "R'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada R entre polegar (frente) e dedos (tras).",
+      "direction": "Pulso gira a camada R em direcao a voce (anti-horario visto da direita).",
+      "regripAfter": null
+    },
+    {
+      "move": "F",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador esquerdo na fileira superior da camada F, lado esquerdo.",
+      "anchorPieces": [
+        "UF",
+        "ULF"
+      ],
+      "direction": "Empurra a fileira superior da camada F para a direita (horario visto de frente).",
+      "regripAfter": null
+    },
+    {
+      "move": "R",
+      "moveIndex": 2,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "giro de pulso",
+      "contactPoint": "Camada R entre polegar e dedos, mesma presa do primeiro toque.",
+      "direction": "Pulso gira a camada R para longe de voce (horario visto da direita).",
+      "regripAfter": null
+    },
+    {
+      "move": "F'",
+      "moveIndex": 3,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador direito na fileira superior da camada F, lado direito.",
+      "anchorPieces": [
+        "UF",
+        "UFR"
+      ],
+      "direction": "Empurra a fileira superior da camada F para a esquerda (anti-horario visto de frente).",
+      "regripAfter": "Nenhum; ambas as maos retornam a pegada base."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Dominar o gatilho de insercao com F sem soltar a pegada, base do reconhecimento de casos com par invertido.",
+    "watchFor": "Os dois F saem dos indicadores na fileira superior da camada F, cada mao empurrando para o seu lado; o cubo nao gira no espaco.",
+    "commonErrors": [
+      "Girar o cubo inteiro para executar o F com o polegar.",
+      "Soltar a presa da camada R entre R' e R."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "J Perm, Rubik's Cube Finger Tricks",
+        "url": "https://jperm.net/3x3/fingertricks",
+        "accessedAt": "2026-09-09",
+        "license": "Copyright 2026 J Perm, sem licenca de reuso; referencia citada, conteudo em video nao transcrito nem copiado.",
+        "supports": "Pegada varia por contexto; F executado sem regrip completo em gatilhos."
+      }
+    ],
+    "authorialJustification": "Descricao autoral do consenso de execucao com indicadores para F/F'; direcoes conferidas geometricamente (F horario move a fileira superior para a direita).",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

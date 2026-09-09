@@ -1,0 +1,78 @@
+{
+  "id": "tricks/d2",
+  "name": "Giro D2 em dois toques",
+  "aliases": [
+    "D2",
+    "Duplo de baixo"
+  ],
+  "moves": "D2",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "isolated",
+  "initialGrip": {
+    "summary": "Pegada elevada; anular e minimo direitos pairando atras da camada D para toques encadeados.",
+    "stabilizingHand": "left",
+    "left": "Presa nas camadas central e U.",
+    "right": "Presa nas camadas central e U; anular e minimo soltos atras da camada D."
+  },
+  "touches": [
+    {
+      "move": "D2",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "ring",
+      "action": "push",
+      "contactPoint": "Anular direito na aresta traseira da camada D.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Primeiro quarto de volta: empurra a aresta traseira para a esquerda (horario visto de baixo).",
+      "regripAfter": "Troca de dedo: o minimo assume a nova aresta traseira enquanto o anular recolhe."
+    },
+    {
+      "move": "D2",
+      "moveIndex": 0,
+      "touchIndex": 2,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo direito na aresta que chegou a posicao traseira apos o primeiro toque.",
+      "anchorPieces": [
+        "DB"
+      ],
+      "direction": "Segundo quarto de volta: empurra a aresta traseira para a esquerda (horario visto de baixo).",
+      "regripAfter": "Nenhum; ambos os dedos voltam a pairar atras."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Encadear anular e minimo para o duplo de baixo, espelhando na base a logica do U2 com indicador e medio.",
+    "watchFor": "Dois toques reais com troca de dedo; a presa elevada nao se move.",
+    "commonErrors": [
+      "Arrastar meia volta com um dedo so, travando no atrito.",
+      "Perder a presa elevada e girar as camadas de cima junto."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Ruwix, Finger Tricks",
+        "url": "https://ruwix.com/the-rubiks-cube/fingertricks/",
+        "accessedAt": "2026-09-09",
+        "license": "Sem licenca explicita localizada; referencia citada, sem copia de texto, imagens ou diagramas.",
+        "supports": "Base do empurrao de D com anular; a fonte nao detalha D2."
+      }
+    ],
+    "authorialJustification": "Encadeamento anular+minimo e producao autoral por analogia com o duplo de topo; a fonte nao cobre D2, por isso o registro depende integralmente da revisao.",
+    "verificationMethod": "Verificado: revisao semantica e geometrica independente por Sonda em 2026-09-09, consistencia toque a toque e continuidade de pegada conferidas. Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

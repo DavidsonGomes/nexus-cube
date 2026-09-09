@@ -31,12 +31,12 @@ export interface ValidatedSolverInput {
 export type SolverValidation = ValidatedSolverInput | { readonly kind: 'incomplete'|'invalid'; readonly issues: readonly SolverIssue[] };
 export type SolverPhase = 'initializing'|'solving'|'verifying';
 export type SolverErrorCode = 'invalid-input'|'input-key-mismatch'|'worker-unavailable'|'worker-error'|'invalid-response'|'calculation-failed'|'verification-failed'|'search-limit'|'timeout'|'disposed';
-export type SolverMode='direct'|'cfop'|'roux';
+export type SolverMode='direct'|'cfop'|'roux'|'lbl';
 export interface SolverRequest { readonly requestId: string; readonly validated: ValidatedSolverInput; readonly method?:SolverMode }
 export interface SolverIdentity { readonly requestId: string; readonly inputKey: string }
 type SolverSolution = SolverIdentity & { readonly kind:'solution'; readonly algorithm:string; readonly tokens:readonly string[]; readonly initialState:CubeState };
 export type SolverOutcome = (SolverSolution & {readonly method:'direct'; readonly plan?:never})
-  | (SolverSolution & {readonly method:'cfop'|'roux';readonly plan:MethodPlan})
+  | (SolverSolution & {readonly method:'cfop'|'roux'|'lbl';readonly plan:MethodPlan})
   | (SolverIdentity & { readonly kind:'cancelled' })
   | (SolverIdentity & { readonly kind:'error'; readonly code:SolverErrorCode; readonly message:string });
 export type SolverProgress = SolverIdentity & { readonly kind:'progress'; readonly phase:SolverPhase;readonly method?:SolverMode;readonly stageId?:MethodStageId };
