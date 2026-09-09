@@ -15,6 +15,7 @@ export interface SyncEnginePorts {
   intervalMs?: number;
   onError?(error: unknown, context: ContextHandle): Promise<void>;
   onHydrated?(context: ContextHandle): Promise<void>;
+  autoAdopt?(context: ContextHandle): Promise<void>;
 }
 const revision = (value: string): bigint => { if (!/^(0|[1-9][0-9]*)$/.test(value)) throw new Error('Invalid revision'); return BigInt(value); };
 
@@ -107,6 +108,9 @@ export function createSyncEngine(ports: SyncEnginePorts) {
       const transport = await ports.transport(context); if (!transport) return;
       await update(context, sync => { sync.status = 'syncing'; sync.error = null; sync.hydrated = false; });
       await pull(context, transport);
+      // Safe auto-adoption: if reconciliation is armed only because of local state
+      // that is a strict subset of the pulled remote, adopt it without a prompt.
+      await ports.autoAdopt?.(context);
       await ports.onHydrated?.(context);
       for (let count = 0; count < 100 && !stopped; count++) {
         const state = await ports.store.read(); assert(state, context);

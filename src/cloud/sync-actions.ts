@@ -45,6 +45,48 @@ function merge(remote: AppData, source: AppData, id: () => string): { data: AppD
   toSyncAccountData(data);
   return { data, collisions };
 }
+/** Safe auto-adoption predicate for Causa 2. WIRED to production: the sync engine
+ * calls the reducer below after a pull to auto-hydrate a subset device. True only
+ * when merging the local snapshot into the remote projection changes nothing at
+ * all: every local record is already in remote with an equal value, settings
+ * match, and there are zero collisions. When true, the local state is a strict
+ * subset of remote and adopting `remote` loses no local data. Any real divergence
+ * (a local-only record, a differing value, differing settings) makes merge add or
+ * rename something, so this is false and the choice flow must stay. `randomId` is
+ * only reached on a collision, which already fails the equality, so the constant
+ * never affects the verdict. merge/projected validate through the domain and can
+ * throw near the size ceiling; a throw here must not become a recurring sync
+ * error that hides the choice, so it is caught and treated as "not a subset". */
+export function isLocalSubsetOfRemote(remote: AppData, local: AppData): boolean {
+  try {
+    const plan = merge(remote, local, () => 'x0collisionplaceholder');
+    return plan.collisions === 0 && equal(plan.data, remote);
+  } catch { return false; }
+}
+/** Safe auto-adoption reducer for Causa 2. When a device sits in reconciliation
+ * only because it carried local state, and that local state is a strict subset of
+ * the pulled remote (nothing to lose), adopt the remote WITHOUT a user choice:
+ * archive the pre-replacement view like confirm('remote'), surface the remote,
+ * and clear reconciliation. Any real divergence leaves reconciliation intact so
+ * the choice flow stays — blind adoption would erase local data. Runs only with a
+ * hydrated account and an EMPTY outbox (a non-empty queue is divergence by
+ * definition). Returns true iff it adopted. Reuses the single subset oracle. */
+export function autoAdoptSubsetReconciliation(account: { data: AppData; revision: number; sync?: SyncAccountState; syncNeedsReconciliation?: boolean }, randomId: () => string): boolean {
+  const sync = account.sync;
+  if (!sync || !sync.reconciliation || !sync.hydrated || sync.received || sync.outbox.length) return false;
+  // projected() validates through the domain and can throw near the size ceiling.
+  // A throw must leave reconciliation intact (the choice flow stays), never wedge
+  // the cycle into a recurring sync error, so failure means "do not auto-adopt".
+  let remote: AppData;
+  try { remote = projected(liveBase(sync), account.data); } catch { return false; }
+  if (!isLocalSubsetOfRemote(remote, account.data)) return false;
+  const archive = (sync.reconciliationArchive ??= {});
+  archive[randomId()] = { sourceSnapshot: structuredClone(account.data), outbox: [], sourceDigest: 'auto-adopt', replaced: structuredClone(account.data) };
+  const keys = Object.keys(archive); if (keys.length > 20) delete archive[keys[0]];
+  account.data = remote; account.revision++; sync.reconciliation = false; account.syncNeedsReconciliation = false;
+  sync.status = 'synced';
+  return true;
+}
 export function createSyncActions(ports: Ports): CloudSyncAPI {
   async function failFor(context: ContextHandle, error: unknown): Promise<Failure> {
     try { return await ports.after(context, failed(error)); } catch (failure) { return failed(failure); }

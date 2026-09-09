@@ -6,7 +6,7 @@ import { AuthSessionInvalidError } from './types';
 import type { AuthDriver, AuthDriverFactory, AuthResult, CaptureHandle, CloudFailureCode, CloudIdentity, CloudService, CloudSnapshot, CommitResult, ContextHandle, Failure, RecoveryDraft } from './types';
 import type { CloudAtomicStore, CloudState, StoredDraft } from './storage';
 import { createSyncEngine } from './sync-engine';
-import { createSyncActions } from './sync-actions';
+import { createSyncActions, autoAdoptSubsetReconciliation } from './sync-actions';
 import { enqueueChange, initialSyncState } from './sync-state';
 import { createRPCSyncTransport } from './sync-transport';
 import type { CloudSyncAPI, SyncTransportFactory } from './sync-types';
@@ -195,7 +195,7 @@ export function createCloudServiceWithPorts(ports: CloudServicePorts): CloudServ
       return await returnForContext(context, result, true);
     } catch (error) { const result = failure(error); if (snapshot.context && snapshot.context.generation === context.generation && snapshot.context.userId === context.userId) emit({ error: result }); return result; }
   }
-  const syncEngine = syncEnabled ? createSyncEngine({ store, context: () => snapshot.context, isCurrent: isCurrentSync, guard, transport: syncTransport, online, intervalMs: ports.syncIntervalMs, onHydrated: async context => { const state = await store.read(); if (same(context, state) && state.accounts[context.userId!]?.firstUse?.eligible && !state.accounts[context.userId!]?.sync?.reconciliation) await ensureFirstUse(context); }, onError: async (error, context) => { if (error instanceof AuthSessionInvalidError) { const state = await store.read(); if (same(context, state) && state.authInstance) await invalidate(state.authInstance, context.generation); } } }) : { trigger() {}, async drain() {}, dispose() {} };
+  const syncEngine = syncEnabled ? createSyncEngine({ store, context: () => snapshot.context, isCurrent: isCurrentSync, guard, transport: syncTransport, online, intervalMs: ports.syncIntervalMs, autoAdopt: async context => { await store.transact(state => { guard(state, context); const account = state.accounts[context.userId!]; if (account?.sync) autoAdoptSubsetReconciliation(account, id); }); }, onHydrated: async context => { const state = await store.read(); if (same(context, state) && state.accounts[context.userId!]?.firstUse?.eligible && !state.accounts[context.userId!]?.sync?.reconciliation) await ensureFirstUse(context); }, onError: async (error, context) => { if (error instanceof AuthSessionInvalidError) { const state = await store.read(); if (same(context, state) && state.authInstance) await invalidate(state.authInstance, context.generation); } } }) : { trigger() {}, async drain() {}, dispose() {} };
   const syncUnavailable = async (): Promise<Failure> => ({ kind: 'error', code: 'unavailable', message: 'Sincronização ainda indisponível. Seus dados continuam locais neste dispositivo.' });
   const syncActions: CloudSyncAPI = syncEnabled ? createSyncActions({ store, guard, after: returnForContext, idle: assertIdle, randomId: id, drain: syncEngine.drain, trigger: syncEngine.trigger, transport: syncTransport }) : { listSyncConflicts: syncUnavailable, resolveSyncConflict: syncUnavailable, previewAccountReconciliation: syncUnavailable, confirmAccountReconciliation: syncUnavailable, previewGuestAdoption: syncUnavailable, confirmGuestAdoption: syncUnavailable };
   const service: CloudService = {
