@@ -60,7 +60,26 @@ export function createSyncEngine(ports: SyncEnginePorts) {
         if (!page.hasMore) current.hydrated = true;
         if (!current.reconciliation) {
           const account = next.accounts[context.userId!]; const projected = fold(current, account.data);
-          if (!equal(projected, account.data)) { account.data = projected; account.revision++; }
+          if (!equal(projected, account.data)) {
+            // Detect keys the user currently sees that vanish from the projection
+            // without a matching server tombstone. This is the C1/C2 fingerprint:
+            // a smaller projection silently replacing a larger local view. Archive
+            // the pre-replacement data, then assign. Never refuse the assignment,
+            // which would wedge sync; visibility loss is recoverable from here.
+            const before = new Set(toSyncRecords(account.data).map(keyOf));
+            const after = new Set(toSyncRecords(projected).map(keyOf));
+            const tombstoned = new Set(current.base.filter(record => record.tombstone).map(keyOf));
+            const dropped = [...before].filter(key => !after.has(key) && !tombstoned.has(key) && key !== 'settings:account');
+            const log = (current.droppedProjections ??= []);
+            const last = log[log.length - 1];
+            // Bound to the last 20 distinct drops: growth is per remote commit, not
+            // per poll, and repeated identical key-sets add no recovery information.
+            if (dropped.length && !(last && equal(last.keys, dropped))) {
+              log.push({ at: page.header.operationId, keys: dropped, previous: structuredClone(account.data) });
+              if (log.length > 20) log.splice(0, log.length - 20);
+            }
+            account.data = projected; account.revision++;
+          }
         }
       });
       cut = page.upperBound; more = page.hasMore || !page.complete;

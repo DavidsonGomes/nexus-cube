@@ -43,7 +43,7 @@ async function initialize(service:CloudService){
  if(!operation){const callback=callbackUrl;callbackUrl=null;operation=(async()=>{await service.initialize();if(callback)await service.handleAuthCallback(callback);})();initializations.set(service,operation);}
  await operation;
 }
-function getService(){return singleton??=createCloudService({url:import.meta.env.VITE_SUPABASE_URL??'',publishableKey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY??'',redirectTo:location.origin+'/auth/callback',syncEnabled:true});}
+function getService(){return singleton??=createCloudService({url:import.meta.env.VITE_SUPABASE_URL??'',publishableKey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY??'',redirectTo:location.origin+'/auth/callback',syncEnabled:false});}
 export function DataProvider({children,service:provided}:{children:ReactNode;service?:CloudService}){
  const [service]=useState<CloudService>(()=>provided??getService());
  const cloud=useSyncExternalStore(service.subscribe,service.getSnapshot,service.getSnapshot);

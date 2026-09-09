@@ -6,6 +6,7 @@ import { AUF_OPTIONS, methodGoalSatisfied, methodTokens } from '../plan';
 import type { MethodAdjustment } from '../types';
 import { rouxCentersFixed } from './goals';
 import { checkpoint, type SearchContext } from './search';
+import { simplifySolverAlgorithm } from '../simplify';
 
 interface Match { algorithm: string; adjustments: MethodAdjustment[]; matchedCaseId?: string }
 const model = createAnchorModel('corner', []);
@@ -28,7 +29,8 @@ export async function matchCMLL(state: CubeState, context: SearchContext): Promi
     for (const source of CMLL_SOURCES) {
       await checkpoint(context);
       for (const y of ['', 'y', 'y2', "y'"]) for (const u of AUF_OPTIONS) {
-        const algorithm = [u, y, source.algorithm, invertAlgorithm(y)].filter(Boolean).join(' ');
+        // The AUF prefix stays a protected segment; only the conjugated body is simplified.
+        const algorithm = [u, simplifySolverAlgorithm([y, source.algorithm, invertAlgorithm(y)].filter(Boolean).join(' '))].filter(Boolean).join(' ');
         const inverse = invertAlgorithm(algorithm);
         for (const post of AUF_OPTIONS) {
           const sample = applyAlgorithm(solvedCube(), [post, inverse].filter(Boolean).join(' '));

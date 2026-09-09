@@ -1,4 +1,5 @@
 import type { AppData, Penalty, StoredSolveMode } from '../domain/types';
+import type { ImportPlanningService } from './plan-types';
 
 export type ImportFormat = 'nexus-backup' | 'cstimer-json' | 'cube-timer-sqlite';
 export type JsonValue = null | boolean | number | string | JsonValue[] | { [key:string]:JsonValue };
@@ -63,4 +64,29 @@ export type ImportParseResult = ParsedImport
 export interface CubeTimerProjection {
   userVersion:number;
   tables:Record<string,Record<string,JsonValue>[]>;
+}
+
+declare const importSourceBrand: unique symbol;
+/** Local authority only. Serialization or cloning cannot reconstruct a handle. */
+export interface ImportSourceHandle { readonly [importSourceBrand]: true }
+export interface InspectedImportSource {
+  kind:'inspected';
+  sourceHandle:ImportSourceHandle;
+  byteLength:number;
+  /** SHA256 of the exact file bytes, not a semantic digest or consent. */
+  rawSHA256:string;
+  /** Null for invalid/unrecognized input and SQLite awaiting its reader. */
+  semanticSHA256:string|null;
+  parserVersion:string;
+  result:ImportParseResult;
+}
+export type ImportInspectionResult = InspectedImportSource
+  | {kind:'cancelled'|'closed'|'source-limit'|'retention-limit'|'inspection-error'};
+export interface ImportInspectionService extends ImportPlanningService {
+  inspect(source:Uint8Array, options?:{signal?:AbortSignal}):Promise<ImportInspectionResult>;
+  /** Each successful read returns an independent copy. Invalid/released handles return null. */
+  readSourceBytes(handle:ImportSourceHandle):Uint8Array|null;
+  readParseResult(handle:ImportSourceHandle):ImportParseResult|null;
+  releaseSource(handle:ImportSourceHandle):boolean;
+  dispose():void;
 }

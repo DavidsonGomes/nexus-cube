@@ -34,6 +34,7 @@ export interface RecoveryDraft { id: string; state: 'interrupted' | 'completed' 
 /** Small SDK seam. Test doubles implement this without real credentials or network. */
 export interface AuthDriver {
   rpc?(name: string, args: Record<string, unknown>): Promise<unknown>;
+  invokeAdmin?(body: unknown): Promise<unknown>;
   signUp(email: string, password: string, redirectTo: string): Promise<CloudIdentity | null>;
   signIn(email: string, password: string): Promise<CloudIdentity>;
   getUser(): Promise<CloudIdentity | null>;
@@ -49,6 +50,7 @@ export interface AuthStorage { getItem(key: string): Promise<string | null>; set
 export type AuthDriverFactory = (options: { storage: AuthStorage; storageKey: string }) => AuthDriver;
 
 export interface CloudService extends CloudSyncAPI {
+  invokeAdmin(input: { context: ContextHandle; body: unknown }): Promise<{ kind: 'admin-response'; context: ContextHandle; data: unknown } | Failure>;
   getSnapshot(): CloudSnapshot;
   subscribe(listener: () => void): () => void;
   initialize(): Promise<void>;

@@ -6,6 +6,7 @@ import type { ValidatedSolverInput } from '../../types';
 import { buildAnchorPDB, createAnchorModel } from '../anchors';
 import type { AnchorPDB } from '../anchors';
 import { AUF_OPTIONS, createMethodPlanBuilder, METHOD_STAGE_PROFILES, methodCheckpoint, methodGoalSatisfied, methodTokens, verifyMethodPlan } from '../plan';
+import { simplifySolverAlgorithm } from '../simplify';
 import type { F2LSlot, MethodAdjustment, MethodPlan, MethodPlannerOptions, MethodStageSpec } from '../types';
 
 const turns=['U','R','F','D','L','B'].flatMap(f=>[f,f+'2',f+"'"]);
@@ -33,7 +34,8 @@ async function buildPairIndex(options:MethodPlannerOptions){
   const index=new Map(slots.map(s=>[s,new Map<string,PairCandidate[]>()]));let count=0;
   for(const item of CATALOG.filter(c=>c.family==='F2L'))for(const rotation of rotations)for(const auf of AUF_OPTIONS){
     if(++count%24===0)await methodCheckpoint(options);
-    const algorithm=join(auf,conjugate(rotation,canonicalOrientation(item.algorithm))),setup=applyAlgorithm(solvedCube(),invertAlgorithm(algorithm));
+    // The AUF stays a protected leading segment so its displayed adjustment never merges away.
+    const algorithm=join(auf,simplifySolverAlgorithm(conjugate(rotation,canonicalOrientation(item.algorithm)))),setup=applyAlgorithm(solvedCube(),invertAlgorithm(algorithm));
     for(const slot of slots){
       const others=f2lPieces.filter(p=>p!==slot&&p!=='D'+slot);
       if(!preserves(setup,others)||methodGoalSatisfied(setup,{kind:'f2l-pair',slot}))continue;
@@ -55,13 +57,16 @@ async function solvePair(state:CubeState,slot:F2LSlot,preserved:readonly string[
     for(const candidate of index.get(pairKey(current.state,slot))??[]){
       const after=applyAlgorithm(current.state,candidate.algorithm);
       if(!methodGoalSatisfied(after,{kind:'f2l-pair',slot})||!preserves(after,preserved))continue;
+      // Without an AUF the joint may merge and markers are recomputed; a leading AUF keeps
+      // its displayed boundary, so both parts stay simplified but the joint is preserved.
+      if(!candidate.auf){const algorithm=simplifySolverAlgorithm(join(current.algorithm,candidate.algorithm));return {algorithm,caseId:candidate.caseId,adjustments:adjustments(algorithm)};}
       const algorithm=join(current.algorithm,candidate.algorithm),offset=methodTokens(current.algorithm).length;
       return {algorithm,caseId:candidate.caseId,adjustments:[...adjustments(current.algorithm),...adjustments(candidate.algorithm,candidate.auf).map(a=>({...a,startStep:a.startStep+offset,endStep:a.endStep+offset}))]};
     }
     for(const algorithm of eject){
       const after=applyAlgorithm(current.state,algorithm);if(!preserves(after,preserved))continue;
       const key=pairKey(after,slot);if(seen.has(key))continue;seen.add(key);
-      queue.push({state:after,algorithm:join(current.algorithm,algorithm)});
+      queue.push({state:after,algorithm:simplifySolverAlgorithm(join(current.algorithm,algorithm))});
     }
   }
   throw new Error(`Não foi possível construir o par ${slot} preservando as etapas anteriores.`);
@@ -72,7 +77,7 @@ async function solveLL(state:CubeState,family:'OLL'|'PLL',options:MethodPlannerO
   let tried=0;
   for(const item of CATALOG.filter(c=>c.family===family))for(const rotation of rotations)for(const auf of AUF_OPTIONS){
     if(++tried%16===0)await methodCheckpoint(options);
-    const algorithm=join(auf,conjugate(rotation,canonicalOrientation(item.algorithm))),after=applyAlgorithm(state,algorithm);
+    const algorithm=join(auf,simplifySolverAlgorithm(conjugate(rotation,canonicalOrientation(item.algorithm)))),after=applyAlgorithm(state,algorithm);
     if(!preserves(after,f2lPieces)||!methodGoalSatisfied(after,goal))continue;
     return {algorithm,caseId:item.id,adjustments:adjustments(algorithm,auf)};
   }
@@ -83,7 +88,7 @@ export async function planCFOP(input:ValidatedSolverInput,options:MethodPlannerO
   await methodCheckpoint(options);
   if(!crossPDB)crossPDB=await buildAnchorPDB(createAnchorModel('edge',turns),CROSS_PIECES,options);
   const stage=(index:number,title:string,explanation:string):MethodStageSpec=>({...METHOD_STAGE_PROFILES.cfop[index],title,explanation});
-  builder.addStage(stage(0,'Cruz na face D','Posicione as quatro arestas brancas, alinhadas aos centros laterais.'),crossPDB.solution(builder.state).join(' '));
+  builder.addStage(stage(0,'Cruz na face D','Posicione as quatro arestas brancas, alinhadas aos centros laterais.'),simplifySolverAlgorithm(crossPDB.solution(builder.state).join(' ')));
   for(const [i,slot] of slots.entries()){
     const spec=stage(i+1,`Par F2L ${slot}`,`Conecte o canto D${slot} à aresta ${slot}, preservando a cruz e os pares anteriores.`);
     const result=await solvePair(builder.state,slot,spec.preservedPieces??[],options);

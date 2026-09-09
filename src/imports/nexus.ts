@@ -1,10 +1,10 @@
 import { parseBackup } from '../data/store';
 import type { ImportParseResult, JsonValue, ParsedImport } from './types';
-import { copy, invalid, parseJson, record } from './shared';
+import { copy, invalid, jsonFailure, parseJson, record } from './shared';
 
 export function parseNexusText(text:string):ImportParseResult {
   let root:JsonValue;
-  try{root=parseJson(text);}catch{return invalid('invalid-json','Não foi possível ler o JSON dentro dos limites.');}
+  try{root=parseJson(text);}catch(error){return jsonFailure(error,'invalid-json','Não foi possível ler o JSON dentro dos limites.');}
   if(!record(root)||root.format!=='nexus-cube')return {kind:'unrecognized',reason:'Envelope Nexus não identificado.'};
   try{
     // Validate the original envelope, including its source-version byte budget.

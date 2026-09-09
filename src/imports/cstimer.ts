@@ -1,6 +1,6 @@
 import { MAX_TIME_MS } from '../domain/timer';
 import type { ImportParseResult, JsonValue, ParsedImport } from './types';
-import { copy, embedded, has, invalid, issue, MAX_IMPORT_ROWS, parseJson, record, stringOrNull } from './shared';
+import { copy, embedded, has, invalid, issue, jsonFailure, MAX_IMPORT_ROWS, parseJson, record, stringOrNull } from './shared';
 
 const variant='cstimer-session-tuples-v1';
 function epochISO(value:JsonValue|undefined):string|null {
@@ -12,18 +12,18 @@ function epochISO(value:JsonValue|undefined):string|null {
 }
 export function parseCsTimerText(text:string):ImportParseResult {
   let root:JsonValue;
-  try{root=parseJson(text);}catch{return invalid('invalid-json','Não foi possível ler o JSON dentro dos limites.');}
+  try{root=parseJson(text);}catch(error){return jsonFailure(error,'invalid-json','Não foi possível ler o JSON dentro dos limites.');}
   if(!record(root)||!Object.keys(root).some(key=>/^session[1-9]\d*$/.test(key)))return {kind:'unrecognized',reason:'Não há sessões no formato csTimer conhecido.'};
   const result:ParsedImport={kind:'parsed',format:'cstimer-json',variant,sessions:[],solves:[],auxiliary:[],metadata:copy(root),issues:[]};
   let properties:Record<string,JsonValue>={},sessionData:Record<string,JsonValue>={};
   try{
     if(has(root,'properties')){const parsed=embedded(root.properties);if(!record(parsed))return invalid('invalid-properties','Metadados properties precisam ser um objeto ou JSON de objeto.');properties=parsed;}
     if(has(properties,'sessionData')){const parsed=embedded(properties.sessionData);if(!record(parsed))return invalid('invalid-session-data','Metadados de sessão precisam ser um objeto ou JSON de objeto.');sessionData=parsed;}
-  }catch{return invalid('invalid-metadata-json','Metadados serializados não são JSON válido.');}
+  }catch(error){return jsonFailure(error,'invalid-metadata-json','Metadados serializados não são JSON válido.');}
   const entries=Object.entries(root).filter(([key])=>/^session[1-9]\d*$/.test(key));
   if(entries.length>1000)return invalid('session-limit','Quantidade de sessões excede o limite.');
   for(const [sessionKey,serialized] of entries){
-    let rows:JsonValue;try{rows=embedded(serialized);}catch{return invalid('invalid-session-json','Sessão serializada inválida.');}
+    let rows:JsonValue;try{rows=embedded(serialized);}catch(error){return jsonFailure(error,'invalid-session-json','Sessão serializada inválida.');}
     if(!Array.isArray(rows))return invalid('invalid-session-rows','Sessão precisa conter uma lista de registros.');
     if(result.solves.length+rows.length>MAX_IMPORT_ROWS)return invalid('record-limit','Quantidade de registros excede o orçamento de leitura.');
     const metadata=has(sessionData,sessionKey.slice(7))?sessionData[sessionKey.slice(7)]:null;

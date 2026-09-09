@@ -29,6 +29,7 @@ export function createSupabaseAuthFactory(url: string, publishableKey: string): 
     }
     return {
       rpc: async (name, args) => { const { data, error } = await client.rpc(name, args); if (error) throw new Error('Serviço de sincronização indisponível.'); return data; },
+      invokeAdmin: async body => { const { data, error } = await client.functions.invoke('nexus-admin', { body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } }); if (error) throw new Error('Resultado administrativo não confirmado.'); return data; },
       signUp: async (email, password, redirectTo) => { const { data, error } = await client.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo } }); if (error) throw error; session = data.session; return data.session ? verified() : null; },
       signIn: async (email, password) => { const { data, error } = await client.auth.signInWithPassword({ email, password }); if (error) throw error; session = data.session; const user = await verified(); if (!user) throw new Error('Sessão indisponível.'); return user; },
       getUser: verified,

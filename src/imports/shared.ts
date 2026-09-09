@@ -1,5 +1,6 @@
 import { MAX_BACKUP_BYTES, utf8ByteLength } from '../data/store';
 import type { ImportIssue, ImportParseResult, JsonValue } from './types';
+import { assertUnambiguousJson, DuplicateImportJsonKeyError } from './json-guard';
 
 export const MAX_IMPORT_SOURCE_BYTES=MAX_BACKUP_BYTES;
 export const MAX_IMPORT_JSON_DEPTH=32;
@@ -13,6 +14,11 @@ export function issue(code:string,message:string,sourceKey:string|null=null,seve
   return {code,message,sourceKey,severity};
 }
 export function invalid(code:string,message:string):ImportParseResult {return {kind:'invalid',issues:[issue(code,message,null,'blocking')]};}
+export function jsonFailure(error:unknown,code:string,message:string):ImportParseResult {
+  return error instanceof DuplicateImportJsonKeyError
+    ? invalid('duplicate-json-key','JSON contém chaves repetidas no mesmo objeto; a origem é ambígua.')
+    : invalid(code,message);
+}
 export function assertJsonBudget(value:unknown):asserts value is JsonValue {
   const stack:{value:unknown;depth:number}[]=[{value,depth:0}];let nodes=0;
   while(stack.length){
@@ -27,7 +33,9 @@ export function assertJsonBudget(value:unknown):asserts value is JsonValue {
 }
 export function parseJson(text:string):JsonValue {
   if(typeof text!=='string'||utf8ByteLength(text)>MAX_IMPORT_SOURCE_BYTES)throw new Error('Arquivo excede o orçamento de bytes.');
-  const parsed:unknown=JSON.parse(text.charCodeAt(0)===0xfeff?text.slice(1):text);assertJsonBudget(parsed);return parsed;
+  const source=text.charCodeAt(0)===0xfeff?text.slice(1):text;
+  assertUnambiguousJson(source,MAX_IMPORT_JSON_DEPTH,MAX_IMPORT_JSON_NODES);
+  const parsed:unknown=JSON.parse(source);assertJsonBudget(parsed);return parsed;
 }
 export function embedded(value:JsonValue):JsonValue {return typeof value==='string'?parseJson(value):value;}
 export function copy<T extends JsonValue>(value:T):T {return structuredClone(value);}

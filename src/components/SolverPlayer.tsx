@@ -17,8 +17,10 @@ function explain(token: string) {
   return `Face ${faceNames[base] ?? base}: ${turn}, olhando diretamente para essa face.`;
 }
 
-export default function SolverPlayer({initialState, algorithm, plan}: {initialState: CubeState; algorithm: string; plan?: MethodPlan}) {
-  const [speed, setSpeed] = useState(1);
+export interface SolverSpeedControl {animationSpeed:number;onAnimationSpeedChange:(speed:number)=>void;disabled?:boolean}
+export default function SolverPlayer({initialState, algorithm, plan,speedControl}: {initialState: CubeState; algorithm: string; plan?: MethodPlan;speedControl?:SolverSpeedControl}) {
+  const [localSpeed, setLocalSpeed] = useState(1);
+  const speed=speedControl?.animationSpeed??localSpeed;
   const [chosenStage, setChosenStage] = useState<number | null>(null);
   const player = useCubePlayback(initialState, algorithm, speed);
   const {tokens, step, state, moving, current, angle, running, reset, jump, next, togglePlayback} = player;
@@ -37,7 +39,7 @@ export default function SolverPlayer({initialState, algorithm, plan}: {initialSt
       <button className="icon-button" aria-label="Movimento anterior" disabled={step === 0 || moving} onClick={() => jump(step - 1)}><SkipBack size={19}/></button>
       <button className="play-button" aria-label={running ? 'Pausar solução' : 'Reproduzir solução'} disabled={!tokens.length} onClick={togglePlayback}>{running ? <Pause size={21}/> : <Play size={21}/>}</button>
       <button className="icon-button" aria-label="Próximo movimento" disabled={step === tokens.length || moving} onClick={next}><SkipForward size={19}/></button>
-      <select aria-label="Velocidade da solução" value={speed} onChange={event => setSpeed(Number(event.target.value))}>{[0.5, 1, 1.5, 2, 3].map(value => <option key={value} value={value}>{value}×</option>)}</select>
+      <select aria-label="Velocidade da solução" value={speed} disabled={speedControl?.disabled} onChange={event => {const value=Number(event.target.value);if(speedControl)speedControl.onAnimationSpeedChange(value);else setLocalSpeed(value);}}>{[0.5, 1, 1.5, 2, 3].map(value => <option key={value} value={value}>{value}×</option>)}</select>
     </div>
     <div className="solver-step-description" aria-live="polite">
       <strong>{moving && !running ? 'Pausado' : step === tokens.length ? 'Cubo resolvido' : `Movimento ${step + 1} de ${tokens.length}`}</strong>

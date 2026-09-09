@@ -200,6 +200,26 @@ export function createCloudServiceWithPorts(ports: CloudServicePorts): CloudServ
   const syncActions: CloudSyncAPI = syncEnabled ? createSyncActions({ store, guard, after: returnForContext, idle: assertIdle, randomId: id, drain: syncEngine.drain, trigger: syncEngine.trigger, transport: syncTransport }) : { listSyncConflicts: syncUnavailable, resolveSyncConflict: syncUnavailable, previewAccountReconciliation: syncUnavailable, confirmAccountReconciliation: syncUnavailable, previewGuestAdoption: syncUnavailable, confirmGuestAdoption: syncUnavailable };
   const service: CloudService = {
     ...syncActions,
+    invokeAdmin: async input => {
+      const context = { ...input.context };
+      let dispatched = false;
+      try {
+        const body = structuredClone(input.body);
+        if (!online()) denied('offline', 'Conecte-se para acessar a administração.');
+        const state = await store.read(); guard(state, context);
+        if (!context.userId || state.gate !== 'active' || !state.authInstance || !isCurrentSync(context)) denied('locked', 'Autentique uma conta para continuar.');
+        const auth = driver(state.authInstance);
+        if (!auth.invokeAdmin) denied('unavailable', 'Administração indisponível.');
+        const current = await store.read(); guard(current, context);
+        if (current.authInstance !== state.authInstance || !isCurrentSync(context)) denied('identity-changed', 'A identidade mudou antes do envio.');
+        dispatched = true;
+        const data = await auth.invokeAdmin(body);
+        return await returnForContext(context, { kind: 'admin-response' as const, context: { ...context }, data });
+      } catch (error) {
+        if (!isCurrentSync(context)) return { kind: 'error', code: 'identity-changed', message: 'A identidade mudou. O resultado anterior não foi exibido.' };
+        return failure(error, dispatched ? 'outcome-unknown' : 'auth-error');
+      }
+    },
     ensureFirstUse,
     getSnapshot: () => snapshot,
     subscribe: listener => { listeners.add(listener); return () => listeners.delete(listener); },

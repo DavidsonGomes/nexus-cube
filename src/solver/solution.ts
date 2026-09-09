@@ -1,5 +1,6 @@
 import { applyAlgorithm, faceColors, parseAlgorithm } from '../domain/cube';
 import type { CubeState } from '../domain/types';
+import { simplifySolverAlgorithm } from './methods/simplify';
 import type { SolverErrorCode, SolverOutcome, SolverPhase, ValidatedSolverInput } from './types';
 import { SOLVER_FACES, validateDraft } from './validation';
 
@@ -40,7 +41,7 @@ export async function solveValidatedInput(input:ValidatedSolverInput,onPhase?:(p
   data.CORNERS={pieces:[...validated.cubies.corners.pieces],orientation:[...validated.cubies.corners.orientation]};
   data.EDGES={pieces:[...validated.cubies.edges.pieces],orientation:[...validated.cubies.edges.orientation]};
   onPhase?.('solving');
-  const algorithm=(await experimentalSolve3x3x3IgnoringCenters(new KPattern(kpuzzle,data))).toString();
+  const algorithm=simplifySolverAlgorithm((await experimentalSolve3x3x3IgnoringCenters(new KPattern(kpuzzle,data))).toString());
   const tokens=solverTokens(algorithm);
   onPhase?.('verifying');
   if(!verifySolverSolution(validated.state,algorithm))throw new SolverFailure('verification-failed','Não foi possível confirmar a solução para as 54 cores informadas.');

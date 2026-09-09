@@ -94,10 +94,14 @@ export function createSyncActions(ports: Ports): CloudSyncAPI {
         if (sync.adoptedSources[plan.sourceDigest]) throw new Error('Fonte já adotada.');
         const next = choice === 'remote' ? plan.remote : plan.merged;
         const changes = diffRecords(plan.remote, next, liveBase(sync));
-        if (sync.outbox.length) {
-          (sync.reconciliationArchive ??= {})[previewId] = { sourceSnapshot: plan.sourceSnapshot, outbox: structuredClone(sync.outbox), sourceDigest: plan.sourceDigest };
-          sync.outbox = [];
-        }
+        // Archive the exact pre-replacement local view unconditionally: it is the
+        // only copy of edits made between preview and confirm, and of any local
+        // records not represented in the queue. Preserve the queue too when non-empty.
+        const archive = (sync.reconciliationArchive ??= {});
+        archive[previewId] = { sourceSnapshot: plan.sourceSnapshot, outbox: structuredClone(sync.outbox), sourceDigest: plan.sourceDigest, replaced: structuredClone(current.data) };
+        // Bound the archive to the newest 20 reconciliations; oldest fall off.
+        const keys = Object.keys(archive); if (keys.length > 20) delete archive[keys[0]];
+        if (sync.outbox.length) sync.outbox = [];
         current.data = next; current.revision++; sync.reconciliation = false; current.syncNeedsReconciliation = false;
         if (changes.length) sync.outbox.push({ id: operationId, changes, sourceDigest: plan.sourceDigest });
         else sync.adoptedSources[plan.sourceDigest] = operationId;
@@ -128,7 +132,12 @@ export function createSyncActions(ports: Ports): CloudSyncAPI {
           const index = sync.outbox.findIndex(entry => entry.id === conflictId && entry.conflict);
           if (index < 0) throw new Error('Conflito não disponível.');
           const entry = sync.outbox[index];
-          if (choice === 'remote') sync.outbox.splice(index, 1);
+          if (choice === 'remote') {
+            const archive = (sync.discardedConflicts ??= []);
+            archive.push({ at: operationId, entry: structuredClone(entry) });
+            if (archive.length > 50) archive.splice(0, archive.length - 50);
+            sync.outbox.splice(index, 1);
+          }
           else {
             const base = new Map(liveBase(sync).map(record => [keyOf(record), record]));
             sync.outbox[index] = { id: operationId, changes: entry.changes.map(change => ({ ...change, before: base.get(keyOf(change)) ?? null, restore: !!change.after && sync.base.some(record => keyOf(record) === keyOf(change) && record.tombstone) })), sourceDigest: entry.sourceDigest };

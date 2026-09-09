@@ -4,7 +4,9 @@ import type { SyncCommitHeader, SyncOperation, SyncReceipt, SyncStatus, SyncStor
 import { decodeWire } from './codec';
 
 export interface LocalChange { entity: SyncRecord['entity']; id: string; before: SyncRecord | null; after: SyncRecord | null; restore?: boolean }
-export interface OutboxEntry { id: string; changes: LocalChange[]; operation?: SyncOperation; receipt?: SyncReceipt; conflict?: string; sourceDigest?: string; bootstrap?: boolean }
+export interface OutboxEntry { id: string; changes: LocalChange[]; operation?: SyncOperation; receipt?: SyncReceipt; conflict?: string; sourceDigest?: string; bootstrap?: boolean; blocked?: boolean }
+export interface DiscardedConflict { at: string; entry: OutboxEntry }
+export interface DroppedProjection { at: string; keys: string[]; previous: AppData }
 export interface SyncAccountState {
   version: 1; revision: string; epoch: string | null; base: SyncStoredRecord[]; outbox: OutboxEntry[];
   reconciliation: boolean; status: SyncStatus; error: string | null;
@@ -12,7 +14,9 @@ export interface SyncAccountState {
   adoptedSources: Record<string, string>;
   hydrated?: boolean;
   previews?: Record<string, { generation: number; localRevision: number; remoteRevision: string; source: 'account' | 'guest'; sourceDigest: string; sourceSnapshot: AppData; merged: AppData; remote: AppData; queueSnapshot: OutboxEntry[] }>;
-  reconciliationArchive?: Record<string, { sourceSnapshot: AppData; outbox: OutboxEntry[]; sourceDigest: string }>;
+  reconciliationArchive?: Record<string, { sourceSnapshot: AppData; outbox: OutboxEntry[]; sourceDigest: string; replaced?: AppData }>;
+  discardedConflicts?: DiscardedConflict[];
+  droppedProjections?: DroppedProjection[];
 }
 export const keyOf = (record: { entity: string; id: string }) => `${record.entity}:${record.id}`;
 /** Object insertion order is not domain data. Array order and key presence are.
@@ -77,13 +81,36 @@ export function liveBase(sync: SyncAccountState): SyncRecord[] {
 export function fold(sync: SyncAccountState, previous: AppData): AppData {
   const records = new Map(liveBase(sync).map(record => [keyOf(record), record]));
   if (!records.has('settings:account')) for (const record of toSyncRecords(createInitialData())) records.set(keyOf(record), record);
-  let blocked = false;
+  // A genuine before-mismatch is a conflict the user must resolve. Entries that
+  // only depend on such an entry (shared key, or ordering behind it) are tainted
+  // and skipped from this projection, but never marked conflict: converting a
+  // dependent entry into a resolvable conflict would let a `remote` choice splice
+  // away its afters for good. Taint is recomputed every fold from queue state.
+  const tainted = new Set<string>();
+  const taint = (entry: OutboxEntry) => { for (const change of entry.changes) tainted.add(keyOf(change)); };
+  // A record whose parent reference is missing from the projection would produce
+  // an orphan the domain rejects. Only solves reference a parent (their session).
+  const parentKey = (change: LocalChange): string | null =>
+    change.after && change.entity === 'solve' ? `session:${(change.after.value as { sessionId: string }).sessionId}` : null;
   for (const entry of sync.outbox) {
-    if (blocked) continue;
-    if (entry.conflict || entry.changes.some(change => !equal(records.get(keyOf(change)) ?? null, change.before))) {
-      entry.conflict ??= 'Os mesmos dados mudaram no servidor. Escolha qual versão manter.';
-      blocked = true; continue;
+    if (entry.conflict) { entry.blocked = false; taint(entry); continue; }
+    // A dependency on a key an earlier entry tainted must be checked BEFORE the
+    // value comparison: after that earlier entry was skipped, `records` still
+    // holds the server value, so a dependent entry's before would look mismatched
+    // and be wrongly promoted to a resolvable conflict. Taint skips it silently.
+    // Referential taint: a child (a solve) whose parent session is neither in the
+    // projection nor created by this same entry would fold to a domain-invalid
+    // orphan; skip it silently too, never as a resolvable conflict.
+    const created = new Set(entry.changes.filter(change => change.after).map(keyOf));
+    const orphaned = entry.changes.some(change => { const parent = parentKey(change); return parent !== null && !records.has(parent) && !created.has(parent); });
+    if (orphaned || entry.changes.some(change => tainted.has(keyOf(change)) || (parentKey(change) !== null && tainted.has(parentKey(change)!)))) {
+      entry.blocked = true; taint(entry); continue;
     }
+    if (entry.changes.some(change => !equal(records.get(keyOf(change)) ?? null, change.before))) {
+      entry.conflict = 'Os mesmos dados mudaram no servidor. Escolha qual versão manter.';
+      entry.blocked = false; taint(entry); continue;
+    }
+    entry.blocked = false;
     for (const change of entry.changes) { if (change.after) records.set(keyOf(change), change.after); else records.delete(keyOf(change)); }
   }
   const projection = projectSyncRecords([...records.values()], previous);

@@ -12,11 +12,13 @@ import DraftRecovery from './components/DraftRecovery';
 import AccountPanel from './components/AccountPanel';
 import PersistenceStatus from './components/PersistenceStatus';
 import type {ContextHandle} from './cloud/types';
+import {areaFromHash,listenAreaHash,revertAreaHash,writeAreaHash} from './components/hashRoute';
 type Area = 'timer' | 'history' | 'algorithms' | 'solver' | 'settings';
 const navigation = [{id:'timer',label:'Timer',icon:Timer},{id:'history',label:'Histórico',icon:History},{id:'algorithms',label:'Algoritmos',icon:Library},{id:'solver',label:'Solucionar',icon:WandSparkles},{id:'settings',label:'Configurações',icon:Settings}] as const;
+const areaRoute={areas:navigation.map(item=>item.id),fallback:'timer'} as const;
 export default function App(){return <DataProvider><ModalFocus/><Shell/></DataProvider>}
 export function Shell(){
- const [requestedArea,setArea]=useState<Area>(()=>{const route=location.hash.slice(1);return navigation.some(item=>item.id===route)?route as Area:'timer';}); const {data,cloud,service,update,error,notice,notify,notifyForContext,timerBusy,saving,localSaving}=useData();
+ const [requestedArea,setArea]=useState<Area>(()=>areaFromHash(location.hash,areaRoute)); const {data,cloud,service,update,error,notice,notify,notifyForContext,timerBusy,saving,localSaving}=useData();
  const heading=useRef<HTMLHeadingElement>(null);
  const currentBusy=useRef(timerBusy);currentBusy.current=timerBusy;
  function authenticated(context:ContextHandle,message:string){
@@ -28,7 +30,10 @@ export function Shell(){
  }
  const fullAccess=cloud.status==='authenticated'||cloud.status==='offline-account';
  const area=fullAccess?requestedArea:'timer';
- function navigate(next:Area){if(timerBusy||saving)return;setArea(next);if(!fullAccess&&next!=='timer')setAccountOpen(true);}
+ const routeState=useRef({busy:false,area:'timer' as Area,fullAccess:false});
+ routeState.current={busy:timerBusy||saving,area,fullAccess};
+ useEffect(()=>listenAreaHash(areaRoute,next=>{const current=routeState.current;if(current.busy){revertAreaHash(current.area);return;}setArea(next);if(!current.fullAccess&&next!=='timer')setAccountOpen(true);}),[]);
+ function navigate(next:Area){if(timerBusy||saving)return;setArea(next);writeAreaHash(next);if(!fullAccess&&next!=='timer')setAccountOpen(true);}
  const [accountOpen,setAccountOpen]=useState(()=>location.pathname==='/auth/callback');
  const identityKey=cloud.context?`${cloud.context.projectRef}:${cloud.context.userId??'guest'}:${cloud.context.generation}`:'locked';
  useEffect(()=>{if(cloud.status==='recovery')setAccountOpen(true);},[cloud.status]);
