@@ -13,6 +13,24 @@ export const DEFAULT_LOCALE: Locale = 'pt-BR';
 
 const dictionaries: Partial<Record<Locale, Messages>> = { 'pt-BR': ptBR };
 
+export const AVAILABLE_LOCALES: readonly Locale[] = ['pt-BR', 'es', 'en'];
+export function localeReady(locale: Locale): boolean { return dictionaries[locale] !== undefined; }
+
+const LOCALE_KEY = 'nexus-locale';
+/** Device-level preference (like the OS keyboard), deliberately outside the
+ * synced account settings until the product asks otherwise; storage failures
+ * fall back to the default without breaking rendering. */
+export function loadLocale(): Locale {
+  try {
+    const value = localStorage.getItem(LOCALE_KEY);
+    if (value && (AVAILABLE_LOCALES as readonly string[]).includes(value) && localeReady(value as Locale)) return value as Locale;
+  } catch { /* private mode or blocked storage */ }
+  return DEFAULT_LOCALE;
+}
+export function persistLocale(locale: Locale): void {
+  try { localStorage.setItem(LOCALE_KEY, locale); } catch { /* best effort */ }
+}
+
 export function dictionaryFor(locale: Locale): Messages {
   return dictionaries[locale] ?? ptBR;
 }
