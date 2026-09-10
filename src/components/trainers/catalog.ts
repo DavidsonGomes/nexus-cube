@@ -18,7 +18,7 @@ export type TrainerNodeKey =
   | 'roux-fb' | 'roux-sb' | 'roux-cmll' | 'roux-lse'
   | 'finger-tricks' | 'one-handed' | 'recognition' | 'lookahead' | 'inspection' | 'algorithm-lab' | 'case-editor';
 
-const CATALOG: readonly { key: TrainerNodeKey; trainerId: TrainerId | null; section: CatalogSectionId; order: number; stage: StageId | null; fixturePrefix: string | null; study: { methodId: MethodId; stageIds: readonly StageId[] } | null }[] = [
+const CATALOG: readonly { key: TrainerNodeKey; trainerId: TrainerId | null; section: CatalogSectionId; order: number; stage: StageId | null; fixturePrefix: string | null; tool?: true; study: { methodId: MethodId; stageIds: readonly StageId[] } | null }[] = [
   { key: 'lbl-cross', trainerId: 'lbl', section: 'lbl', fixturePrefix: 'lbl/cross', order: 0, stage: null, study: null },
   { key: 'lbl-corners', trainerId: 'lbl', section: 'lbl', fixturePrefix: 'lbl/corners', order: 1, stage: null, study: null },
   { key: 'lbl-middle', trainerId: 'lbl', section: 'lbl', fixturePrefix: 'lbl/middle', order: 2, stage: null, study: null },
@@ -40,6 +40,8 @@ const CATALOG: readonly { key: TrainerNodeKey; trainerId: TrainerId | null; sect
   { key: 'recognition', trainerId: 'recognition', section: 'technique', order: 1, stage: null, fixturePrefix: null, study: null },
   { key: 'lookahead', trainerId: 'lookahead', section: 'technique', order: 2, stage: null, fixturePrefix: null, study: null },
   { key: 'inspection', trainerId: 'inspection', section: 'technique', order: 3, stage: null, fixturePrefix: null, study: null },
+  { key: 'algorithm-lab', trainerId: 'algorithm-lab', section: 'technique', order: 4, stage: null, fixturePrefix: null, tool: true, study: null },
+  { key: 'case-editor', trainerId: 'case-editor', section: 'technique', order: 5, stage: null, fixturePrefix: null, tool: true, study: null },
 ];
 
 export const TRAINER_SECTIONS: readonly CatalogSectionId[] = ['lbl', 'cfop', 'roux', 'technique'];
@@ -54,6 +56,7 @@ export function buildTrainerCatalog(input: { studyCounts: (methodId: MethodId, s
       return {
         key: item.key,
         id: item.trainerId,
+        tool: item.tool === true,
         coverage: item.trainerId === null ? null : buildTrainerCoverage(item.trainerId, own),
         study: item.study && count > 0 ? { methodId: item.study.methodId, stageId: item.study.stageIds[0], count } : null,
       };

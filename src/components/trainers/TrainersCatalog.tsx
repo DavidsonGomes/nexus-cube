@@ -13,6 +13,7 @@ function Motif({ section }: { section: CatalogSectionId }) {
 
 function CoveragePill({ node }: { node: TrainerCatalogNode }) {
   const t = useI18n();
+  if (node.tool) return <span className="trainer-coverage available">{t.trainers.coverage.tool}</span>;
   const available = node.coverage !== null && node.coverage.validatedContentCount > 0;
   return <span className={`trainer-coverage ${available ? 'available' : 'preparing'}`}>
     {node.coverage !== null && available ? t.trainers.coverage.validated(node.coverage.validatedContentCount, node.coverage.declared) : t.trainers.coverage.preparing}

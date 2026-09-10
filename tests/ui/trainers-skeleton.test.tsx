@@ -55,12 +55,14 @@ test('group drill-down renders trainer cards with i18n text, coverage state and 
   assert.match(techniqueHtml,/Finger tricks/);assert.match(techniqueHtml,/Gatilhos/);
   assert.doesNotMatch(techniqueHtml,/Estudar na Biblioteca/);
   for(const node of technique.nodes)assert.equal(node.study,null);
-  // Curated launch scope: one-handed and personal-algorithms/editor are absent, not placeholders.
-  assert.equal(technique.nodes.length,4);
-  assert.doesNotMatch(techniqueHtml,/Uma mão|Laboratório de algoritmos|Editor visual de casos/);
+  // Curated scope: one-handed stays absent; the personal tools are back as always-open tools.
+  assert.equal(technique.nodes.length,6);
+  assert.doesNotMatch(techniqueHtml,/Uma mão/);
+  assert.match(techniqueHtml,/Laboratório de algoritmos/);assert.match(techniqueHtml,/Editor visual de casos/);
+  assert.match(techniqueHtml,/Ferramenta pessoal/);
   for(const group of groups)assert.ok(group.nodes.length>0,'nenhuma seção vazia renderiza');
   const keys=groups.flatMap(g=>g.nodes.map(n=>n.key));
-  for(const hidden of ['one-handed','algorithm-lab','case-editor'])assert.ok(!keys.includes(hidden as never));
+  assert.ok(!keys.includes('one-handed' as never));
 });
 
 test('trainer detail explains honest state and the six timing modes with preparation outside the clock',()=>{
@@ -109,6 +111,7 @@ test('session shell keeps the six timing modes, preparation outside the clock an
 
 test('R1 shell registers the Treinadores navigation entry',()=>{
   const source=readFileSync(new URL('../../src/App.tsx',import.meta.url),'utf8');
-  assert.match(source,/id:'trainers',label:'Treinadores'/);
+  assert.match(source,/id:'trainers',icon:Dumbbell/);
+  assert.match(source,/t\.shell\.nav\[id\]/);
   assert.match(source,/area==='trainers'\?<TrainersPage/);
 });

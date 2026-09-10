@@ -8,6 +8,8 @@ import type { CatalogSectionId, TrainerNodeKey } from '../components/trainers/ca
 import { useI18n } from '../i18n';
 import { TrainerDetailView, TrainerGroupView, TrainersOverview } from '../components/trainers/TrainersCatalog';
 import TrainerSession from '../components/trainers/TrainerSession';
+import AlgorithmLab from '../components/trainers/AlgorithmLab';
+import CaseEditor from '../components/trainers/CaseEditor';
 import { programFor } from '../components/trainers/programs';
 import { ptBR } from '../i18n/pt-BR';
 import { buildTrainerCatalog } from '../components/trainers/catalog';
@@ -37,6 +39,8 @@ export default function TrainersPage({ onOpenLibrary }: { onOpenLibrary: (method
   if (view.level === 'trainer') {
     const group = groups.find(item => item.id === view.section)!;
     const node = group.nodes.find(item => item.key === view.key)!;
+    if (view.key === 'algorithm-lab') return <div className="trainer-tool"><button type="button" className="button secondary back-button" onClick={() => go({ level: 'group', section: view.section })}>{ptBR.trainers.groups[view.section].title}</button><AlgorithmLab /></div>;
+    if (view.key === 'case-editor') return <div className="trainer-tool"><button type="button" className="button secondary back-button" onClick={() => go({ level: 'group', section: view.section })}>{ptBR.trainers.groups[view.section].title}</button><CaseEditor /></div>;
     const trainable = node.id !== null && programFor(view.key) !== null;
     return <TrainerDetailView section={view.section} node={node} onBack={() => go({ level: 'group', section: view.section })} onOpenStudy={onOpenLibrary} onTrain={trainable ? () => go({ level: 'session', section: view.section, key: view.key }) : undefined} />;
   }

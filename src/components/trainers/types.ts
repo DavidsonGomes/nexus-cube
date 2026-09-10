@@ -10,6 +10,8 @@ export interface TrainerCatalogNode {
   /** null while the group's Prisma contract (lbl) is pending: renders as preparing. */
   id: TrainerId | null;
   coverage: TrainerCoverage | null;
+  /** Personal tool destination: always openable, no fixture coverage semantics. */
+  tool: boolean;
   study: { methodId: MethodId; stageId: StageId; count: number } | null;
 }
 
