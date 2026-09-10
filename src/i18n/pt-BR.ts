@@ -3,7 +3,29 @@
  * Values are plain strings or functions for counts/interpolation. */
 export const ptBR = {
   locale: 'pt-BR',
+  language: {
+    label: 'Idioma',
+    names: { 'pt-BR': 'Português (Brasil)', es: 'Español', en: 'English' },
+    pending: 'em curadoria',
+  },
+  shell: {
+    nav: { timer: 'Timer', history: 'Histórico', algorithms: 'Algoritmos', trainers: 'Treinadores', solver: 'Solucionar', settings: 'Configurações', admin: 'Administração' },
+    headings: {
+      timer: { title: 'Seu próximo melhor tempo.', body: 'Respire, concentre-se e faça cada movimento valer.' },
+      history: { title: 'Cada solve conta.', body: 'Seu progresso, uma resolução de cada vez.' },
+      algorithms: { title: 'Entenda. Pratique. Domine.', body: 'CFOP e Roux, da primeira peça ao último movimento.' },
+      trainers: { title: 'Treine o gesto certo.', body: 'Cruz, F2L, blocos e finger tricks em treinos com objetivo definido.' },
+      solver: { title: 'Cada cor, um próximo passo.', body: 'Informe seu estado e acompanhe uma solução para o cubo 3×3.' },
+      admin: { title: 'Acesso com responsabilidade.', body: 'Gerencie usuários com revisão e confirmação de cada alteração.' },
+      settings: { title: 'Do seu jeito.', body: 'Prepare seu espaço para o próximo treino.' },
+    },
+  },
   solver: {
+    fingerHints: {
+      toggle: 'Mostrar finger tricks',
+      none: 'Nenhum gatilho verificado cobre este movimento; siga a animação.',
+      span: (start: number, end: number) => `movimentos ${start} a ${end}`,
+    },
     lblMode: { title: 'Camadas', description: 'O método iniciante em sete etapas, da cruz branca ao cubo resolvido.' },
   },
   trainers: {
@@ -18,6 +40,7 @@ export const ptBR = {
     },
     coverage: {
       preparing: 'Treino em preparo',
+      tool: 'Ferramenta pessoal',
       validated: (n: number, declared: 'introductory' | 'partial' | 'complete') => {
         const labels = { introductory: 'introdutória', partial: 'parcial', complete: 'completa' } as const;
         return `${n} ${n === 1 ? 'treino validado' : 'treinos validados'} · cobertura ${labels[declared]}`;
@@ -108,6 +131,41 @@ export const ptBR = {
         rate: 'Percentual de acerto',
         empty: 'Nenhuma tentativa registrada ainda para este caso neste modo.',
       },
+    },
+    lab: {
+      title: 'Laboratório de algoritmos',
+      input: 'Sequência',
+      invalid: 'Sequência inválida: use a notação padrão (U, R2, F\u0027, M, x…).',
+      invert: 'Inverter',
+      repeat: 'Repetir 2×',
+      slice: 'Usar trecho',
+      sliceFrom: 'Do movimento',
+      sliceTo: 'até',
+      saveName: 'Nome do algoritmo',
+      save: 'Salvar algoritmo pessoal',
+      saved: 'Algoritmo salvo neste dispositivo.',
+      yours: 'Seus algoritmos',
+      none: 'Nenhum algoritmo pessoal salvo ainda.',
+      load: 'Abrir no laboratório',
+      remove: 'Excluir',
+      sendToTrainer: 'Treinar esta sequência',
+    },
+    editor: {
+      title: 'Editor visual de casos',
+      hint: 'Pinte as faces do cubo virtual; a validação física é a mesma do solucionador.',
+      valid: 'Posição fisicamente possível.',
+      generate: 'Gerar sequência de preparo',
+      generating: 'Resolvendo a posição para derivar o preparo…',
+      generated: 'Preparo derivado da solução real (inversa da resolução).',
+      generateFailed: 'Não foi possível resolver esta posição agora; o preparo fica pendente.',
+      name: 'Nome do exercício',
+      objective: 'Objetivo',
+      note: 'Notas',
+      save: 'Salvar exercício pessoal',
+      saved: 'Exercício salvo neste dispositivo.',
+      yours: 'Seus exercícios',
+      none: 'Nenhum exercício pessoal salvo ainda.',
+      needSetup: 'Gere a sequência de preparo antes de salvar: um exercício precisa de pelo menos um movimento.',
     },
     fingerDemo: {
       title: 'Demonstrações verificadas',

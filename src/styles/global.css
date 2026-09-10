@@ -271,3 +271,18 @@ nav.has-admin{grid-template-columns:none}
 .finger-recognize-trick span{font-size:10px;font-weight:650;color:var(--accent)}
 .finger-recognize-trick code{font-size:12px}
 .finger-recognize-gap{display:flex;align-items:center;border:1px dashed var(--border);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--muted)}
+.solver-finger-toggle{margin:10px auto 0;justify-content:center;display:flex}
+.finger-hints{max-width:560px;margin:10px auto 0;text-align:left}
+.finger-hints>.text-button{min-height:36px}
+.language-picker{display:flex;align-items:center;gap:10px;padding:6px 7px;font-size:12px;color:var(--muted)}
+.language-picker select{flex:1;min-height:32px;font-size:11px;padding:6px 8px}
+.trainer-lab label,.trainer-editor label{display:block;margin-top:12px}
+.trainer-lab-slice{display:flex;align-items:center;gap:8px;font-size:11px}
+.trainer-lab-slice input{width:64px;margin:0}
+.trainer-lab-saved{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.trainer-lab-saved li{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.trainer-lab-saved code{color:var(--accent);font-size:12px}
+.trainer-lab-saved span{margin-left:auto;display:flex;gap:10px}
+.trainer-editor-valid{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:14px 0}
+.trainer-tool{display:grid;gap:14px}
+.trainer-tool>.back-button{justify-self:start}

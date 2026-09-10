@@ -6,6 +6,7 @@ import { pieceStickerIds } from '../../domain/stage-validation';
 import type { IntegratedFingerTrick } from '../../data/trainers';
 import { VERIFIED_FINGER_TRICKS, selectFingerTrickCover } from '../../data/trainers/finger-tricks-registry';
 import CubeView, { COLORS } from '../CubeView';
+import { TouchCard } from '../FingerTrickHints';
 import { useI18n } from '../../i18n';
 
 /** Collapsible grip demo next to the cube (docs/trainers-spec.md, UI section).
@@ -90,12 +91,7 @@ export function TrickDemo({ trick, onBack }: { trick: IntegratedFingerTrick; onB
         {finished && <p role="status">{t.trainers.fingerDemo.completed}</p>}
         {!finished && trick.showGrip && <div className="finger-demo-grip">
           <button type="button" className="text-button" aria-expanded={gripOpen} onClick={() => setGripOpen(value => !value)}>{t.trainers.fingerDemo.gripToggle}</button>
-          {gripOpen && touches.map(touch => <article key={touch.touchIndex} className="finger-demo-touch">
-            <header><strong>{t.trainers.fingerDemo.hand[touch.hand]} · {t.trainers.fingerDemo.finger[touch.finger]}</strong><span className="trainer-coverage">{t.trainers.fingerDemo.touchOf(touch.touchIndex, touch.touchCount)}</span></header>
-            <p>{touch.action}. {touch.contactPoint}</p>
-            <p>{touch.direction}</p>
-            {touch.regripAfter && <p className="small muted">{t.trainers.fingerDemo.regrip}: {touch.regripAfter}</p>}
-          </article>)}
+          {gripOpen && touches.map(touch => <TouchCard key={touch.touchIndex} touch={touch} />)}
         </div>}
         {!finished && !trick.showGrip && <p className="small muted">{t.trainers.fingerDemo.gripUnavailable}</p>}
         <div className="finger-demo-controls">

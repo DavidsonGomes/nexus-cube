@@ -6,6 +6,8 @@ import CubeView from './CubeView';
 import {useCubePlayback} from './useCubePlayback';
 import type {MethodPlan} from '../solver';
 import SolverMethodStages from './SolverMethodStages';
+import FingerTrickHints from './FingerTrickHints';
+import {ptBR} from '../i18n/pt-BR';
 
 const faceNames: Record<string, string> = {U:'superior', R:'direita', F:'frontal', D:'inferior', L:'esquerda', B:'traseira'};
 function explain(token: string) {
@@ -22,6 +24,7 @@ export default function SolverPlayer({initialState, algorithm, plan,speedControl
   const [localSpeed, setLocalSpeed] = useState(1);
   const speed=speedControl?.animationSpeed??localSpeed;
   const [chosenStage, setChosenStage] = useState<number | null>(null);
+  const [showFingerTricks, setShowFingerTricks] = useState(false);
   const player = useCubePlayback(initialState, algorithm, speed);
   const {tokens, step, state, moving, current, angle, running, reset, jump, next, togglePlayback} = player;
   const palette = useMemo(() => new Map(state.map(sticker => [sticker.id, FACE_COLORS[sticker.color]])), [state]);
@@ -34,6 +37,8 @@ export default function SolverPlayer({initialState, algorithm, plan,speedControl
       <CubeView state={state} palette={palette} size={260} motion={moving ? current : undefined} angle={angle} label={`Seu cubo, ${step} de ${tokens.length} movimentos aplicados`}/>
       <p className="muted">Arraste com o mouse ou dedo para girar a câmera. Com foco no cubo, use as setas.</p>
     </div>
+    <label className="checkbox-label solver-finger-toggle"><input type="checkbox" checked={showFingerTricks} onChange={event => setShowFingerTricks(event.target.checked)}/> {ptBR.solver.fingerHints.toggle}</label>
+    {showFingerTricks && <FingerTrickHints tokens={tokens} step={step}/>}
     <div className="playback-controls">
       <button className="icon-button" aria-label="Voltar ao cubo informado" onClick={() => {setChosenStage(null); reset();}}><RotateCcw size={18}/></button>
       <button className="icon-button" aria-label="Movimento anterior" disabled={step === 0 || moving} onClick={() => jump(step - 1)}><SkipBack size={19}/></button>
