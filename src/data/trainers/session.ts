@@ -1,3 +1,4 @@
+import { assertPersonalIdsUnique, validatePersonalAlgorithm, validatePersonalExercise } from './personal';
 import type { TimingModeId, TrainerAttempt, TrainerCaseStatistics, TrainerDataV1 } from './types';
 
 const fail = (message: string): never => { throw new Error(`Treino invalido: ${message}`); };
@@ -45,10 +46,10 @@ export function computeTrainerCaseStatistics(attempts: readonly TrainerAttempt[]
 }
 
 export function createEmptyTrainerDataV1(): TrainerDataV1 {
-  return { version: 1, attempts: [], preferences: [] };
+  return { version: 1, attempts: [], preferences: [], personalAlgorithms: [], personalExercises: [] };
 }
 
-const DATA_KEYS = ['version', 'attempts', 'preferences'] as const;
+const DATA_KEYS = ['version', 'attempts', 'preferences', 'personalAlgorithms', 'personalExercises'] as const;
 const ATTEMPT_KEYS = ['id', 'trainerId', 'contentId', 'alternativeId', 'hand', 'slot', 'timingMode', 'createdAt', 'outcome', 'assisted', 'rawMs', 'inspectionMs', 'cycles', 'physicalCycles'] as const;
 const PREFERENCE_KEYS = ['contentId', 'favorite', 'note', 'preferredAlternativeId', 'hand', 'slot'] as const;
 function exactKeys(value: unknown, keys: readonly string[], what: string): void {
@@ -58,8 +59,10 @@ function exactKeys(value: unknown, keys: readonly string[], what: string): void 
 }
 
 /** Versioned entry point: absent storage starts empty; v1 payloads are validated and kept as
- * they are. Unknown extra fields are rejected, never silently filtered: this storage is the
- * migration boundary, and dropping fields here could destroy data written by a newer version.
+ * they are. Exactly FIVE keys, and a MISSING key is refused like an extra one (Sonda's
+ * data-safety ruling): with nothing shipped there is no three-key legacy, so a truncated
+ * version 1 payload accepted as an older shape would be silent loss of the personal
+ * collections, the mirror of the extra-key destruction already forbidden here.
  * Trainer storage is separate from AppData, so the 78 legacy study IDs and their progress are
  * untouched by construction; tests assert that invariant explicitly.
  */
@@ -68,8 +71,11 @@ export function migrateTrainerData(value: unknown): TrainerDataV1 {
   if (typeof value !== 'object' || (value as { version?: unknown }).version !== 1) fail('versao de dados de treino desconhecida.');
   exactKeys(value, DATA_KEYS, 'pacote de treino');
   const data = value as TrainerDataV1;
-  if (!Array.isArray(data.attempts) || !Array.isArray(data.preferences)) fail('estrutura de dados de treino invalida.');
+  if (!Array.isArray(data.attempts) || !Array.isArray(data.preferences) || !Array.isArray(data.personalAlgorithms) || !Array.isArray(data.personalExercises)) fail('estrutura de dados de treino invalida.');
   for (const attempt of data.attempts) { exactKeys(attempt, ATTEMPT_KEYS, 'tentativa de treino'); assertTrainerAttempt(attempt); }
   for (const preference of data.preferences) exactKeys(preference, PREFERENCE_KEYS, 'preferencia de treino');
-  return { version: 1, attempts: [...data.attempts], preferences: [...data.preferences] };
+  const personalAlgorithms = data.personalAlgorithms.map(validatePersonalAlgorithm);
+  const personalExercises = data.personalExercises.map(validatePersonalExercise);
+  assertPersonalIdsUnique(personalAlgorithms, personalExercises);
+  return { version: 1, attempts: [...data.attempts], preferences: [...data.preferences], personalAlgorithms, personalExercises };
 }

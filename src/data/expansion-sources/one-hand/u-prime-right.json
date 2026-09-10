@@ -1,0 +1,61 @@
+{
+  "id": "tricks-oh/u-prime-right",
+  "name": "U' de uma mao (direita)",
+  "aliases": [],
+  "moves": "U'",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": "tricks-oh/u-left",
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B (japonesa): polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de R.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "U'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto tras/cima/esquerda, empurrando para a esquerda.",
+      "anchorPieces": [
+        "UBL"
+      ],
+      "direction": "Fileira de tras de U vai para a esquerda (U anti-horario visto de cima).",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar U' com o indicador alcancando o canto de tras.",
+    "watchFor": "O indicador cruza por cima ate o canto tras/esquerda; a presa nao muda.",
+    "commonErrors": [
+      "Rotacionar o cubo para encurtar o alcance.",
+      "Empurrar a fileira errada e fazer U em vez de U'."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Indicador faz U' empurrando o canto BUL (UBL no vocabulario do app)."
+      }
+    ],
+    "authorialJustification": "Mapeamento da pegada japonesa/Loftus documentado na fonte primaria; direcao conferida geometricamente pelo curador.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

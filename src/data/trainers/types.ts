@@ -139,11 +139,42 @@ export interface TrainerPreference {
   readonly slot: TargetSlot | null;
 }
 
-/** Trainer history is stored apart from solves and never feeds solve statistics. */
+/** Personal algorithm (spec item 15): a saved sequence, optionally bound to a catalog or
+ * trainer case; moves must hold at least one token, an empty algorithm is refused.
+ */
+export interface PersonalAlgorithm {
+  readonly id: string;
+  readonly contentId: string | null;
+  readonly name: string;
+  readonly moves: string;
+  readonly createdAt: string;
+}
+/** Personal exercise (spec item 16): a physically validated position saved from the editor.
+ * setup must hold at least one token: a solved start has nothing to execute, and pure
+ * sequences belong to PersonalAlgorithm; solution stays null until one is known.
+ */
+export interface PersonalExercise {
+  readonly id: string;
+  readonly name: string;
+  readonly objective: string;
+  readonly note: string;
+  readonly setup: string;
+  readonly solution: string | null;
+  readonly createdAt: string;
+}
+
+/** Trainer history is stored apart from solves and never feeds solve statistics.
+ * Exactly five keys: a missing key is refused like an extra one, because with a versioned
+ * store a truncated payload accepted as an older shape would be silent data loss.
+ * Personal ids are unique ACROSS both personal collections: attempts may reference personal
+ * exercises by contentId, and a shared id would make that history ambiguous.
+ */
 export interface TrainerDataV1 {
   readonly version: 1;
   readonly attempts: readonly TrainerAttempt[];
   readonly preferences: readonly TrainerPreference[];
+  readonly personalAlgorithms: readonly PersonalAlgorithm[];
+  readonly personalExercises: readonly PersonalExercise[];
 }
 
 export interface TrainerCaseStatistics {

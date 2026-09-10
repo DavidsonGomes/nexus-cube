@@ -1,0 +1,61 @@
+{
+  "id": "tricks-oh/u-left",
+  "name": "U de uma mao (esquerda)",
+  "aliases": [],
+  "moves": "U",
+  "solvingHand": "left",
+  "handedness": "left",
+  "mirrorOf": "tricks-oh/u-prime-right",
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B espelhada: polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "left",
+    "left": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de L.",
+    "right": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "U",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto tras/cima/direita, empurrando para a direita.",
+      "anchorPieces": [
+        "URB"
+      ],
+      "direction": "Fileira de tras de U vai para a direita (U horario visto de cima).",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar U com o indicador esquerdo alcancando o canto de tras.",
+    "watchFor": "Espelho exato do U' direito; a presa de tres dedos nao muda.",
+    "commonErrors": [
+      "Empurrar a fileira errada e fazer U'.",
+      "Rotacionar o cubo para encurtar o alcance."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Mao esquerda registrada como escolha comum de destros; mecanismo por espelho."
+      }
+    ],
+    "authorialJustification": "Espelho geometrico autoral da variante direita (plano M); a fonte registra a mao esquerda como escolha comum sem detalhar o mecanismo.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "tricks-oh/u-right",
+  "name": "U de uma mao (direita)",
+  "aliases": [],
+  "moves": "U",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": "tricks-oh/u-prime-left",
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B (japonesa): polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de R.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "U",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto frente/cima/esquerda, empurrando para a esquerda.",
+      "anchorPieces": [
+        "ULF"
+      ],
+      "direction": "Fileira da frente de U vai para a esquerda (U horario visto de cima).",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar U com o indicador sem soltar a presa de tres dedos.",
+    "watchFor": "So o indicador se move; polegar, medio e anular nunca soltam.",
+    "commonErrors": [
+      "Girar o pulso junto e arrastar o cubo.",
+      "Perder a presa ao esticar o indicador."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Indicador faz U empurrando o canto FUL (ULF no vocabulario do app)."
+      }
+    ],
+    "authorialJustification": "Mapeamento da pegada japonesa/Loftus documentado na fonte primaria; direcao conferida geometricamente pelo curador.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

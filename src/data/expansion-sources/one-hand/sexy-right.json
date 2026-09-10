@@ -1,0 +1,106 @@
+{
+  "id": "tricks-oh/sexy-right",
+  "name": "Sexy move de uma mao (direita)",
+  "aliases": [],
+  "moves": "R U R' U'",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": "tricks-oh/sexy-left",
+  "category": "oh-trigger",
+  "initialGrip": {
+    "summary": "Pegada B (japonesa): polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de R.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "R",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo no canto tras/baixo/direita, empurrando para a frente.",
+      "anchorPieces": [
+        "DBR"
+      ],
+      "direction": "Coluna de baixo de R vai para a frente (R horario visto da direita).",
+      "regripAfter": null
+    },
+    {
+      "move": "U",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto frente/cima/esquerda, empurrando para a esquerda.",
+      "anchorPieces": [
+        "ULF"
+      ],
+      "direction": "Fileira da frente de U vai para a esquerda (U horario visto de cima).",
+      "regripAfter": null
+    },
+    {
+      "move": "R'",
+      "moveIndex": 2,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo no canto frente/baixo/direita, empurrando para tras.",
+      "anchorPieces": [
+        "DFR"
+      ],
+      "direction": "Coluna de baixo de R vai para tras (R anti-horario visto da direita).",
+      "regripAfter": null
+    },
+    {
+      "move": "U'",
+      "moveIndex": 3,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto tras/cima/esquerda, empurrando para a esquerda.",
+      "anchorPieces": [
+        "UBL"
+      ],
+      "direction": "Fileira de tras de U vai para a esquerda (U anti-horario visto de cima).",
+      "regripAfter": "Nenhum; presa inalterada, proximo ciclo direto."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Executar o gatilho principal inteiro com uma mao, sem rotacao nem apoio.",
+    "watchFor": "Indicador e minimo giram; polegar, medio e anular nunca soltam. Reaprenda devagar: o motor de duas maos nao transfere sozinho (amnesia de uma mao, documentada na fonte).",
+    "commonErrors": [
+      "Tentar velocidade de duas maos e perder a presa.",
+      "Girar o cubo no ar em vez de manter os tres dedos de presa."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Mapeamentos indicador ULF/UBL para U/U' e minimo DBR/DFR para R/R'; amnesia de uma mao e reaprendizado."
+      }
+    ],
+    "authorialJustification": "Composicao autoral dos quatro mapeamentos da fonte em uma sequencia.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

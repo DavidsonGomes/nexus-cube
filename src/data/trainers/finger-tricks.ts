@@ -22,6 +22,8 @@ export interface FingerTrickRecord {
   readonly aliases?: readonly string[];
   readonly moves: string;
   readonly handedness: 'left' | 'right' | 'both';
+  /** One-handed records (spec item 14): in OH the executing hand is also the stabilizing one. */
+  readonly solvingHand?: 'left' | 'right';
   readonly mirrorOf: string | null;
   readonly category: string;
   readonly touches: readonly FingerTrickTouch[];

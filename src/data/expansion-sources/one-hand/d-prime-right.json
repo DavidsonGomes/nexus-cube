@@ -1,0 +1,58 @@
+{
+  "id": "tricks-oh/d-prime-right",
+  "name": "D' de uma mao (direita)",
+  "aliases": [],
+  "moves": "D'",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada A: polegar e medio seguram; indicador e anular giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar e medio prendem o corpo do cubo; indicador e anular livres para girar.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "D'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "ring",
+      "action": "push",
+      "contactPoint": "Anular na camada D; a fonte nao especifica o ponto de contato.",
+      "direction": "Camada D no sentido anti-horario visto de baixo.",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar D' com o anular na Pegada A.",
+    "watchFor": "Mesmo dedo do D, sentido oposto; confirme o sentido antes de acelerar.",
+    "commonErrors": [
+      "Confundir D e D'.",
+      "Empurrar duas camadas e fazer d largo."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Na pegada de Ryan Patricio, o anular executa R, D e D'."
+      }
+    ],
+    "authorialJustification": "Papel do dedo com fonte primaria; ponto de contato e direcao fina completados como CONFIANCA BAIXA.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

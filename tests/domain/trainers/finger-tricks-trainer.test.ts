@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { FINGER_TRICK_TRAINER_COVERAGE, FINGER_TRICK_TRAINER_FIXTURES, validateCustomFingerTrickSequence } from '../../../src/data/trainers/finger-tricks-trainer';
+import { FINGER_TRICK_TRAINER_COVERAGE, FINGER_TRICK_TRAINER_FIXTURES, ONE_HAND_TRAINER_COVERAGE, ONE_HAND_TRAINER_FIXTURES, validateCustomFingerTrickSequence } from '../../../src/data/trainers/finger-tricks-trainer';
 import { assertFixtureIds } from '../../../src/data/trainers/registry';
 
 test('every verified curated sequence becomes a trainer fixture with verbatim texts and honest coverage', () => {
@@ -15,6 +15,9 @@ test('every verified curated sequence becomes a trainer fixture with verbatim te
   assert.equal(sexy?.name, 'Sexy move (direito)');
   assert.ok(sexy?.observe && sexy.observe.length > 0, 'watchFor consumido como observe');
   assert.deepEqual(FINGER_TRICK_TRAINER_COVERAGE, { trainerId: 'finger-tricks', validatedContentCount: 14, declared: 'partial' });
+  assert.equal(ONE_HAND_TRAINER_FIXTURES.length, 14);
+  assert.ok(ONE_HAND_TRAINER_FIXTURES.every(fixture => fixture.trainerId === 'one-handed' && fixture.id.startsWith('tricks-oh/')));
+  assert.deepEqual(ONE_HAND_TRAINER_COVERAGE, { trainerId: 'one-handed', validatedContentCount: 14, declared: 'partial' });
 });
 
 test('custom sequences validate by the shared grammar and carry the proved restore cycles', () => {

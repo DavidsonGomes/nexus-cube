@@ -1,0 +1,61 @@
+{
+  "id": "tricks-oh/u-prime-left",
+  "name": "U' de uma mao (esquerda)",
+  "aliases": [],
+  "moves": "U'",
+  "solvingHand": "left",
+  "handedness": "left",
+  "mirrorOf": "tricks-oh/u-right",
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B espelhada: polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "left",
+    "left": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de L.",
+    "right": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "U'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto frente/cima/direita, empurrando para a direita.",
+      "anchorPieces": [
+        "UFR"
+      ],
+      "direction": "Fileira da frente de U vai para a direita (U anti-horario visto de cima).",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar U' com o indicador esquerdo no canto da frente.",
+    "watchFor": "Espelho exato do U direito.",
+    "commonErrors": [
+      "Girar o pulso junto e arrastar o cubo.",
+      "Perder a presa ao esticar o indicador."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Mao esquerda registrada como escolha comum de destros; mecanismo por espelho."
+      }
+    ],
+    "authorialJustification": "Espelho geometrico autoral da variante direita (plano M); a fonte registra a mao esquerda como escolha comum sem detalhar o mecanismo.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

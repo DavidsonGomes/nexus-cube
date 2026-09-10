@@ -1,0 +1,58 @@
+{
+  "id": "tricks-oh/z-right",
+  "name": "Transicao z (direita)",
+  "aliases": [],
+  "moves": "z",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "oh-transition",
+  "initialGrip": {
+    "summary": "Pegada B (japonesa): polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de R.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "z",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "wrist",
+      "action": "rotacao de cubo",
+      "contactPoint": "Cubo inteiro na presa; nenhuma camada gira.",
+      "direction": "Rotacao z: a face de cima vai para a direita, reagrupando a pegada.",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Reagrupar a pegada com uma rotacao z no lugar do regrip de duas maos.",
+    "watchFor": "A rotacao substitui o regrip: e o custo declarado da pegada japonesa fora de sequencias R/U.",
+    "commonErrors": [
+      "Rotacionar sem necessidade e perder tempo.",
+      "Soltar a presa durante a rotacao."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "A pegada japonesa exige mais rotacoes de cubo fora de sequencias de R e U."
+      }
+    ],
+    "authorialJustification": "Transicao documentada em conceito na fonte; descricao do gesto e autoral.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

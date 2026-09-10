@@ -105,13 +105,14 @@ test('statistics report a plain mean over clean correct attempts with its sample
 
 test('versioned trainer storage starts empty, validates v1 and never touches the legacy 78', () => {
   assert.deepEqual(migrateTrainerData(undefined), createEmptyTrainerDataV1());
-  const stored = { version: 1, attempts: [attempt({})], preferences: [] };
+  const stored = { version: 1, attempts: [attempt({})], preferences: [], personalAlgorithms: [], personalExercises: [] };
   assert.deepEqual(migrateTrainerData(stored), stored);
+  assert.throws(() => migrateTrainerData({ version: 1, attempts: [], preferences: [] }), /ausentes ou desconhecidos/, 'chave FALTANTE e recusada como a extra');
   assert.throws(() => migrateTrainerData({ version: 2, attempts: [], preferences: [] }), /versao/);
-  assert.throws(() => migrateTrainerData({ version: 1, attempts: [attempt({ timingMode: 'free' })], preferences: [] }), /livre/);
+  assert.throws(() => migrateTrainerData({ ...stored, attempts: [attempt({ timingMode: 'free' })] }), /livre/);
   assert.throws(() => migrateTrainerData({ ...stored, extra: true }), /desconhecidos/);
-  assert.throws(() => migrateTrainerData({ version: 1, attempts: [{ ...attempt({}), extra: 1 }], preferences: [] }), /desconhecidos/);
-  assert.throws(() => migrateTrainerData({ version: 1, attempts: [], preferences: [{ contentId: 'OLL-01', favorite: true, note: '', preferredAlternativeId: null, hand: null, slot: null, extra: 1 }] }), /desconhecidos/);
+  assert.throws(() => migrateTrainerData({ ...stored, attempts: [{ ...attempt({}), extra: 1 }] }), /desconhecidos/);
+  assert.throws(() => migrateTrainerData({ ...stored, preferences: [{ contentId: 'OLL-01', favorite: true, note: '', preferredAlternativeId: null, hand: null, slot: null, extra: 1 }] }), /desconhecidos/);
   const before = [...LEGACY_CASE_IDS];
   migrateTrainerData(stored);
   assert.deepEqual([...LEGACY_CASE_IDS], before);

@@ -1,12 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { FINGER_TRICKS, VERIFIED_FINGER_TRICKS, getFingerTrick, matchFingerTricks, selectFingerTrickCover } from '../../../src/data/trainers/finger-tricks-registry';
+import { FINGER_TRICKS, ONE_HANDED_FINGER_TRICKS, TWO_HANDED_FINGER_TRICKS, VERIFIED_FINGER_TRICKS, getFingerTrick, matchFingerTricks, selectFingerTrickCover } from '../../../src/data/trainers/finger-tricks-registry';
 
-test('the static registry loads the whole verified batch at build time', () => {
-  assert.equal(FINGER_TRICKS.length, 14);
-  assert.equal(VERIFIED_FINGER_TRICKS.length, 14);
+test('the static registry loads both verified batches split by practice context', () => {
+  assert.equal(FINGER_TRICKS.length, 28);
+  assert.equal(VERIFIED_FINGER_TRICKS.length, 28);
+  assert.equal(TWO_HANDED_FINGER_TRICKS.length, 14);
+  assert.equal(ONE_HANDED_FINGER_TRICKS.length, 14);
+  assert.ok(ONE_HANDED_FINGER_TRICKS.every(entry => entry.record.solvingHand !== undefined));
   assert.equal(getFingerTrick('tricks/sexy-right').restoreCycles, 6);
+  assert.equal(getFingerTrick('tricks-oh/sexy-right').restoreCycles, 6);
+  assert.equal(getFingerTrick('tricks-oh/z-right').restoreCycles, 4, 'rotação z tem ordem quatro');
   assert.throws(() => getFingerTrick('tricks/none'), /desconhecido/);
+});
+
+test('one-handed grips never leak into the two-handed matcher and vice versa', () => {
+  const twoHanded = matchFingerTricks("R U R' U'");
+  assert.ok(twoHanded.some(occurrence => occurrence.trick.record.id === 'tricks/sexy-right'));
+  assert.equal(twoHanded.some(occurrence => occurrence.trick.record.id.startsWith('tricks-oh/')), false);
+  const oneHanded = matchFingerTricks("R U R' U'", ONE_HANDED_FINGER_TRICKS);
+  assert.ok(oneHanded.some(occurrence => occurrence.trick.record.id === 'tricks-oh/sexy-right'));
+  assert.equal(oneHanded.some(occurrence => occurrence.trick.record.id.startsWith('tricks/')), false);
 });
 
 test('matching maps every occurrence to global parsed-move indices', () => {

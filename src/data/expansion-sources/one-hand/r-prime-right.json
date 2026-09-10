@@ -1,0 +1,61 @@
+{
+  "id": "tricks-oh/r-prime-right",
+  "name": "R' de uma mao (direita)",
+  "aliases": [],
+  "moves": "R'",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": "tricks-oh/l-left",
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B (japonesa): polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de R.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "R'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "right",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo no canto frente/baixo/direita, empurrando para tras.",
+      "anchorPieces": [
+        "DFR"
+      ],
+      "direction": "Coluna de baixo de R vai para tras (R anti-horario visto da direita).",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar R' com o minimo empurrando a base da frente para tras.",
+    "watchFor": "Mesmo dedo do R, sentido oposto; a presa de tres dedos segura o resto.",
+    "commonErrors": [
+      "Confundir o sentido e desfazer o progresso.",
+      "Soltar o polegar durante o empurrao."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Minimo faz R' empurrando o canto FRD (DFR no vocabulario do app)."
+      }
+    ],
+    "authorialJustification": "Mapeamento da pegada japonesa/Loftus documentado na fonte primaria; direcao conferida geometricamente pelo curador.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

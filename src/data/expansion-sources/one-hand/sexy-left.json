@@ -1,0 +1,106 @@
+{
+  "id": "tricks-oh/sexy-left",
+  "name": "Sexy move de uma mao (esquerda)",
+  "aliases": [],
+  "moves": "L' U' L U",
+  "solvingHand": "left",
+  "handedness": "left",
+  "mirrorOf": "tricks-oh/sexy-right",
+  "category": "oh-trigger",
+  "initialGrip": {
+    "summary": "Pegada B espelhada: polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "left",
+    "left": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de L.",
+    "right": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "L'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo no canto tras/baixo/esquerda, empurrando para a frente.",
+      "anchorPieces": [
+        "DBL"
+      ],
+      "direction": "Coluna de baixo de L vai para a frente (L anti-horario visto da esquerda).",
+      "regripAfter": null
+    },
+    {
+      "move": "U'",
+      "moveIndex": 1,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto frente/cima/direita, empurrando para a direita.",
+      "anchorPieces": [
+        "UFR"
+      ],
+      "direction": "Fileira da frente de U vai para a direita (U anti-horario visto de cima).",
+      "regripAfter": null
+    },
+    {
+      "move": "L",
+      "moveIndex": 2,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo no canto frente/baixo/esquerda, empurrando para tras.",
+      "anchorPieces": [
+        "DFL"
+      ],
+      "direction": "Coluna de baixo de L vai para tras (L horario visto da esquerda).",
+      "regripAfter": null
+    },
+    {
+      "move": "U",
+      "moveIndex": 3,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "index",
+      "action": "push",
+      "contactPoint": "Indicador no canto tras/cima/direita, empurrando para a direita.",
+      "anchorPieces": [
+        "URB"
+      ],
+      "direction": "Fileira de tras de U vai para a direita (U horario visto de cima).",
+      "regripAfter": "Nenhum; presa inalterada, proximo ciclo direto."
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Executar o gatilho espelhado inteiro com a mao esquerda.",
+    "watchFor": "Indicador e minimo giram; os tres dedos de presa nunca soltam.",
+    "commonErrors": [
+      "Tentar velocidade de duas maos e perder a presa.",
+      "Executar a versao direita por habito."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Espelho da composicao direita; fonte descreve mecanismos genericamente."
+      }
+    ],
+    "authorialJustification": "Espelho geometrico autoral da variante direita (plano M); a fonte registra a mao esquerda como escolha comum sem detalhar o mecanismo.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

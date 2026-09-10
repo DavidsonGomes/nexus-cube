@@ -1,0 +1,76 @@
+{
+  "id": "tricks-oh/u2-right",
+  "name": "U2 de uma mao (direita)",
+  "aliases": [],
+  "moves": "U2",
+  "solvingHand": "right",
+  "handedness": "right",
+  "mirrorOf": null,
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B (japonesa): polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "right",
+    "right": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de R.",
+    "left": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "U2",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "middle",
+      "action": "flick",
+      "contactPoint": "Medio no canto frente/cima/esquerda, primeiro flick para a esquerda.",
+      "anchorPieces": [
+        "ULF"
+      ],
+      "direction": "Primeiro quarto: fileira da frente de U para a esquerda.",
+      "regripAfter": "Medio reposiciona para o segundo flick."
+    },
+    {
+      "move": "U2",
+      "moveIndex": 0,
+      "touchIndex": 2,
+      "touchCount": 2,
+      "hand": "right",
+      "finger": "middle",
+      "action": "flick",
+      "contactPoint": "Medio no canto que chegou a posicao frente/cima/esquerda.",
+      "anchorPieces": [
+        "ULF"
+      ],
+      "direction": "Segundo quarto: fileira da frente de U para a esquerda.",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Fazer o duplo de topo com dois flicks do medio, mantendo a presa.",
+    "watchFor": "Sao dois toques reais do mesmo dedo; o medio sai da presa so durante o duplo e volta.",
+    "commonErrors": [
+      "Um arrastao unico que trava no atrito.",
+      "Perder a presa do medio ao voltar."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Cubelelo, Getting from 3x3 to OH",
+        "url": "https://www.cubelelo.com/blogs/cubing/getting-from-3x3-to-oh-tips-and-tricks",
+        "accessedAt": "2026-09-09",
+        "license": "Blog comercial, sem licenca; fonte secundaria citada.",
+        "supports": "Medio pronto para flicks de U2."
+      }
+    ],
+    "authorialJustification": "Fonte secundaria indica o medio para flicks de U2; mecanica de dois toques e producao autoral de CONFIANCA BAIXA.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

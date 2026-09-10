@@ -1,0 +1,61 @@
+{
+  "id": "tricks-oh/l-prime-left",
+  "name": "L' de uma mao (esquerda)",
+  "aliases": [],
+  "moves": "L'",
+  "solvingHand": "left",
+  "handedness": "left",
+  "mirrorOf": "tricks-oh/r-right",
+  "category": "oh-isolated",
+  "initialGrip": {
+    "summary": "Pegada B espelhada: polegar, medio e anular seguram; indicador e minimo giram.",
+    "stabilizingHand": "left",
+    "left": "Polegar em F, medio e anular atras; indicador livre sobre U, minimo livre na base de L.",
+    "right": "Nao participa; treino de uma mao."
+  },
+  "touches": [
+    {
+      "move": "L'",
+      "moveIndex": 0,
+      "touchIndex": 1,
+      "touchCount": 1,
+      "hand": "left",
+      "finger": "pinky",
+      "action": "push",
+      "contactPoint": "Minimo no canto tras/baixo/esquerda, empurrando para a frente.",
+      "anchorPieces": [
+        "DBL"
+      ],
+      "direction": "Coluna de baixo de L vai para a frente (L anti-horario visto da esquerda).",
+      "regripAfter": null
+    }
+  ],
+  "loop": {
+    "continuesFromPreviousState": true,
+    "restoreCycles": null,
+    "restoreCyclesNote": "Valor calculado pelo dominio (Prisma), nao presumido pela curadoria."
+  },
+  "pedagogy": {
+    "objective": "Girar L' com o minimo empurrando a base de tras para a frente.",
+    "watchFor": "Espelho do R direito em dedo e gesto; o movimento resultante e L'.",
+    "commonErrors": [
+      "Confundir o sentido e desfazer o progresso.",
+      "Empurrar com o anular e derrubar a presa."
+    ]
+  },
+  "provenance": {
+    "status": "verified",
+    "verifiedBy": "Sonda",
+    "sources": [
+      {
+        "title": "Speedsolving Wiki, One-Handed Solving",
+        "url": "https://www.speedsolving.com/wiki/index.php/One-Handed_Solving",
+        "accessedAt": "2026-09-09",
+        "license": "Licenca nao localizada na pagina; referencia citada, sem copia de texto.",
+        "supports": "Espelho do mapeamento do minimo (DBR/DFR) da pegada japonesa."
+      }
+    ],
+    "authorialJustification": "Espelho geometrico autoral da variante direita (plano M); a fonte registra a mao esquerda como escolha comum sem detalhar o mecanismo.",
+    "verificationMethod": "Verificado: revisao geometrica independente por Sonda em 2026-09-09, por derivacao propria (toques, ancoras, direcoes e espelhamento conferidos). Validacao fisica do usuario e upgrade posterior, nao requisito."
+  }
+}

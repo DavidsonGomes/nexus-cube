@@ -22,4 +22,5 @@ export * from './cross-pair-trainer';
 export * from './move-remap';
 export * from './alternative-validation';
 export * from './continue-here';
+export * from './personal';
 export * from './two-look-generator';
