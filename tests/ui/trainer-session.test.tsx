@@ -2,6 +2,7 @@ import React from 'react';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {renderToStaticMarkup} from 'react-dom/server';
+import {readFileSync} from 'node:fs';
 import TrainerSession from '../../src/components/trainers/TrainerSession';
 import {createTrainerStore} from '../../src/components/trainers/session-store';
 import {programFor} from '../../src/components/trainers/programs';
@@ -64,6 +65,10 @@ test('roux program generates a validated setup and the session renders select, p
   store.append(attempt({id:'h2',contentId:program.items[0].id,rawMs:1500}));
   const html=renderToStaticMarkup(<TrainerSession nodeKey="roux-fb" trainerId="roux" title="Primeiro bloco (FB)" loadProgram={async()=>program} initialProgram={program} store={store} onBack={()=>{}}/>);
   assert.match(html,/Gerar preparo/);
+  const source=readFileSync(new URL('../../src/components/trainers/TrainerSession.tsx',import.meta.url),'utf8');
+  assert.match(source,/SolverPlayer initialState=\{solvedCube\(\)\} algorithm=\{phase\.prepared\.setup\}/);
+  assert.match(source,/SolverPlayer initialState=\{phase\.prepared\.state\} algorithm=\{phase\.prepared\.solution\}/);
+  assert.doesNotMatch(source,/CubeView/);
   assert.match(html,/Modo de cronometragem/);
   assert.doesNotMatch(html,/Reconhecimento/);
   assert.match(html,/2 tentativas/);assert.match(html,/Melhor tempo: 1,50s/);assert.match(html,/100%/);

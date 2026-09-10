@@ -20,6 +20,9 @@ test('grip demo renders touch guidance and anchors only under the domain showGri
   const sexy=VERIFIED_FINGER_TRICKS.find(trick=>trick.record.id==='tricks/sexy-right')!;
   const html=renderToStaticMarkup(<TrickDemo trick={sexy} onBack={()=>{}}/>);
   assert.match(html,/Demonstração dos dedos/);
+  assert.match(html,/playback-controls/);assert.match(html,/play-button/);
+  assert.match(html,/Velocidade da animação/);
+  assert.match(html,/aria-current="step"/);
   const first=sexy.record.touches.find(touch=>touch.moveIndex===0)!;
   assert.match(html,new RegExp(first.action));
   const anchors=first.anchorPieces??[];

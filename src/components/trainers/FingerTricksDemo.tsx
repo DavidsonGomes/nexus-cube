@@ -1,18 +1,20 @@
 import { useMemo, useState } from 'react';
 import { parseAlgorithm } from '../../domain/cube';
-import { ArrowLeft, ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react';
-import { applyAlgorithm, solvedCube } from '../../domain/cube';
+import { ArrowLeft, Pause, Play, RotateCcw, SkipBack, SkipForward } from 'lucide-react';
+import { solvedCube } from '../../domain/cube';
 import { pieceStickerIds } from '../../domain/stage-validation';
 import type { IntegratedFingerTrick } from '../../data/trainers';
 import { VERIFIED_FINGER_TRICKS, selectFingerTrickCover } from '../../data/trainers/finger-tricks-registry';
 import CubeView, { COLORS } from '../CubeView';
+import { useCubePlayback } from '../useCubePlayback';
 import { TouchCard } from '../FingerTrickHints';
 import { useI18n } from '../../i18n';
 
 /** Collapsible grip demo next to the cube (docs/trainers-spec.md, UI section).
  * Display authority is the domain: `showGrip` comes from integrateFingerTricks
- * (verified records only); this component renders what it authorizes and never
- * re-derives status. Anchors follow the documented positional sticker ids. */
+ * (verified records only). The animation is the SAME playback stack as the
+ * solver player (useCubePlayback): real move transitions, play/pause/step/
+ * speed and synced notation; grip guidance is tied to the playback step. */
 export default function FingerTricksDemo({ tricks = VERIFIED_FINGER_TRICKS }: { tricks?: readonly IntegratedFingerTrick[] }) {
   const t = useI18n();
   const [openId, setOpenId] = useState<string | null>(null);
@@ -64,13 +66,13 @@ export function SequenceRecognizer({ tricks, onOpen }: { tricks: readonly Integr
 
 export function TrickDemo({ trick, onBack }: { trick: IntegratedFingerTrick; onBack: () => void }) {
   const t = useI18n();
-  const [step, setStep] = useState(0);
   const [gripOpen, setGripOpen] = useState(true);
   const [fullColors, setFullColors] = useState(false);
-  const tokens = trick.tokens;
-  const state = useMemo(() => applyAlgorithm(solvedCube(), tokens.slice(0, step).join(' ')), [tokens, step]);
-  const finished = step >= tokens.length;
-  const touches = finished ? [] : trick.record.touches.filter(touch => touch.moveIndex === step);
+  const [speed, setSpeed] = useState(1);
+  const player = useCubePlayback(solvedCube(), trick.tokens.join(' '), speed);
+  const { tokens, step, state, moving, current, angle, running, reset, jump, next, togglePlayback } = player;
+  const finished = step >= tokens.length && !moving;
+  const touches = step < tokens.length ? trick.record.touches.filter(touch => touch.moveIndex === step) : [];
   const anchorIds = useMemo(() => {
     const pieces = touches.flatMap(touch => touch.anchorPieces ?? []);
     return new Set(pieces.length ? pieceStickerIds(pieces) : []);
@@ -82,23 +84,25 @@ export function TrickDemo({ trick, onBack }: { trick: IntegratedFingerTrick; onB
     <p className="small muted">{t.trainers.fingerDemo.restoreCycles(trick.restoreCycles)}</p>
     <div className="finger-demo-stage">
       <div className="finger-demo-cube">
-        <CubeView state={state} size={210} palette={palette} label={trick.record.name} />
+        <CubeView state={state} size={210} motion={moving ? current : undefined} angle={angle} palette={palette} label={trick.record.name} />
         {trick.showGrip && anchorIds.size > 0 && !fullColors && <p className="cube-focus-caption">{t.trainers.fingerDemo.anchorsCaption}</p>}
         {trick.showGrip && <button type="button" className="text-button cube-color-toggle" aria-pressed={fullColors} onClick={() => setFullColors(value => !value)}>{t.trainers.fingerDemo.fullColors}</button>}
       </div>
       <div className="finger-demo-panel">
-        <div className="move-tokens">{tokens.map((token, index) => <button type="button" key={index} className={index === step ? 'current' : index < step ? 'done' : undefined} onClick={() => setStep(index)}>{token}</button>)}</div>
+        <div className="playback-controls">
+          <button className="icon-button" aria-label={t.trainers.fingerDemo.restart} onClick={reset}><RotateCcw size={18} /></button>
+          <button className="icon-button" aria-label={t.trainers.fingerDemo.previous} disabled={step === 0 || moving} onClick={() => jump(step - 1)}><SkipBack size={19} /></button>
+          <button className="play-button" aria-label={running ? 'Pausar demonstração' : 'Reproduzir demonstração'} disabled={!tokens.length} onClick={togglePlayback}>{running ? <Pause size={21} /> : <Play size={21} />}</button>
+          <button className="icon-button" aria-label={t.trainers.fingerDemo.next} disabled={step === tokens.length || moving} onClick={next}><SkipForward size={19} /></button>
+          <select aria-label="Velocidade da animação" value={speed} onChange={event => setSpeed(Number(event.target.value))}>{[0.5, 1, 1.5, 2, 3].map(value => <option key={value} value={value}>{value}×</option>)}</select>
+        </div>
+        <div className="move-tokens">{tokens.map((token, index) => <button type="button" key={index} className={index === step ? 'current' : index < step ? 'done' : ''} disabled={moving} aria-current={index === step ? 'step' : undefined} onClick={() => jump(index)}>{token}</button>)}</div>
         {finished && <p role="status">{t.trainers.fingerDemo.completed}</p>}
         {!finished && trick.showGrip && <div className="finger-demo-grip">
           <button type="button" className="text-button" aria-expanded={gripOpen} onClick={() => setGripOpen(value => !value)}>{t.trainers.fingerDemo.gripToggle}</button>
           {gripOpen && touches.map(touch => <TouchCard key={touch.touchIndex} touch={touch} />)}
         </div>}
         {!finished && !trick.showGrip && <p className="small muted">{t.trainers.fingerDemo.gripUnavailable}</p>}
-        <div className="finger-demo-controls">
-          <button type="button" className="button secondary" disabled={step === 0} onClick={() => setStep(value => Math.max(0, value - 1))}><ChevronLeft size={15} aria-hidden /> {t.trainers.fingerDemo.previous}</button>
-          <button type="button" className="button secondary" disabled={finished} onClick={() => setStep(value => Math.min(tokens.length, value + 1))}>{t.trainers.fingerDemo.next} <ChevronRight size={15} aria-hidden /></button>
-          <button type="button" className="text-button" disabled={step === 0} onClick={() => setStep(0)}><RotateCcw size={14} aria-hidden /> {t.trainers.fingerDemo.restart}</button>
-        </div>
       </div>
     </div>
   </section>;

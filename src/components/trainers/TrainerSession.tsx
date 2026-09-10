@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, Copy, Play, Square } from 'lucide-react';
 import type { TimingModeId, TrainerAttempt } from '../../data/trainers';
 import { computeTrainerCaseStatistics } from '../../data/trainers';
-import CubeView from '../CubeView';
+import SolverPlayer from '../SolverPlayer';
+import { solvedCube } from '../../domain/cube';
 import { useI18n } from '../../i18n';
 import type { PreparedSetup, TrainerProgram } from './programs';
 import { createTrainerStore } from './session-store';
@@ -134,18 +135,16 @@ export default function TrainerSession({ nodeKey, trainerId, title, loadProgram,
       {mode === 'repetitions' && <label>{t.trainers.session.select.reps}<input type="number" min={1} max={50} value={repTarget} onChange={event => setRepTarget(Math.max(1, Math.floor(Number(event.target.value) || 1)))} /></label>}
       <button type="button" className="button" disabled={phase.kind === 'loading' || !itemId} onClick={() => { void generate(); }}><Play size={15} aria-hidden /> {t.trainers.session.select.start}</button>
     </div>}
-    {phase.kind === 'prepare' && <div className="trainer-session-grid">
-      <div className="trainer-session-stage"><div className="trainer-session-cube"><CubeView state={phase.prepared.state} size={220} label={title} /></div></div>
-      <div className="trainer-session-context">
-        <div className="panel"><h3>{t.trainers.session.prepare.title}</h3>
-          <p className="small muted">{t.trainers.session.prepare.body}</p>
-          <p className="algorithm-text" data-testid="trainer-setup">{phase.prepared.setup}</p>
-          {phase.prepared.provenMinimumMoves !== undefined && <p className="small muted">{t.trainers.session.prepare.provenMinimum(phase.prepared.provenMinimumMoves)}</p>}
-          <div className="finger-demo-controls">
-            <button type="button" className="text-button" onClick={() => { void navigator.clipboard?.writeText(phase.prepared.setup).then(() => setNotice(t.trainers.session.prepare.copied)); }}><Copy size={14} aria-hidden /> {t.trainers.session.prepare.copy}</button>
-            <button type="button" className="button secondary" onClick={() => { void generate(); }}>{t.trainers.session.prepare.regenerate}</button>
-            <button type="button" className="button" onClick={() => beginAttempt(phase.prepared)}>{t.trainers.session.prepare.ready}</button>
-          </div>
+    {phase.kind === 'prepare' && <div className="trainer-session-context">
+      <div className="panel"><h3>{t.trainers.session.prepare.title}</h3>
+        <p className="small muted">{t.trainers.session.prepare.body}</p>
+        <p className="algorithm-text" data-testid="trainer-setup">{phase.prepared.setup}</p>
+        {phase.prepared.provenMinimumMoves !== undefined && <p className="small muted">{t.trainers.session.prepare.provenMinimum(phase.prepared.provenMinimumMoves)}</p>}
+        <SolverPlayer initialState={solvedCube()} algorithm={phase.prepared.setup} />
+        <div className="finger-demo-controls">
+          <button type="button" className="text-button" onClick={() => { void navigator.clipboard?.writeText(phase.prepared.setup).then(() => setNotice(t.trainers.session.prepare.copied)); }}><Copy size={14} aria-hidden /> {t.trainers.session.prepare.copy}</button>
+          <button type="button" className="button secondary" onClick={() => { void generate(); }}>{t.trainers.session.prepare.regenerate}</button>
+          <button type="button" className="button" onClick={() => beginAttempt(phase.prepared)}>{t.trainers.session.prepare.ready}</button>
         </div>
       </div>
     </div>}
@@ -178,7 +177,7 @@ export default function TrainerSession({ nodeKey, trainerId, title, loadProgram,
         </div>
         {phase.prepared.solution
           ? <>{!phase.revealed && <button type="button" className="text-button" onClick={() => setPhase({ ...phase, revealed: true })}>{t.trainers.session.review.reveal}</button>}
-            {phase.revealed && <p className="algorithm-text">{phase.prepared.solution}</p>}</>
+            {phase.revealed && <><p className="algorithm-text">{phase.prepared.solution}</p><SolverPlayer initialState={phase.prepared.state} algorithm={phase.prepared.solution} /></>}</>
           : <p className="small muted">{t.trainers.session.review.noSolution}</p>}
       </div>
     </div>}
