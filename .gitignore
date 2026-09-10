@@ -70,3 +70,7 @@ nexus-cube-recuperacao*.txt
 
 /docs/ux-off-integration-plan.md
 /docs/solver-plan.md
+
+# User data exports, never commit
+nexus-recorte-v4.csv
+nexus-resolucoes-v4.csv
