@@ -35,6 +35,7 @@ export function createApiCloudService(): CloudService {
   let sync: CloudSnapshot['sync'] = 'unavailable';
   let syncError: string | null = null;
   let initialization: Promise<void> | null = null;
+  let ready = false;
   const pendingSolves = new Map<string, Solve>();
 
   const storage = typeof localStorage === 'undefined' ? null : localStorage;
@@ -64,7 +65,7 @@ export function createApiCloudService(): CloudService {
   function publish() {
     const workspace = mode === 'active' ? account : guest;
     snapshot = {
-      status: initialization === null ? 'initializing' : mode === 'active' ? 'authenticated' : 'guest',
+      status: !ready ? 'initializing' : mode === 'active' ? 'authenticated' : 'guest',
       identity: mode === 'active' ? identity : null,
       context: handle(),
       data: workspace ? workspace.data : null,
@@ -140,25 +141,29 @@ export function createApiCloudService(): CloudService {
   const recoveryDraft = (draft: StoredDraft): RecoveryDraft => ({ id: draft.id, state: draft.state === 'completed' ? 'completed' : draft.state === 'armed' ? 'interrupted' : 'discard-only', capture: draft.capture, result: draft.result, solve: draft.solve });
   const id = () => crypto.randomUUID();
 
+  async function initializeBody(): Promise<void> {
+    let raw: string | null = null; let sourceRead = false;
+    try { if (storage) { raw = storage.getItem(STORAGE_KEY); sourceRead = true; } } catch { /* loadData abaixo reporta erro recuperável */ }
+    const loaded = loadData({ getItem: () => { if (!sourceRead) throw new Error('Não foi possível ler a fonte local.'); return raw; }, setItem: () => { throw new Error('Fonte somente leitura.'); } });
+    guest = { data: loaded.data, revision: 0 };
+    guestError = loaded.error ?? null;
+    guestFirstUseEligible = sourceRead && raw === null && !loaded.error;
+    publish();
+    if (readToken()) {
+      try { await loadAccount(); return; }
+      catch (error) { if (error instanceof ApiError && error.code === 'locked') writeToken(null); syncError = error instanceof Error ? error.message : null; }
+    }
+    mode = 'guest'; publish();
+    if (guestFirstUseEligible && !guestError) { ready = true; await service.ensureFirstUse(handle()); }
+  }
+
   const service: CloudService = {
     listSyncConflicts: unavailable, resolveSyncConflict: unavailable, previewAccountReconciliation: unavailable, confirmAccountReconciliation: unavailable, previewGuestAdoption: unavailable, confirmGuestAdoption: unavailable,
     invokeAdmin: unavailable,
     getSnapshot: () => snapshot,
     subscribe: listener => { listeners.add(listener); return () => listeners.delete(listener); },
     initialize: () => initialization ??= (async () => {
-      let raw: string | null = null; let sourceRead = false;
-      try { if (storage) { raw = storage.getItem(STORAGE_KEY); sourceRead = true; } } catch { /* loadData abaixo reporta erro recuperável */ }
-      const loaded = loadData({ getItem: () => { if (!sourceRead) throw new Error('Não foi possível ler a fonte local.'); return raw; }, setItem: () => { throw new Error('Fonte somente leitura.'); } });
-      guest = { data: loaded.data, revision: 0 };
-      guestError = loaded.error ?? null;
-      guestFirstUseEligible = sourceRead && raw === null && !loaded.error;
-      publish();
-      if (readToken()) {
-        try { await loadAccount(); return; }
-        catch (error) { if (error instanceof ApiError && error.code === 'locked') writeToken(null); syncError = error instanceof Error ? error.message : null; }
-      }
-      mode = 'guest'; publish();
-      if (guestFirstUseEligible && !guestError) await service.ensureFirstUse(handle());
+      try { await initializeBody(); } finally { ready = true; publish(); }
     })(),
     ensureFirstUse: async context => {
       try {

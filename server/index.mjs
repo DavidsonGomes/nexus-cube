@@ -141,6 +141,7 @@ app.use((error, _request, response, _next) => {
 
 const distDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 app.use(express.static(distDir));
+app.get(/^\/(assets|vendor|icons)\/.+/, (_request, response) => response.status(404).type('text/plain').send('not found'));
 app.get(/^(?!\/api\/).*/, (_request, response) => response.sendFile(join(distDir, 'index.html')));
 
 await pool.query(SCHEMA);
